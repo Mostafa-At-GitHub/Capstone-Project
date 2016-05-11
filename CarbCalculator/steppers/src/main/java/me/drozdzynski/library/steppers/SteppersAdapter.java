@@ -20,7 +20,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,8 +29,6 @@ import android.view.ViewGroup;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
 
@@ -62,7 +59,8 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return (position == currentStep ? VIEW_EXPANDED : VIEW_COLLAPSED);
+//        return (position == currentStep ? VIEW_EXPANDED : VIEW_COLLAPSED);
+        return VIEW_COLLAPSED;
     }
 
     @Override
@@ -84,7 +82,8 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
     public void onBindViewHolder(final SteppersViewHolder holder, final int position) {
         final SteppersItem steppersItem = items.get(position);
 
-        holder.setChecked(position < currentStep);
+//        holder.setChecked(position < currentStep);
+        holder.setChecked(true);
         if(holder.isChecked()) {
             holder.roundedView.setChecked(true);
         } else {
@@ -98,37 +97,37 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
         holder.textViewLabel.setText(steppersItem.getLabel());
         holder.textViewSubLabel.setText(steppersItem.getSubLabel());
 
-        holder.linearLayoutContent.setVisibility(position == currentStep || position == beforeStep ? View.VISIBLE : View.GONE);
+//        holder.linearLayoutContent.setVisibility(position == currentStep || position == beforeStep ? View.VISIBLE : View.GONE);
 
-        holder.buttonContinue.setEnabled(steppersItem.isPositiveButtonEnable());
-        steppersItem.addObserver(new Observer() {
-            @Override
-            public void update(Observable observable, Object data) {
-                if(observable != null) {
-                    SteppersItem item = (SteppersItem) observable;
-                    holder.buttonContinue.setEnabled(item.isPositiveButtonEnable());
-                }
-            }
-        });
+//        holder.buttonContinue.setEnabled(steppersItem.isPositiveButtonEnable());
+//        steppersItem.addObserver(new Observer() {
+//            @Override
+//            public void update(Observable observable, Object data) {
+//                if(observable != null) {
+//                    SteppersItem item = (SteppersItem) observable;
+//                    holder.buttonContinue.setEnabled(item.isPositiveButtonEnable());
+//                }
+//            }
+//        });
 
-        if (position == getItemCount() - 1) holder.buttonContinue.setText(context.getResources().getString(R.string.step_finish));
-        else holder.buttonContinue.setText(context.getResources().getString(R.string.step_continue));
+//        if (position == getItemCount() - 1) holder.buttonContinue.setText(context.getResources().getString(R.string.step_finish));
+//        else holder.buttonContinue.setText(context.getResources().getString(R.string.step_continue));
 
-        holder.buttonContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(position == getItemCount() - 1) config.getOnFinishAction().onFinish();
-                else nextStep();
-            }
-        });
+//        holder.buttonContinue.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(position == getItemCount() - 1) config.getOnFinishAction().onFinish();
+//                else nextStep();
+//            }
+//        });
 
-        if(config.getOnCancelAction() != null)
-            holder.buttonCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    config.getOnCancelAction().onCancel();
-                }
-            });
+//        if(config.getOnCancelAction() != null)
+//            holder.buttonCancel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    config.getOnCancelAction().onCancel();
+//                }
+//            });
 
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -139,8 +138,8 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
         //frameLayout.setId(frameLayoutIds.get(position));
 
         if(config.getFragmentManager() != null && steppersItem.getFragment() != null) {
-            holder.frameLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
-            holder.frameLayout.setTag(frameLayoutName());
+//            holder.frameLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+//            holder.frameLayout.setTag(frameLayoutName());
 
             if (fragmentTransaction == null) {
                 fragmentTransaction = fragmentManager.beginTransaction();
@@ -181,15 +180,15 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
                 if(fragmentView.getParent() != null && frameLayoutName() != ((View) fragmentView.getParent()).getTag()) {
                     steppersView.removeViewInLayout(fragmentView);
 
-                    holder.frameLayout.removeAllViews();
-                    holder.frameLayout.addView(fragmentView);
+//                    holder.frameLayout.removeAllViews();
+//                    holder.frameLayout.addView(fragmentView);
                 }
             }
         }
 
-        if(beforeStep == position) {
-            AnimationUtils.hide(holder.linearLayoutContent);
-        }
+//        if(beforeStep == position) {
+//            AnimationUtils.hide(holder.linearLayoutContent);
+//        }
         if(currentStep == position && !steppersItem.isDisplayed()) {
             steppersItem.setDisplayed(true);
         }

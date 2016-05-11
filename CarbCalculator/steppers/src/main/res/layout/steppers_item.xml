@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/item_margin_left_right"
-    android:layout_marginRight="@dimen/item_margin_left_right">
+    android:layout_marginRight="@dimen/item_margin_left_right"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="@dimen/item_circle_width_height"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <View
             android:layout_width="1dp"
@@ -22,7 +22,7 @@
         <me.drozdzynski.library.steppers.RoundedView
             android:id="@+id/roundedView"
             android:layout_width="@dimen/item_circle_width_height"
-            android:layout_height="@dimen/item_circle_width_height"/>
+            android:layout_height="@dimen/item_circle_width_height" />
 
         <View
             android:layout_width="1dp"
@@ -35,59 +35,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/item_text_margin_top"
-        android:layout_marginStart="@dimen/item_text_margin_left"
         android:layout_marginLeft="@dimen/item_text_margin_left"
-        android:layout_marginBottom="@dimen/item_margin_bottom_inactive">
+        android:layout_marginStart="@dimen/item_text_margin_left"
+        android:layout_marginTop="@dimen/item_text_margin_top"
+        android:layout_marginBottom="@dimen/item_text_margin_top"
+        android:orientation="vertical">
+        <!--android:layout_marginBottom="@dimen/item_margin_bottom_inactive"-->
 
         <TextView
             android:id="@+id/textViewLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/LabelInactive"
+            android:textAppearance="@style/LabelActive"
             tools:text="Main label of step" />
 
         <TextView
             android:id="@+id/textViewSubLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/SubLabelInactive"
+            android:textAppearance="@style/SubLabelActive"
             tools:text="sub label of step" />
 
         <LinearLayout
             android:id="@+id/linearLayoutContent"
-            android:orientation="vertical"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/circle_color_default_gray"
+                android:layout_marginBottom="@dimen/item_frame_margin_top_bottom"
                 android:layout_marginTop="@dimen/item_frame_margin_top_bottom"
-                android:layout_marginBottom="@dimen/item_frame_margin_top_bottom"/>
+                android:background="@color/circle_color_default_gray" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/buttonContinue"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/step_continue"
-                    android:id="@+id/buttonContinue" />
+                    android:text="@string/step_continue" />
 
                 <Button
+                    android:id="@+id/buttonCancel"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="@string/step_cancel"
-                    android:id="@+id/buttonCancel" />
+                    android:text="@string/step_cancel" />
 
             </LinearLayout>
 
