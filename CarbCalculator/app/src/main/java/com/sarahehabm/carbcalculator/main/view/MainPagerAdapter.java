@@ -1,4 +1,4 @@
-package com.sarahehabm.carbcalculator.main.graph;
+package com.sarahehabm.carbcalculator.main.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

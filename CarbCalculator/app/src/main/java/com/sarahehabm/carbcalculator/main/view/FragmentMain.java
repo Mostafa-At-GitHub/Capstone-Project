@@ -1,4 +1,4 @@
-package com.sarahehabm.carbcalculator.main;
+package com.sarahehabm.carbcalculator.main.view;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sarahehabm.carbcalculator.R;
-import com.sarahehabm.carbcalculator.main.graph.MainPagerAdapter;
+import com.sarahehabm.carbcalculator.main.view.MainPagerAdapter;
 
 /**
  * A placeholder fragment containing a simple view.

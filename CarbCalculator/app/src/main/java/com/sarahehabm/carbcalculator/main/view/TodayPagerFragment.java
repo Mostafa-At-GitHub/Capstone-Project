@@ -1,4 +1,4 @@
-package com.sarahehabm.carbcalculator.main.graph;
+package com.sarahehabm.carbcalculator.main.view;
 
 /**
  * Created by Sarah E. Mostafa on 10-May-16.

@@ -1,4 +1,4 @@
-package com.sarahehabm.carbcalculator.main.graph;
+package com.sarahehabm.carbcalculator.main.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
