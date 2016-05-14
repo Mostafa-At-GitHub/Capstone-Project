@@ -16,5 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".TestActivity"></activity>
+
+        <provider
+            android:authorities="com.sarahehabm.carbcalculator"
+            android:name=".CarbCounterContentProvider"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
+
 </manifest>

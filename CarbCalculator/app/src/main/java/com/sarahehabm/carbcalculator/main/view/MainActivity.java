@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.TestActivity;
 import com.sarahehabm.carbcalculator.main.business.MainBusiness;
 
 import java.util.ArrayList;
@@ -73,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 //TODO start settings activity
+                return true;
+
+            //TODO case added for testing database and content provider
+            case R.id.action_test_activity:
+                Intent intent = new Intent(this, TestActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
