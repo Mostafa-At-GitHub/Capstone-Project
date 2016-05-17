@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.diogobernardino:williamchart:2.2'
     compile project(':steppers')
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
 }
