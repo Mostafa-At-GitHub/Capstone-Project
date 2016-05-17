@@ -14,8 +14,6 @@
         <include layout="@layout/layout_appbarlayout" />
         <!--<include layout="@layout/layout_toolbar" />-->
 
-
-
             <fragment
                 android:id="@+id/fragment"
                 android:name="com.sarahehabm.carbcalculator.main.view.FragmentMain"

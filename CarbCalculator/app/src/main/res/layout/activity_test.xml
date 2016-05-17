@@ -3,42 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.sarahehabm.carbcalculator.TestActivity">
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert Item"
-        android:id="@+id/button_insert_item"
-        android:onClick="onInsertItemClick"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_insert_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onInsertItemClick"
+            android:text="Insert Item" />
+
+        <Button
+            android:id="@+id/button_get_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetItemClick"
+            android:text="Get Item" />
+
+        <Button
+            android:id="@+id/button_get_items"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetItemsClick"
+            android:text="Get Items" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_insert_meal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onInsertMealClick"
+            android:text="Insert Meal" />
+
+        <Button
+            android:id="@+id/button_get_meal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetMealClick"
+            android:text="Get Meal" />
+
+        <Button
+            android:id="@+id/button_get_meals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetMealsClick"
+            android:text="Get Meals" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_insert_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onInsertAmountClick"
+            android:text="Insert Amount" />
+
+        <Button
+            android:id="@+id/button_get_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetAmountClick"
+            android:text="Get Amount" />
+
+        <Button
+            android:id="@+id/button_get_amounts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetAmountsClick"
+            android:text="Get Amounts" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_insert_item_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onInsertItemAmountClick"
+            android:text="Insert ItemAmount" />
+
+        <Button
+            android:id="@+id/button_get_item_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetItemAmountClick"
+            android:text="Get ItemAmount" />
+
+        <Button
+            android:id="@+id/button_get_item_amounts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:onClick="onGetItemAmountsClick"
+            android:text="Get ItemAmounts" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="InsertAmount"
-        android:id="@+id/button_insert_amount"
-        android:onClick="onInsertAmountClick"
-        android:layout_gravity="center_horizontal" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insert ItemAmount"
-        android:id="@+id/button_insert_item_amount"
-        android:onClick="onInsertItemAmountClick"
-        android:layout_gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            tools:text="New Text" />
+    </ScrollView>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insert Meal"
-        android:id="@+id/button_insert_meal"
-        android:onClick="onInsertMealClick"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>

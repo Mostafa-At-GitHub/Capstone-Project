@@ -86,7 +86,7 @@ public class CarbCounterContract {
         }
     }
 
-        public static final class ItemAmountEntry implements BaseColumns {
+    public static final class ItemAmountEntry implements BaseColumns {
         //Table name
         public static final String TABLE_NAME = "item_amount";
 
