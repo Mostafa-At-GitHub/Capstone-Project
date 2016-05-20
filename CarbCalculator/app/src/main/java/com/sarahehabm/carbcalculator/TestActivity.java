@@ -1,8 +1,10 @@
 package com.sarahehabm.carbcalculator;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ public class TestActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
 
         random = new Random();
+
+        new TestAsyncTask().execute(new Pair<Context, String>(this, "SARAH"));
     }
 
     public void onInsertItemClick(View view) {
