@@ -25,6 +25,22 @@ public class CarbCounterInterface {
         return context.getContentResolver().insert(ItemEntry.CONTENT_URI, contentValues);
     }
 
+    public static int insertItems(Context context, ArrayList<Item> items) {
+//        ArrayList<ContentValues> contentValuesArray = new ArrayList<>();
+        ContentValues[] contentValuesArray = new ContentValues[items.size()];
+        for (int i = 0; i<items.size(); i++) {
+            Item item = items.get(i);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ItemEntry.COLUMN_ID, item.getId());
+            contentValues.put(ItemEntry.COLUMN_NAME, item.getName());
+            contentValues.put(ItemEntry.COLUMN_FAVORITE, item.isFavorite());
+
+            contentValuesArray[i] = contentValues;
+        }
+
+        return context.getContentResolver().bulkInsert(ItemEntry.CONTENT_URI, contentValuesArray);
+    }
+
     public static Item getItem(Context context, int id) {
         Cursor cursor = context.getContentResolver().query(ItemEntry.CONTENT_URI, null,
                 ItemEntry.COLUMN_ID + " = ?", new String[]{String.valueOf(id)}, null);
