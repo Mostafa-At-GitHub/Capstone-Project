@@ -2,8 +2,8 @@ package com.sarahehabm.carbcalculator;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Pair;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -17,6 +17,19 @@ import java.io.IOException;
 public class TestAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
+    private OnDataRetrieveListener dataRetrieveListener;
+
+    public TestAsyncTask(OnDataRetrieveListener dataRetrieveListener) {
+        this.dataRetrieveListener = dataRetrieveListener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        if (dataRetrieveListener != null)
+            dataRetrieveListener.onStartCall();
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -43,7 +56,7 @@ public class TestAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
         String name = params[0].second;
 
         try {
-            return myApiService.getItems(name).execute().getData();
+            return myApiService.getItems().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -52,6 +65,10 @@ public class TestAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+        Log.v("TestSyncAActivity", s);
+
+        if (dataRetrieveListener != null)
+            dataRetrieveListener.onFinishCall(s);
     }
 }

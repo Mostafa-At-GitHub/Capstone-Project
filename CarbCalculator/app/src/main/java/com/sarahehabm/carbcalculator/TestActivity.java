@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,14 +9,16 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements OnDataRetrieveListener {
     private EditText editText;
     private TextView textView;
+    private ProgressDialog progressDialog;
 
     private Random random;
 
@@ -27,9 +30,12 @@ public class TestActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView);
 
-        random = new Random();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Getting data..");
+        progressDialog.setIndeterminate(true);
 
-        new TestAsyncTask().execute(new Pair<Context, String>(this, "SARAH"));
+        random = new Random();
     }
 
     public void onInsertItemClick(View view) {
@@ -191,5 +197,23 @@ public class TestActivity extends AppCompatActivity {
     public void onGetItemAmountsClick(View view) {
         ArrayList<ItemAmount> itemAmounts = CarbCounterInterface.getAllItemAmounts(this);
         textView.setText(ItemAmount.listToJson(itemAmounts));
+    }
+
+    public void onRetrieveDataClick(View view) {
+        new TestAsyncTask(this).execute(new Pair<Context, String>(this, "SARAH"));
+    }
+
+    @Override
+    public void onStartCall() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void onFinishCall(String result) {
+        progressDialog.hide();
+
+        int insertCount = CarbCounterInterface.insertItems(this, Item.listFromJson(result));
+        Toast.makeText(this, "(TestActivity); " + insertCount + " items inserted."
+                , Toast.LENGTH_LONG).show();
     }
 }
