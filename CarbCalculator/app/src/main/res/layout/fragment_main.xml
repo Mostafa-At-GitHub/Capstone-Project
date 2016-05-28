@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="fill_vertical"
     android:fillViewport="true"
+                                            android:id="@+id/nestedScrollView"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -21,6 +22,8 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
 

@@ -2,58 +2,51 @@ package com.sarahehabm.carbcalculator.main.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.TestActivity;
 import com.sarahehabm.carbcalculator.main.business.MainBusiness;
-
-import java.util.ArrayList;
-
-import me.drozdzynski.library.steppers.SteppersItem;
-import me.drozdzynski.library.steppers.SteppersView;
+import com.sarahehabm.carbcalculator.meal.view.NewMealActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private SteppersView mealsView;
+    private FloatingActionButton floatingActionButton;
 
     private MainBusiness mainBusinessLayer;
-    private ArrayList<SteppersItem> mealsList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initializeToolbar();
-        initializeMealsView();
+        initializeFAB();
+    }
+
+    private void initializeFAB() {
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_create_meal);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                //TODO start createMealActivity
+//                Toast.makeText(MainActivity.this, "Should start create meal activity", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, NewMealActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initializeToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
-
-    private void initializeMealsView() {
-        SteppersView steppersView = (SteppersView) findViewById(R.id.steppersView);
-        SteppersView.Config steppersViewConfig = new SteppersView.Config();
-        steppersViewConfig.setFragmentManager(getSupportFragmentManager());
-        ArrayList<String> meals = MainBusiness.getMeals();
-        mealsList = new ArrayList<>();
-        for (int i = 0; i < meals.size(); i++) {
-            SteppersItem mealItem = new SteppersItem();
-            mealItem.setLabel(meals.get(i));
-            mealItem.setSubLabel(meals.get(i) + "'s description");
-            mealsList.add(mealItem);
-        }
-
-        steppersView.setConfig(steppersViewConfig);
-        steppersView.setItems(mealsList);
-        steppersView.build();
     }
 
     @Override
