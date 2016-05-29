@@ -19,9 +19,9 @@ import android.widget.FilterQueryProvider;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.sarahehabm.carbcalculator.CarbCounterContract.ItemEntry;
-import com.sarahehabm.carbcalculator.Constants;
-import com.sarahehabm.carbcalculator.Item;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
+import com.sarahehabm.carbcalculator.common.Constants;
+import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.meal.business.MealBusiness;
 

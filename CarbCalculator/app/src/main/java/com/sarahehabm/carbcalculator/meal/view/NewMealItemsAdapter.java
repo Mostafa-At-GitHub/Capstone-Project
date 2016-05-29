@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sarahehabm.carbcalculator.Item;
+import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
 
 import java.util.ArrayList;

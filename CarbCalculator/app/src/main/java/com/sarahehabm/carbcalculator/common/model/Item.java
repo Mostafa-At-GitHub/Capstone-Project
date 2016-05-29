@@ -1,4 +1,4 @@
-package com.sarahehabm.carbcalculator;
+package com.sarahehabm.carbcalculator.common.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

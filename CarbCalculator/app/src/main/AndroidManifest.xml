@@ -21,7 +21,7 @@
         <activity android:name=".TestActivity"/>
 
         <provider
-            android:name=".CarbCounterContentProvider"
+            android:name=".common.database.CarbCounterContentProvider"
             android:authorities="com.sarahehabm.carbcalculator"
             android:enabled="true"
             android:exported="false"/>

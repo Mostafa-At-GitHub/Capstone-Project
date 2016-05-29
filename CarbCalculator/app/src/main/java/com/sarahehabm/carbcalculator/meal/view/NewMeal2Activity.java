@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.sarahehabm.carbcalculator.Constants;
-import com.sarahehabm.carbcalculator.Item;
+import com.sarahehabm.carbcalculator.common.Constants;
+import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
 
 public class NewMeal2Activity extends AppCompatActivity {

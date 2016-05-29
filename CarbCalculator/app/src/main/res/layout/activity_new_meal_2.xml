@@ -25,5 +25,4 @@
 
     <include layout="@layout/content_new_meal_2"/>
 
-
 </android.support.design.widget.CoordinatorLayout>

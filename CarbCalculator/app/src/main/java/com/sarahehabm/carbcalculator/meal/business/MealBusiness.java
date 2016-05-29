@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
-import com.sarahehabm.carbcalculator.CarbCounterContract.ItemEntry;
-import com.sarahehabm.carbcalculator.Item;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
+import com.sarahehabm.carbcalculator.common.model.Item;
 
 import java.util.ArrayList;
 
