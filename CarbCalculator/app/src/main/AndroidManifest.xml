@@ -27,13 +27,22 @@
             android:exported="false"/>
 
         <activity
-            android:name=".meal.view.NewMealActivity"
-            android:label="@string/title_activity_new_meal"
+            android:name=".meal.view.NewMeal1Activity"
+            android:label="@string/title_activity_new_meal_1"
             android:parentActivityName=".main.view.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sarahehabm.carbcalculator.main.view.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".meal.view.NewMeal2Activity"
+            android:label="@string/title_activity_new_meal_1"
+            android:parentActivityName=".meal.view.NewMeal1Activity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity"/>
         </activity>
     </application>
 

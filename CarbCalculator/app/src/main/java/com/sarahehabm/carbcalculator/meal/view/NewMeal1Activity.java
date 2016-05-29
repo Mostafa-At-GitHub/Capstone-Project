@@ -1,12 +1,17 @@
 package com.sarahehabm.carbcalculator.meal.view;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -15,30 +20,61 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.CarbCounterContract.ItemEntry;
+import com.sarahehabm.carbcalculator.Constants;
+import com.sarahehabm.carbcalculator.Item;
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.meal.business.MealBusiness;
 
-public class NewMealActivity extends AppCompatActivity
+public class NewMeal1Activity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
-//    private static final String TAG = NewMealActivity.class.getSimpleName();
+    //    private static final String TAG = NewMeal1Activity.class.getSimpleName();
     private static final int LOADER_ID = 10;
 
-//    private TextInputLayout textInputLayout;
+    //    private TextInputLayout textInputLayout;
     private AutoCompleteTextView editText;
     private RecyclerView recyclerView;
 
     private SimpleCursorAdapter cursorAdapter;
+    private NewMealItemsAdapter itemsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_meal);
+        setContentView(R.layout.activity_new_meal_1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initializeViews();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_new_meal_1, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.action_next:
+                Toast.makeText(this, "NEXT clicked", Toast.LENGTH_SHORT).show();
+                //TODO should call the next activity
+                Intent intent = new Intent(this, NewMeal2Activity.class);
+                intent.putExtra(Constants.KEY_ITEMS, Item.listToJson(itemsAdapter.getItems()));
+                startActivity(intent);
+//                return true;
+                break;
+
+//            case android.R.id.home:
+//                onBackPressed();
+//                return true;
+//
+//            default:
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeViews() {
@@ -66,7 +102,7 @@ public class NewMealActivity extends AppCompatActivity
         cursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
             @Override
             public Cursor runQuery(CharSequence constraint) {
-                return MealBusiness.filter(NewMealActivity.this, constraint);
+                return MealBusiness.filter(NewMeal1Activity.this, constraint, itemsAdapter.getItems());
             }
         });
 
@@ -74,20 +110,34 @@ public class NewMealActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor cursor = (Cursor) parent.getItemAtPosition(position);
-                String str = cursor.getString(cursor.getColumnIndex(ItemEntry.COLUMN_NAME));
+                String itemName = cursor.getString(cursor.getColumnIndex(ItemEntry.COLUMN_NAME));
+                int itemId = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_ID));
+                int itemIsFavorite = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_FAVORITE));
 
-                Toast.makeText(NewMealActivity.this, "You selected: " + str + "\nAt position: "
+                Toast.makeText(NewMeal1Activity.this, "You selected: " + itemName + "\nAt position: "
                         + position, Toast.LENGTH_SHORT).show();
 
                 //TODO clear the field
                 editText.setText("");
+                editText.clearFocus();
+                /*View v = NewMeal1Activity.this.getCurrentFocus();
+                if (v != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if(!imm.isActive())
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }*/
                 //TODO update data set that holds the selected items
+//                itemsAdapter.swapCursor(cursor);
+                itemsAdapter.addItem(new Item(itemId, itemName, (itemIsFavorite == 1)));
+                Log.v("ET OnItemClick", "Cursor count = " + cursor.getCount());
             }
         });
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_items);
-//        LoaderManager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        itemsAdapter = new NewMealItemsAdapter(null);
+        recyclerView.setAdapter(itemsAdapter);
     }
 
     public void onViewAllItemsClick(View view) {

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.TestActivity;
 import com.sarahehabm.carbcalculator.main.business.MainBusiness;
-import com.sarahehabm.carbcalculator.meal.view.NewMealActivity;
+import com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
                 //TODO start createMealActivity
 //                Toast.makeText(MainActivity.this, "Should start create meal activity", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, NewMealActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewMeal1Activity.class);
                 startActivity(intent);
             }
         });

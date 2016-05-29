@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.sarahehabm.carbcalculator.meal.view.NewMealActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sarahehabm.carbcalculator.meal.view.NewMeal2Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_new_meal"/>
+    <include layout="@layout/content_new_meal_2"/>
+
 
 </android.support.design.widget.CoordinatorLayout>
