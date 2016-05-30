@@ -30,7 +30,8 @@
         <me.drozdzynski.library.steppers.SteppersView
             android:id="@+id/steppersView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content" />
+        <!--android:layout_weight="1"-->
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

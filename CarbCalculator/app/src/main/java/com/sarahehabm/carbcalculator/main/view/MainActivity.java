@@ -12,14 +12,12 @@ import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.TestActivity;
-import com.sarahehabm.carbcalculator.main.business.MainBusiness;
 import com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
 
-    private MainBusiness mainBusinessLayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                //TODO start createMealActivity
-//                Toast.makeText(MainActivity.this, "Should start create meal activity", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, NewMeal1Activity.class);
                 startActivity(intent);
             }

@@ -207,6 +207,8 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
 
     @Override
     public int getItemCount() {
+        if(items==null)
+            return 0;
         return items.size();
     }
 
