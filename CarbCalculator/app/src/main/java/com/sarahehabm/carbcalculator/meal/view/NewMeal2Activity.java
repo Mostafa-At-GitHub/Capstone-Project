@@ -34,7 +34,7 @@ public class NewMeal2Activity extends AppCompatActivity {
         }
 
 
-        NewMealItemsAdapter newMealItemsAdapter = new NewMealItemsAdapter(Item.listFromJson(s));
+        NewMealItemAmountsAdapter newMealItemsAdapter = new NewMealItemAmountsAdapter(Item.listFromJson(s));
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(newMealItemsAdapter);

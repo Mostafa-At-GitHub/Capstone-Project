@@ -139,7 +139,7 @@ public class TestActivity extends AppCompatActivity implements OnDataRetrieveLis
         int id = random.nextInt(5000);
         int carbGrams = random.nextInt(90);
         int quantity = random.nextInt(100);
-        int itemId = random.nextInt(5000);
+        int itemId = random.nextInt(10);
         Amount amount = new Amount(id, carbGrams, quantity, amountUnit, itemId);
         Uri uri = CarbCounterInterface.insertAmount(this, amount);
         textView.setText("Amount inserted at: " + uri.getPath());
