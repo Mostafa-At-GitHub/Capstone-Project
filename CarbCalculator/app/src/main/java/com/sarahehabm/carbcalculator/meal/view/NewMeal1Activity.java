@@ -23,6 +23,7 @@ import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEnt
 import com.sarahehabm.carbcalculator.common.Constants;
 import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.item.view.AllItemsActivity;
 import com.sarahehabm.carbcalculator.meal.business.MealBusiness;
 
 public class NewMeal1Activity extends AppCompatActivity
@@ -141,8 +142,8 @@ public class NewMeal1Activity extends AppCompatActivity
     }
 
     public void onViewAllItemsClick(View view) {
-        Toast.makeText(this, "onPlusClick", Toast.LENGTH_SHORT).show();
-        //TODO start all items activity
+        Intent intent = new Intent(this, AllItemsActivity.class);
+        startActivity(intent);
     }
 
     @Override
