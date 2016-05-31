@@ -5,4 +5,7 @@ package com.sarahehabm.carbcalculator.common;
  */
 public class Constants {
     public static final String KEY_ITEMS = "key_items";
+
+    public static final int SERVICE_GET_ITEMS = 1;
+    public static final int SERVICE_GET_ITEM_AMOUNTS = 2;
 }

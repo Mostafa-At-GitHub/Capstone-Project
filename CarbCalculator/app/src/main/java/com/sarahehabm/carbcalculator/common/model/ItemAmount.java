@@ -18,8 +18,14 @@ public class ItemAmount {
     public ItemAmount() {
     }
 
-    public ItemAmount(int id, int itemId, int amountId, int totalQuantity, int mealId) {
+    public ItemAmount(int itemId, int amountId, int totalQuantity, int mealId) {
+        this.itemId = itemId;
+        this.amountId = amountId;
+        this.totalQuantity = totalQuantity;
+        this.mealId = mealId;
+    }
 
+    public ItemAmount(int id, int itemId, int amountId, int totalQuantity, int mealId) {
         this.id = id;
         this.itemId = itemId;
         this.amountId = amountId;

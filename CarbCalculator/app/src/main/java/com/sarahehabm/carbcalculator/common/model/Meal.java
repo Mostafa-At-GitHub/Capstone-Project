@@ -17,8 +17,13 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(int id, String name, int totalCarbs, long timestamp) {
+    public Meal(String name, int totalCarbs, long timestamp) {
+        this.name = name;
+        this.totalCarbs = totalCarbs;
+        this.timestamp = timestamp;
+    }
 
+    public Meal(int id, String name, int totalCarbs, long timestamp) {
         this.id = id;
         this.name = name;
         this.totalCarbs = totalCarbs;
