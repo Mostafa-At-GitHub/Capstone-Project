@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sarahehabm.carbcalculator.common.Constants;
 import com.sarahehabm.carbcalculator.common.OnDataRetrieveListener;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
 import com.sarahehabm.carbcalculator.common.model.Amount;
@@ -210,17 +211,33 @@ public class TestActivity extends AppCompatActivity implements OnDataRetrieveLis
         new TestAsyncTask(this).execute(new Pair<Context, String>(this, "SARAH"));
     }
 
+    public void onRetrieveAmountsClick(View view) {
+        new TestAsyncTaskAmounts(this).execute(new Pair<Context, String>(this, "SARAH"));
+    }
+
     @Override
     public void onStartCall() {
         progressDialog.show();
     }
 
     @Override
-    public void onFinishCall(String result) {
+    public void onFinishCall(String result, int serviceKey) {
         progressDialog.hide();
 
-        int insertCount = CarbCounterInterface.insertItems(this, Item.listFromJson(result));
-        Toast.makeText(this, "(TestActivity); " + insertCount + " items inserted."
-                , Toast.LENGTH_LONG).show();
+        switch (serviceKey) {
+            case Constants.SERVICE_GET_ITEMS: {
+                int insertCount = CarbCounterInterface.insertItems(this, Item.listFromJson(result));
+                Toast.makeText(this, "(TestActivity); " + insertCount + " items inserted.",
+                        Toast.LENGTH_LONG).show();
+            }
+            break;
+
+            case Constants.SERVICE_GET_ITEM_AMOUNTS: {
+                int insertCount = CarbCounterInterface.insertAmounts(this, Amount.listFromJson(result));
+                Toast.makeText(this, "(TestActivity); " + insertCount + " itemAmounts inserted.",
+                        Toast.LENGTH_LONG).show();
+            }
+            break;
+        }
     }
 }

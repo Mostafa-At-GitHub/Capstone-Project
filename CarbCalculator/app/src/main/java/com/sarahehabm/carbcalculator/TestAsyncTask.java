@@ -8,6 +8,7 @@ import android.util.Pair;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.sarahehabm.carbcalculator.backend.myApi.MyApi;
+import com.sarahehabm.carbcalculator.common.Constants;
 import com.sarahehabm.carbcalculator.common.OnDataRetrieveListener;
 
 import java.io.IOException;
@@ -70,6 +71,6 @@ public class TestAsyncTask extends AsyncTask<Pair<Context, String>, Void, String
         Log.v("TestSyncAActivity", s);
 
         if (dataRetrieveListener != null)
-            dataRetrieveListener.onFinishCall(s);
+            dataRetrieveListener.onFinishCall(s, Constants.SERVICE_GET_ITEMS);
     }
 }

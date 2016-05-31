@@ -2,33 +2,45 @@ package com.sarahehabm.carbcalculator.meal.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
+import com.sarahehabm.carbcalculator.common.model.Amount;
 import com.sarahehabm.carbcalculator.common.model.Item;
+import com.sarahehabm.carbcalculator.common.model.ItemAmount;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  Created by Sarah E. Mostafa on 31-May-16.
  */
 
 public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemAmountsAdapter.ViewHolder>{
+    private final String TAG = NewMealItemAmountsAdapter.class.getSimpleName();
+
     private ArrayList<Item> items;
+    private HashMap<Item, Amount> itemAmountsMap;
+//    private ArrayList<Amount> itemAmounts;
 
     public NewMealItemAmountsAdapter(ArrayList<Item> items) {
         this.items = items;
         if(this.items == null)
             this.items = new ArrayList<>();
+
+        itemAmountsMap = new HashMap<>();
+        for (int i = 0; i < items.size(); i++) {
+            itemAmountsMap.put(items.get(i), null);
+        }
     }
 
     @Override
@@ -44,15 +56,13 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
 
         String itemName = items.get(position).getName();
         int itemId = items.get(position).getId();
-//        ArrayList<Amount> itemAmounts =
-//                CarbCounterInterface.getAmountsByItemId(context, itemId);
-        String[] itemAmounts = CarbCounterInterface.getAmountsByItemId_TEMP(context, itemId);
+        ArrayList<Amount> itemAmounts = CarbCounterInterface.getAmountsByItemId(context, itemId);
+//        String[] itemAmountsArr = CarbCounterInterface.getAmountsByItemId_TEMP(context, itemId);
 
         holder.textView_name.setText(itemName);
-        holder.spinner_amounts.setTag(position);
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_list_item_1, itemAmounts);
-        holder.spinner_amounts.setAdapter(spinnerAdapter);
+        holder.spinner_unit.setTag(position);
+        UnitsAdapter unitsAdapter = new UnitsAdapter(context, itemAmounts);
+        holder.spinner_unit.setAdapter(unitsAdapter);
     }
 
     @Override
@@ -71,15 +81,32 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
         return items.get(position).getId();
     }
 
+    public ArrayList<ItemAmount> computeMealData(int mealId) {
+        ArrayList<ItemAmount> result = new ArrayList<>();
+
+
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            Amount amount = itemAmountsMap.get(item);
+            ItemAmount itemAmount = new ItemAmount(item.getId(), amount.getId(),
+                    0, mealId);
+            result.add(itemAmount);
+        }
+
+        return result;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnItemSelectedListener {
         TextView textView_name;
-        Spinner spinner_amounts;
+        EditText editText_amount;
+        Spinner spinner_unit;
 
         public ViewHolder(View itemView) {
             super(itemView);
             textView_name = (TextView) itemView.findViewById(R.id.textView_item_name);
-            spinner_amounts = (Spinner) itemView.findViewById(R.id.spinner_amount);
-            spinner_amounts.setOnItemSelectedListener(this);
+            editText_amount = (EditText) itemView.findViewById(R.id.editText_amount);
+            spinner_unit = (Spinner) itemView.findViewById(R.id.spinner_unit);
+            spinner_unit.setOnItemSelectedListener(this);
         }
 
         @Override
@@ -87,6 +114,14 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
             int parentPosition = (int) parent.getTag();
             Toast.makeText(view.getContext(), "Parent position: " + parentPosition
                     + ", selected item: " + position, Toast.LENGTH_SHORT).show();
+//            if(itemAmounts!=null)
+//                editText_amount.setText(String.valueOf(itemAmounts.get(position).getQuantity()));
+
+            Item item = items.get(parentPosition);
+            Amount amount = ((UnitsAdapter)parent.getAdapter()).getItem(position);
+
+            itemAmountsMap.put(item, amount);
+            Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
         }
 
         @Override

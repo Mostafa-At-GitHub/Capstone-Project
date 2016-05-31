@@ -5,5 +5,5 @@ package com.sarahehabm.carbcalculator.common;
  */
 public interface OnDataRetrieveListener {
     void onStartCall();
-    void onFinishCall(String result);
+    void onFinishCall(String result, int serviceKey);
 }

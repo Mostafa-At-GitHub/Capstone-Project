@@ -14,8 +14,20 @@
         android:layout_weight="1"
         android:text="Item name"/>
 
+    <!--<Spinner
+        android:id="@+id/spinner_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/min_edittext_length"
+        android:maxLength="5"
+        android:inputType="number"
+        android:id="@+id/editText_amount"
+        android:layout_height="match_parent"/>
+
     <Spinner
-        android:id="@+id/spinner_amount"
+        android:id="@+id/spinner_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>
