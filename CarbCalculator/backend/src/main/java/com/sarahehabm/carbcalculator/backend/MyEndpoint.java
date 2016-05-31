@@ -125,7 +125,8 @@ public class MyEndpoint {
         }
 
 //        String content2 = "{\"items\":[{\"id\":0,\"name\":\"Item0\",\"isFavorite\":false},{\"id\":1,\"name\":\"Item1\",\"isFavorite\":false},{\"id\":2,\"name\":\"Item2\",\"isFavorite\":false},{\"id\":3,\"name\":\"Item3\",\"isFavorite\":false},{\"id\":4,\"name\":\"Item4\",\"isFavorite\":false},{\"id\":5,\"name\":\"Item5\",\"isFavorite\":false},{\"id\":6,\"name\":\"Item6\",\"isFavorite\":false},{\"id\":7,\"name\":\"Item7\",\"isFavorite\":false},{\"id\":8,\"name\":\"Item8\",\"isFavorite\":false},{\"id\":9,\"name\":\"Item9\",\"isFavorite\":false}]}";
-        String content2 = "[{\"id\":0,\"name\":\"Item0\",\"isFavorite\":false},{\"id\":1,\"name\":\"Item1\",\"isFavorite\":false},{\"id\":2,\"name\":\"Item2\",\"isFavorite\":false},{\"id\":3,\"name\":\"Item3\",\"isFavorite\":false},{\"id\":4,\"name\":\"Item4\",\"isFavorite\":false},{\"id\":5,\"name\":\"Item5\",\"isFavorite\":false},{\"id\":6,\"name\":\"Item6\",\"isFavorite\":false},{\"id\":7,\"name\":\"Item7\",\"isFavorite\":false},{\"id\":8,\"name\":\"Item8\",\"isFavorite\":false},{\"id\":9,\"name\":\"Item9\",\"isFavorite\":false}]";
+//        String content2 = "[{\"id\":0,\"name\":\"Item0\",\"isFavorite\":false},{\"id\":1,\"name\":\"Item1\",\"isFavorite\":false},{\"id\":2,\"name\":\"Item2\",\"isFavorite\":false},{\"id\":3,\"name\":\"Item3\",\"isFavorite\":false},{\"id\":4,\"name\":\"Item4\",\"isFavorite\":false},{\"id\":5,\"name\":\"Item5\",\"isFavorite\":false},{\"id\":6,\"name\":\"Item6\",\"isFavorite\":false},{\"id\":7,\"name\":\"Item7\",\"isFavorite\":false},{\"id\":8,\"name\":\"Item8\",\"isFavorite\":false},{\"id\":9,\"name\":\"Item9\",\"isFavorite\":false}]";
+        String content2 = "[{\"id\":1,\"name\":\"Apple\",\"isFavorite\":false},{\"id\":2,\"name\":\"Yoghurt\",\"isFavorite\":false},{\"id\":3,\"name\":\"Rice\",\"isFavorite\":false},{\"id\":4,\"name\":\"Vegetables\",\"isFavorite\":false},{\"id\":5,\"name\":\"Salad\",\"isFavorite\":false}]";
 
         System.out.println("CONTENT= " + content);
         System.out.println("CONTENT2= " + content2);
@@ -135,6 +136,18 @@ public class MyEndpoint {
         response.setData(content2);
 
         //TODO read data from file instead of hardcoded string
+
+        return response;
+    }
+
+
+    /** A simple endpoint method that retrieves all the food/beverage items's amounts */
+    @ApiMethod(name = "getAmounts")
+    public MyBeanAmount getAmounts() {
+        String content = "[{\"id\":1,\"carbGrams\":10,\"quantity\":100,\"unit\":\"gram\",\"itemId\":2},{\"id\":2,\"carbGrams\":15,\"quantity\":2,\"unit\":\"tablespoon\",\"itemId\":3},{\"id\":3,\"carbGrams\":14,\"quantity\":100,\"unit\":\"gram\",\"itemId\":1},{\"id\":4,\"carbGrams\":45,\"quantity\":1,\"unit\":\"cup\",\"itemId\":3},{\"id\":5,\"carbGrams\":28,\"quantity\":100,\"unit\":\"gram\",\"itemId\":3},{\"id\":6,\"carbGrams\":15,\"quantity\":2,\"unit\":\"tablespoon\",\"itemId\":4},{\"id\":7,\"carbGrams\":10,\"quantity\":5,\"unit\":\"tablespoon\",\"itemId\":5}]";
+
+        MyBeanAmount response = new MyBeanAmount();
+        response.setData(content);
 
         return response;
     }
