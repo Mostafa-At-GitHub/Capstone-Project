@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator.item.view;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,8 @@ import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 
-public class AllItemsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AllItemsActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String TAG = AllItemsActivity.class.getSimpleName();
 
     private Fragment fragment;
@@ -52,6 +54,8 @@ public class AllItemsActivity extends AppCompatActivity implements LoaderManager
             case R.id.action_new_item:
                 Toast.makeText(this, "Add new item", Toast.LENGTH_SHORT).show();
                 //TODO start new item activity
+                Intent intent = new Intent(this, AddNewItemActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

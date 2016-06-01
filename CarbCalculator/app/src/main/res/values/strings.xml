@@ -12,4 +12,7 @@
     <string name="title_activity_all_items">AllItemsActivity</string>
     <string name="action_add_new_item">Add New Item</string>
     <string name="done">Done</string>
+    <string name="title_activity_add_new_item">Add New Item</string>
+    <string name="item_name">Item Name</string>
+    <string name="action_add">Add</string>
 </resources>

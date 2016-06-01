@@ -7,7 +7,7 @@
         <option name="HTTP_PORT" value="8080" />
         <option name="WAR_DIR" value="S:\Udacity\Android Nanodegree\Projects\Project7\CarbCalculator\backend\build\exploded-app" />
         <option name="WEB_APP_DIR" value="S:\Udacity\Android Nanodegree\Projects\Project7\CarbCalculator\backend\src\main\webapp" />
-        <option name="APPENGINE_SDKROOT" value="C:\Users\Sarah E. Mostafa\.gradle\appengine-sdk\appengine-java-sdk-1.9.18" />
+        <option name="APPENGINE_SDKROOT" value="S:\.gradle\appengine-sdk\appengine-java-sdk-1.9.18" />
       </configuration>
     </facet>
     <facet type="android-gradle" name="Android-Gradle">
