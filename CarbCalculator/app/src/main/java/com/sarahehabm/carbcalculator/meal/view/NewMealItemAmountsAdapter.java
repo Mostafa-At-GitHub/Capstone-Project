@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
     private final String TAG = NewMealItemAmountsAdapter.class.getSimpleName();
 
     private ArrayList<Item> items;
-    private HashMap<Item, Amount> itemAmountsMap;
+    private HashMap<Item, Pair<Amount, Integer>> itemAmountsMap;
 //    private ArrayList<Amount> itemAmounts;
 
     public NewMealItemAmountsAdapter(ArrayList<Item> items) {
@@ -87,12 +88,13 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
     public ArrayList<ItemAmount> computeMealData(int mealId) {
         ArrayList<ItemAmount> result = new ArrayList<>();
 
-
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
-            Amount amount = itemAmountsMap.get(item);
-            ItemAmount itemAmount = new ItemAmount(item.getId(), amount.getId(),
-                    0, mealId);
+            Pair<Amount, Integer> amountQuantityPair =  itemAmountsMap.get(item);
+            Amount amount = amountQuantityPair.first;
+            int quantity = amountQuantityPair.second;
+            int carbGrams = (quantity*amount.getCarbGrams())/amount.getQuantity();
+            ItemAmount itemAmount = new ItemAmount(item.getId(), amount.getId(), carbGrams, mealId);
             result.add(itemAmount);
         }
 
@@ -123,7 +125,18 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    int position = (int) editText_amount.getTag();
+                    Item item = items.get(position);
 
+                    View parent = (View)editText_amount.getParent();
+                    Spinner spinner = (Spinner) parent.findViewById(R.id.spinner_unit);
+                    Amount amount = ((UnitsAdapter)spinner.getAdapter()).getItem(spinner.getSelectedItemPosition());
+
+                    String quantityStr = editText_amount.getText().toString().trim().isEmpty()?
+                            "0" : editText_amount.getText().toString().trim();
+                    int quantity = Integer.parseInt(quantityStr);
+                    itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
+                    Log.e(TAG, "Hashmap size(afterTextChanged)= " + itemAmountsMap.size());
                 }
             });
         }
@@ -146,7 +159,9 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
                             .setText(String.valueOf(amount.getQuantity()));
             }
 
-            itemAmountsMap.put(item, amount);
+            int quantity = Integer.parseInt(
+                    ((EditText)parentParent.findViewById(R.id.editText_amount)).getText().toString());
+            itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
             Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
         }
 

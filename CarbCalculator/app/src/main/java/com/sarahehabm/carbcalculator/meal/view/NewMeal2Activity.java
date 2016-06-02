@@ -72,16 +72,33 @@ public class NewMeal2Activity extends AppCompatActivity {
                 Log.e("NewMeal", itemAmounts.toString());
 
                 int insertCount = CarbCounterInterface.insertItemAmounts(this, itemAmounts);
-                if(insertCount > 0) {
+                if(insertCount == itemAmounts.size()) {
                     Toast.makeText(this, insertCount + " itemAmounts inserted", Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
+                    int totalMealCarbs = calculateMealCarbs(itemAmounts);
+                    int mealUpdated = CarbCounterInterface.updateMealCarbs(this, (int) mealId, totalMealCarbs);
+                    if(mealUpdated > 0) {
+                        Toast.makeText(this, "Meal carbs updated successfully to " + totalMealCarbs, Toast.LENGTH_SHORT).show();
+                        finish();
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                    } else
+                        Toast.makeText(this, "Failed to update meal carbs", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Failed to insert meal (itemAmounts)", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private int calculateMealCarbs(ArrayList<ItemAmount> itemAmounts) {
+        if(itemAmounts == null || itemAmounts.isEmpty())
+            return 0;
+
+        int carbs = 0;
+        for (int i = 0; i < itemAmounts.size(); i++) {
+            carbs += itemAmounts.get(i).getTotalQuantity();
+        }
+        return carbs;
     }
 }
