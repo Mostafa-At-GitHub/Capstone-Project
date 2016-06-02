@@ -4,5 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="min_edittext_length">32dp</dimen>
+    <dimen name="min_edittext_length_double">64dp</dimen>
     <dimen name="dimen8dp">8dp</dimen>
 </resources>

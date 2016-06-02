@@ -2,6 +2,8 @@ package com.sarahehabm.carbcalculator.meal.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,7 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
 
         holder.textView_name.setText(itemName);
         holder.spinner_unit.setTag(position);
+        holder.editText_amount.setTag(position);
         UnitsAdapter unitsAdapter = new UnitsAdapter(context, itemAmounts);
         holder.spinner_unit.setAdapter(unitsAdapter);
     }
@@ -107,6 +110,22 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
             editText_amount = (EditText) itemView.findViewById(R.id.editText_amount);
             spinner_unit = (Spinner) itemView.findViewById(R.id.spinner_unit);
             spinner_unit.setOnItemSelectedListener(this);
+            editText_amount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
 
         @Override
@@ -119,6 +138,13 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
 
             Item item = items.get(parentPosition);
             Amount amount = ((UnitsAdapter)parent.getAdapter()).getItem(position);
+
+            View parentParent = (View) parent.getParent();
+            if(((int)parentParent.findViewById(R.id.editText_amount).getTag()) == parentPosition) {
+                if(amount!=null)
+                    ((EditText)parentParent.findViewById(R.id.editText_amount))
+                            .setText(String.valueOf(amount.getQuantity()));
+            }
 
             itemAmountsMap.put(item, amount);
             Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
