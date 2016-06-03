@@ -94,7 +94,7 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
             Amount amount = amountQuantityPair.first;
             int quantity = amountQuantityPair.second;
             int carbGrams = (quantity*amount.getCarbGrams())/amount.getQuantity();
-            ItemAmount itemAmount = new ItemAmount(item.getId(), amount.getId(), carbGrams, mealId);
+            ItemAmount itemAmount = new ItemAmount(item.getId(), amount.getId(), quantity, carbGrams, mealId);
             result.add(itemAmount);
         }
 

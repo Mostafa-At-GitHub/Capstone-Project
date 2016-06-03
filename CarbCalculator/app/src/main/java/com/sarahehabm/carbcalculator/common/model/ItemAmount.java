@@ -12,23 +12,26 @@ public class ItemAmount {
     private int id;
     private int itemId;
     private int amountId;
+    private int totalWeight;
     private int totalQuantity;
     private int mealId;
 
     public ItemAmount() {
     }
 
-    public ItemAmount(int itemId, int amountId, int totalQuantity, int mealId) {
+    public ItemAmount(int itemId, int amountId, int totalWeight, int totalQuantity, int mealId) {
         this.itemId = itemId;
         this.amountId = amountId;
+        this.totalWeight = totalWeight;
         this.totalQuantity = totalQuantity;
         this.mealId = mealId;
     }
 
-    public ItemAmount(int id, int itemId, int amountId, int totalQuantity, int mealId) {
+    public ItemAmount(int id, int itemId, int amountId, int totalWeight, int totalQuantity, int mealId) {
         this.id = id;
         this.itemId = itemId;
         this.amountId = amountId;
+        this.totalWeight = totalWeight;
         this.totalQuantity = totalQuantity;
         this.mealId = mealId;
     }
@@ -55,6 +58,14 @@ public class ItemAmount {
 
     public void setAmountId(int amountId) {
         this.amountId = amountId;
+    }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(int totalWeight) {
+        this.totalWeight = totalWeight;
     }
 
     public int getTotalQuantity() {

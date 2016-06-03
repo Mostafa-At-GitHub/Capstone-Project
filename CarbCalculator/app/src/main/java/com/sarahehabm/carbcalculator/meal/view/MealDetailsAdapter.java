@@ -45,7 +45,9 @@ public class MealDetailsAdapter extends RecyclerView.Adapter<MealDetailsAdapter.
         Amount amount = CarbCounterInterface.getAmount(context, itemAmount.getAmountId());
 
         holder.textViewName.setText(item.getName());
-        holder.textViewData.setText(itemAmount.getTotalQuantity() + " carb grams");
+        holder.textViewData.setText(itemAmount.getTotalWeight() +
+                " " + amount.getUnit() + ": " +
+                itemAmount.getTotalQuantity() + " carb grams");
     }
 
     @Override

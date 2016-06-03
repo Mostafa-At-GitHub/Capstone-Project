@@ -113,6 +113,7 @@ public class AddNewItemActivity extends AppCompatActivity {
                 finish();
                 break;
 
+
             case R.id.action_add:
                 boolean result = save();
                 Log.e(TAG, "Save success: " + result);
