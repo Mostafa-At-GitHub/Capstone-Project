@@ -19,7 +19,6 @@ import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
 import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.common.model.ItemAmount;
 import com.sarahehabm.carbcalculator.common.model.Meal;
-import com.sarahehabm.carbcalculator.main.view.MainActivity;
 
 import java.util.ArrayList;
 
@@ -79,7 +78,8 @@ public class NewMeal2Activity extends AppCompatActivity {
                     if(mealUpdated > 0) {
                         Toast.makeText(this, "Meal carbs updated successfully to " + totalMealCarbs, Toast.LENGTH_SHORT).show();
                         finish();
-                        Intent intent = new Intent(this, MainActivity.class);
+                        Intent intent = new Intent(this, MealDetailsActivity.class);
+                        intent.putExtra(Constants.KEY_MEAL_ID, mealId);
                         startActivity(intent);
                     } else
                         Toast.makeText(this, "Failed to update meal carbs", Toast.LENGTH_SHORT).show();
