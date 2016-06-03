@@ -1,11 +1,9 @@
 package com.sarahehabm.carbcalculator.item.view;
 
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.ItemsAlertDialog;
+import com.sarahehabm.carbcalculator.common.ItemsAlertDialogInterface;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
 
@@ -22,18 +22,14 @@ import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
  Created by Sarah E. Mostafa on 31-May-16.
  */
 
-public abstract class ItemsBasePagerFragment extends Fragment implements OnItemLongClickListener {
+public abstract class ItemsBasePagerFragment extends Fragment
+        implements OnItemLongClickListener, ItemsAlertDialogInterface {
     private RecyclerView recyclerViewItems;
     private TextView textViewEmpty;
 
     private AllItemsAdapter itemsAdapter;
     private Cursor cursor;
-
-    public static final int DIALOG_ALL = 1;
-    public static final int DIALOG_FAVORITE = 2;
-    public static final int OPTION_FAVORITE = 0;
-    public static final int OPTION_UNFAVORITE = 0;
-    public static final int OPTION_EDIT = 1;
+    protected ItemsAlertDialog alertDialog;
 
     @Nullable
     @Override
@@ -73,72 +69,26 @@ public abstract class ItemsBasePagerFragment extends Fragment implements OnItemL
     }
 
     @Override
-    public void onLongClick(int position, int itemId) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-//                .setItems(new String[]{"Add/Remove favorite", "Edit Item"}, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(getContext(), "Clicked on " + which, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        builder.show();
+    public abstract void onLongClick(int position, int itemId);
+    @Override
+    public void onFavoriteItemClick(int itemId) {
+        CarbCounterInterface.updateItemFavorite(getContext(), itemId, true);
+        cursor = getCursor();
+        itemsAdapter.notifyDataSetChanged();
     }
 
-    protected void showDialog(int which, final int itemId) {
-        String[] options = new String[0];
-        DialogInterface.OnClickListener onClickListener = null;
-        switch (which) {
-            case DIALOG_ALL:
-                options = getContext().getResources().getStringArray(R.array.dialog_options_all);
-                onClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case OPTION_FAVORITE:
-                                Toast.makeText(getContext(), "Should add to favorites",
-                                        Toast.LENGTH_SHORT).show();
-                                updateItemFavorite(itemId, true);
-                                break;
-
-                            case OPTION_EDIT:
-                                editItem();
-                                break;
-                        }
-                    }
-                };
-                break;
-
-            case DIALOG_FAVORITE:
-                options = getContext().getResources().getStringArray(R.array.dialog_options_favorites);
-                onClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case OPTION_UNFAVORITE:
-                                Toast.makeText(getContext(), "Should remove from favorites",
-                                        Toast.LENGTH_SHORT).show();
-                                updateItemFavorite(itemId, false);
-                                break;
-
-                            case OPTION_EDIT:
-                                editItem();
-                                break;
-                        }
-                    }
-                };
-                break;
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                .setItems(options, onClickListener);
-        builder.show();
+    @Override
+    public void onUnFavoriteItemClick(int itemId) {
+        CarbCounterInterface.updateItemFavorite(getContext(), itemId, false);
+        cursor = getCursor();
+        itemsAdapter.notifyDataSetChanged();
     }
 
-    public void editItem() {
-        Toast.makeText(getContext(), "Should edit item", Toast.LENGTH_SHORT).show();
-    }
-
-    public void updateItemFavorite(int itemId, boolean isFavorite) {
-        CarbCounterInterface.updateItemFavorite(getContext(), itemId, isFavorite);
+    @Override
+    public void onEditItemClick(int itemId) {
+        Toast.makeText(getContext(), "Should start new Item activity passing itemId: " + itemId,
+                Toast.LENGTH_SHORT).show();
+        cursor = getCursor();
+        itemsAdapter.notifyDataSetChanged();
     }
 }
