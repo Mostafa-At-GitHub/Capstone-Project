@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SteppersViewHolder extends RecyclerView.ViewHolder {
+public class SteppersViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/{
 
     private boolean isChecked;
 
@@ -48,6 +48,7 @@ public class SteppersViewHolder extends RecyclerView.ViewHolder {
         //this.frameLayoutsContainer = (LinearLayout) itemView.findViewById(R.id.frameLayoutsContainer);
 //        this.buttonContinue = (Button) itemView.findViewById(R.id.buttonContinue);
 //        this.buttonCancel = (Button) itemView.findViewById(R.id.buttonCancel);
+//        this.itemView.setOnClickListener(this);
     }
 
     public void setFragment(Fragment fragment) {
@@ -68,4 +69,12 @@ public class SteppersViewHolder extends RecyclerView.ViewHolder {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        int position = (int) v.getTag(R.id.tag_position);
+//        int id = (int) v.getTag(R.id.tag_id);
+//        Toast.makeText(v.getContext(), "*SteppersViewHolder* OnClick at position " + position
+//                + " with id: " + id, Toast.LENGTH_SHORT).show();
+//    }
 }

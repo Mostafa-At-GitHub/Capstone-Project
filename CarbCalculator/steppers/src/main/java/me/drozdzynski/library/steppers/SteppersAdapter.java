@@ -82,6 +82,20 @@ public class SteppersAdapter extends RecyclerView.Adapter<SteppersViewHolder> {
     public void onBindViewHolder(final SteppersViewHolder holder, final int position) {
         final SteppersItem steppersItem = items.get(position);
 
+        final int id = steppersItem.getTag();
+        holder.itemView.setTag(R.id.tag_id, id);
+        holder.itemView.setTag(R.id.tag_position, position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(v.getContext(), "*SteppersViewHolder* OnClick at position " + position
+//                        + " with id: " + id, Toast.LENGTH_SHORT).show();
+
+                config.getOnItemClickAction().onItemClick(position, id);
+            }
+        });
+
 //        holder.setChecked(position < currentStep);
         holder.setChecked(true);
         if(holder.isChecked()) {

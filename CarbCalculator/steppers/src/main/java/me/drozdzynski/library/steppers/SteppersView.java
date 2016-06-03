@@ -103,6 +103,7 @@ public class SteppersView extends LinearLayout {
 
         private OnFinishAction onFinishAction;
         private OnCancelAction onCancelAction;
+        private OnItemClickAction onItemClickAction;
         private FragmentManager fragmentManager;
 
         public Config() {
@@ -125,6 +126,15 @@ public class SteppersView extends LinearLayout {
 
         public OnCancelAction getOnCancelAction() {
             return onCancelAction;
+        }
+
+        public Config setOnItemClickAction(OnItemClickAction onItemClickAction) {
+            this.onItemClickAction = onItemClickAction;
+            return this;
+        }
+
+        public OnItemClickAction getOnItemClickAction() {
+            return onItemClickAction;
         }
 
         public void setFragmentManager(FragmentManager fragmentManager) {

@@ -43,6 +43,9 @@ public class MealDetailsActivity extends AppCompatActivity {
 
         initializeData();
 
+        String title = meal.getName() ==null? "" : meal.getName();
+        setTitle(title);
+
         textView = (TextView) findViewById(R.id.textView_total);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

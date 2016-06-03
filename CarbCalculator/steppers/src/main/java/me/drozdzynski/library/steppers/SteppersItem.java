@@ -24,6 +24,7 @@ public class SteppersItem extends Observable {
 
     private String label;
     private String subLabel;
+    private int tag;
     private boolean buttonEnable = true;
     private Fragment fragment;
 
@@ -43,6 +44,14 @@ public class SteppersItem extends Observable {
 
     public void setSubLabel(String subLabel) {
         this.subLabel = subLabel;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
     public Fragment getFragment() {

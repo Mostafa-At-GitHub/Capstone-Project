@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator.main.view;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,15 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.Constants;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.MealEntry;
 import com.sarahehabm.carbcalculator.common.model.Meal;
 import com.sarahehabm.carbcalculator.main.business.MainBusiness;
+import com.sarahehabm.carbcalculator.meal.view.MealDetailsActivity;
 
 import java.util.ArrayList;
 
+import me.drozdzynski.library.steppers.OnItemClickAction;
 import me.drozdzynski.library.steppers.SteppersItem;
 import me.drozdzynski.library.steppers.SteppersView;
 
@@ -81,7 +86,19 @@ public class FragmentMain extends Fragment
     private void initializeMealsView(View rootView) {
         Log.v(TAG, "initializeMealsView");
         steppersView = (SteppersView) rootView.findViewById(R.id.steppersView);
-        SteppersView.Config steppersViewConfig = new SteppersView.Config();
+        SteppersView.Config steppersViewConfig = new SteppersView.Config()
+                .setOnItemClickAction(new OnItemClickAction() {
+
+                    @Override
+                    public void onItemClick(int position, int id) {
+                        Toast.makeText(getContext(), "*FRAGMENT* OnClick at position " + position
+                                + " with id: " + id, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getContext(), MealDetailsActivity.class);
+                        intent.putExtra(Constants.KEY_MEAL_ID, (long)id);
+                        startActivity(intent);
+                    }
+                });
         steppersViewConfig.setFragmentManager(getActivity().getSupportFragmentManager());
 
 
@@ -95,6 +112,7 @@ public class FragmentMain extends Fragment
                 mealItem.setLabel(meals.get(i).getName());
                 String description = getString(R.string.meal_description, meals.get(i).getTotalCarbs());
                 mealItem.setSubLabel(description);
+                mealItem.setTag(meals.get(i).getId());
                 mealsList.add(mealItem);
             }
         }
