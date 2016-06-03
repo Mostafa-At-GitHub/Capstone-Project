@@ -9,28 +9,65 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="24dp"
+    tools:layout_editor_absoluteY="25dp"
     tools:showIn="@layout/activity_new_meal_1">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_meal_name"
         android:layout_width="0dp"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_new_meal"
         app:layout_constraintRight_toRightOf="@+id/content_new_meal"
         app:layout_constraintTop_toTopOf="@+id/content_new_meal"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="0"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <EditText
+            android:id="@+id/editText_meal_name"
+            android:layout_width="328dp"
+            android:layout_height="wrap_content"
+            android:hint="Meal name"
+            android:lines="1"
+            android:maxLines="1"
+            android:minHeight="?actionBarSize"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="11dp"/>
+        <!--android:nextFocusUp="@id/multiAutoCompleteTextView"
+        android:nextFocusLeft="@id/multiAutoCompleteTextView"-->
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/content_new_meal"
+        app:layout_constraintRight_toRightOf="@+id/content_new_meal"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_meal_name"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="0"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="83dp">
         <!--android:focusable="true"
         android:focusableInTouchMode="true"-->
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout"
-            android:layout_width="410dp"
+            android:layout_width="328dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
@@ -45,11 +82,11 @@
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/food_beverage_hint"
-                android:minHeight="?actionBarSize"
                 android:lines="1"
                 android:maxLines="1"
+                android:minHeight="?actionBarSize"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="12dp"/>
+                tools:layout_editor_absoluteY="11dp"/>
             <!--android:nextFocusUp="@id/multiAutoCompleteTextView"
             android:nextFocusLeft="@id/multiAutoCompleteTextView"-->
         </android.support.design.widget.TextInputLayout>
@@ -64,27 +101,26 @@
             android:background="@color/colorAccent"
             android:onClick="onViewAllItemsClick"
             android:src="@drawable/ic_add"
-            tools:layout_editor_absoluteX="386dp"
+            tools:layout_editor_absoluteX="304dp"
             tools:layout_editor_absoluteY="22dp"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_items"
         android:layout_width="0dp"
+
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/content_new_meal"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_new_meal"
         app:layout_constraintRight_toRightOf="@+id/content_new_meal"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        tools:layout_constraintBottom_creator="0"
-        tools:layout_constraintLeft_creator="0"
-        tools:layout_constraintRight_creator="0"
+        app:layout_constraintBottom_toBottomOf="@+id/content_new_meal"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="0"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="83dp"/>
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="150dp"/>
 </android.support.constraint.ConstraintLayout>

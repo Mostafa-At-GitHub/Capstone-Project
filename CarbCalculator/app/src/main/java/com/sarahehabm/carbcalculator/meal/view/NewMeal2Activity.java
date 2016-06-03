@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class NewMeal2Activity extends AppCompatActivity {
     NewMealItemAmountsAdapter newMealItemsAdapter;
+    private String mealName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,14 @@ public class NewMeal2Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String s = null;
-        if (intent != null && intent.hasExtra(Constants.KEY_ITEMS)) {
-            s = intent.getStringExtra(Constants.KEY_ITEMS);
+        if (intent != null) {
+            if(intent.hasExtra(Constants.KEY_ITEMS)) {
+                s = intent.getStringExtra(Constants.KEY_ITEMS);
 //            ((TextView) findViewById(R.id.textView2)).setText("ITEMS RECIEVED:\n " + s);
+            }
+
+            if(intent.hasExtra(Constants.KEY_MEAL_NAME))
+                mealName = intent.getStringExtra(Constants.KEY_MEAL_NAME);
         }
 
         newMealItemsAdapter = new NewMealItemAmountsAdapter(Item.listFromJson(s));
@@ -64,7 +70,7 @@ public class NewMeal2Activity extends AppCompatActivity {
                 //TODO should create the meal and insert in the DB
                 // TODO then finish and go to meal details?
                 Uri uri = CarbCounterInterface.
-                        insertMeal(this, new Meal("", 0, System.currentTimeMillis()));
+                        insertMeal(this, new Meal(mealName, 0, System.currentTimeMillis()));
                 long mealId  = ContentUris.parseId(uri);
                 ArrayList<ItemAmount> itemAmounts = newMealItemsAdapter.computeMealData((int) mealId);
                 Log.e("NewMeal", String.valueOf(itemAmounts.size()));

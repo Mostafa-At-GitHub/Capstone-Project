@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,8 @@ public class AddNewItemActivity extends AppCompatActivity {
     private RecyclerView recyclerView_amounts;
 
     private AddNewItemAmountsAdapter adapter;
+    private String itemName;
+    private boolean validItemName, validQuantities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +41,41 @@ public class AddNewItemActivity extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        validItemName = false;
+        validQuantities = false;
+
         editText_name = (EditText) findViewById(R.id.editText_name);
+        editText_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                itemName = editText_name.getText().toString().trim();
+                if (itemName != null && !itemName.isEmpty())
+                    validItemName = true;
+                else
+                    validItemName = false;
+
+                supportInvalidateOptionsMenu();
+                invalidateOptionsMenu();
+            }
+        });
         recyclerView_amounts = (RecyclerView) findViewById(R.id.recyclerView_amounts);
         recyclerView_amounts.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AddNewItemAmountsAdapter();
+
+        validQuantities = adapter.isValidAmounts();
+        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
+
         recyclerView_amounts.setAdapter(adapter);
     }
 
@@ -49,12 +84,26 @@ public class AddNewItemActivity extends AppCompatActivity {
             adapter = new AddNewItemAmountsAdapter();
 
         adapter.addItem();
+
+        validQuantities = adapter.isValidAmounts();
+        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_new_item, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (validItemName /*&& validQuantities*/) {
+            menu.getItem(0).setEnabled(true);
+        } else {
+            menu.getItem(0).setEnabled(false);
+        }
+        return true;
     }
 
     @Override

@@ -9,12 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -32,11 +35,14 @@ public class NewMeal1Activity extends AppCompatActivity
     private static final int LOADER_ID = 10;
 
     //    private TextInputLayout textInputLayout;
+    private EditText editTextMealName;
     private AutoCompleteTextView editText;
     private RecyclerView recyclerView;
 
     private SimpleCursorAdapter cursorAdapter;
     private NewMealItemsAdapter itemsAdapter;
+    private String mealName;
+    private boolean validMealName, validItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,8 @@ public class NewMeal1Activity extends AppCompatActivity
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        validMealName = false;
+        validItems = false;
         initializeViews();
     }
 
@@ -64,6 +72,7 @@ public class NewMeal1Activity extends AppCompatActivity
                 Toast.makeText(this, "NEXT clicked", Toast.LENGTH_SHORT).show();
                 //TODO should call the next activity
                 Intent intent = new Intent(this, NewMeal2Activity.class);
+                intent.putExtra(Constants.KEY_MEAL_NAME, mealName);
                 intent.putExtra(Constants.KEY_ITEMS, Item.listToJson(itemsAdapter.getItems()));
                 startActivity(intent);
 //                return true;
@@ -78,8 +87,45 @@ public class NewMeal1Activity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        return super.onPrepareOptionsMenu(menu);
+
+        if (validMealName && validItems) {
+            menu.getItem(0).setEnabled(true);
+        } else {
+            menu.getItem(0).setEnabled(false);
+        }
+        return true;
+    }
+
     private void initializeViews() {
 //        textInputLayout = (TextInputLayout) findViewById(textInputLayout);
+        editTextMealName = (EditText) findViewById(R.id.editText_meal_name);
+        editTextMealName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mealName = editTextMealName.getText().toString().trim();
+                if (mealName != null && !mealName.isEmpty())
+                    validMealName = true;
+                else
+                    validMealName = false;
+
+                supportInvalidateOptionsMenu();
+                invalidateOptionsMenu();
+            }
+        });
+
         editText = (AutoCompleteTextView) findViewById(R.id.multiAutoCompleteTextView);
 
         cursorAdapter = new SimpleCursorAdapter(this,
@@ -120,7 +166,7 @@ public class NewMeal1Activity extends AppCompatActivity
 
                 //TODO clear the field
                 editText.setText("");
-                editText.clearFocus();
+//                editText.clearFocus();
                 /*View v = NewMeal1Activity.this.getCurrentFocus();
                 if (v != null) {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -130,6 +176,12 @@ public class NewMeal1Activity extends AppCompatActivity
                 //TODO update data set that holds the selected items
 //                itemsAdapter.swapCursor(cursor);
                 itemsAdapter.addItem(new Item(itemId, itemName, (itemIsFavorite == 1)));
+                if (itemsAdapter.getItemCount() > 0)
+                    validItems = true;
+                else
+                    validItems = false;
+                supportInvalidateOptionsMenu();
+                invalidateOptionsMenu();
                 Log.v("ET OnItemClick", "Cursor count = " + cursor.getCount());
             }
         });

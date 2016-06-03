@@ -17,7 +17,7 @@ import java.util.ArrayList;
  Created by Sarah E. Mostafa on 28-May-16.
  */
 
-public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapter.ViewHolder> {
+public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapter.ViewHolder>  {
 //    private Context context;
 //    private Cursor cursor;
     private ArrayList<Item> items;
@@ -36,7 +36,13 @@ public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapte
         View rowView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.row_new_meal_item, parent, false);
 
-        return new ViewHolder(rowView);
+        return new ViewHolder(rowView, new OnRemoveItemClickListener() {
+            @Override
+            public void onRemoveClick(int position) {
+                items.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -58,15 +64,15 @@ public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapte
         notifyDataSetChanged();
     }
 
-    public boolean removeItem(Item item) {
+    /*public boolean removeItem(Item item) {
         notifyDataSetChanged();
         return items.remove(item);
-    }
+    }*/
 
-    public Item removeItem(int position) {
+    /*public Item removeItem(int position) {
         notifyDataSetChanged();
         return items.remove(position);
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -121,11 +127,14 @@ public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapte
         TextView textView_name;
         ImageButton imageButton_remove;
 
-        public ViewHolder(View itemView) {
+        private OnRemoveItemClickListener onRemoveItemClickListener;
+
+        public ViewHolder(View itemView, OnRemoveItemClickListener onRemoveItemClickListener) {
             super(itemView);
             textView_name = (TextView) itemView.findViewById(R.id.textView_item_name);
             imageButton_remove = (ImageButton) itemView.findViewById(R.id.imageButton_remove);
             imageButton_remove.setOnClickListener(this);
+            this.onRemoveItemClickListener = onRemoveItemClickListener;
         }
 
         @Override
@@ -134,6 +143,11 @@ public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapte
             Toast.makeText(v.getContext(), "Remove clicked on item at position " + position,
                     Toast.LENGTH_SHORT).show();
             //TODO create and call callback
+            onRemoveItemClickListener.onRemoveClick(position);
         }
+    }
+
+    public interface OnRemoveItemClickListener {
+        void onRemoveClick(int position);
     }
 }

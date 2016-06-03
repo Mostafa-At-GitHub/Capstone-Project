@@ -66,6 +66,26 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
         return amounts;
     }
 
+    public boolean isValidAmounts() {
+        boolean isValid = false;
+        if (amounts==null || amounts.isEmpty())
+            return false;
+
+        for (int i = 0; i < amounts.size(); i++) {
+            Amount amount = amounts.get(i);
+            if(amount.getQuantity() >0
+                    && amount.getUnit()!=null && !amount.getUnit().isEmpty()
+                    && amount.getCarbGrams()>=0)
+                isValid = true;
+            else {
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         EditText editTextAmount, editTextUnit, editTextCarbs;
 
