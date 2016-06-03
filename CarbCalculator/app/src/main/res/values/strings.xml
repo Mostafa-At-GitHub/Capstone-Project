@@ -16,4 +16,16 @@
     <string name="item_name">Item Name</string>
     <string name="action_add">Add</string>
     <string name="title_activity_meal_details">MealDetailsActivity</string>
+
+    <string name="option_edit_item">Edit Item</string>
+    <string name="option_favorite_item">Add to favorites</string>
+    <string name="option_unfavorite_item">Remove from favorites</string>
+    <string-array name="dialog_options_all">
+        <item>@string/option_favorite_item</item>
+        <item>@string/option_edit_item</item>
+    </string-array>
+    <string-array name="dialog_options_favorites">
+        <item>@string/option_unfavorite_item</item>
+        <item>@string/option_edit_item</item>
+    </string-array>
 </resources>

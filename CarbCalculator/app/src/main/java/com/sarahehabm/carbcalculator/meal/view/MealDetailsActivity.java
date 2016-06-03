@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sarahehabm.carbcalculator.R;
@@ -52,6 +53,15 @@ public class MealDetailsActivity extends AppCompatActivity {
         mealDetailsAdapter = new MealDetailsAdapter(itemAmounts);
         recyclerView.setAdapter(mealDetailsAdapter);
         textView.setText("Total carbs\t\t\t" + meal.getTotalCarbs());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else
+            return super.onOptionsItemSelected(item);
     }
 
     private void initializeData() {

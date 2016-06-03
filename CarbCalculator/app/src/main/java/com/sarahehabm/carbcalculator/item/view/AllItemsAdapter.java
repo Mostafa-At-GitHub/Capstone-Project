@@ -27,11 +27,14 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
     private Cursor cursor;
     private HashMap<Integer, Item> selectedItems;
     private boolean favoriteOnly;
+    private OnItemLongClickListener onItemLongClickListener;
 
-    public AllItemsAdapter(Cursor cursor, boolean favoriteOnly) {
+    public AllItemsAdapter(Cursor cursor, boolean favoriteOnly,
+                           OnItemLongClickListener onItemLongClickListener) {
         this.cursor = cursor;
         this.selectedItems = new HashMap<>();
         this.favoriteOnly = favoriteOnly;
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override
@@ -49,6 +52,8 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
         String itemName = cursor.getString(cursor.getColumnIndex(ItemEntry.COLUMN_NAME));
         holder.textView_name.setText(itemName);
         holder.checkBox.setTag(position);
+        holder.itemView.setTag(R.id.tag_id, id);
+        holder.itemView.setTag(R.id.tag_position, position);
     }
 
     @Override
@@ -70,7 +75,8 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
         return new ArrayList<Item>(selectedItems.values());
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener {
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements CompoundButton.OnCheckedChangeListener, View.OnLongClickListener {
         TextView textView_name;
         CheckBox checkBox;
 
@@ -79,6 +85,7 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
             textView_name = (TextView) itemView.findViewById(R.id.textView_item_name);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
             checkBox.setOnCheckedChangeListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -98,6 +105,17 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
             }
 
             Log.e("SELECTED ITEMS", String.valueOf(selectedItems.size()));
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if(onItemLongClickListener != null) {
+                int position = (int) v.getTag(R.id.tag_position),
+                        id = (int) v.getTag(R.id.tag_id);
+                onItemLongClickListener.onLongClick(position, id);
+                return true;
+            }
+            return false;
         }
     }
 }
