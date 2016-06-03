@@ -11,36 +11,62 @@
     tools:context="com.sarahehabm.carbcalculator.meal.view.MealDetailsActivity"
     tools:showIn="@layout/activity_meal_details">
 
+    <TextView
+        android:id="@+id/textView_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:gravity="right"
+        android:textStyle="bold"
+        android:text="Date"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_items"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_weight="1"/>
 
     <ImageView
-        android:src="@android:color/darker_gray"
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_height="1dp"/>
+        android:src="@android:color/darker_gray"/>
 
-    <TextView
-        android:id="@+id/textView_total"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginStart="24dp"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="TotalCarbs"
-        />
+        android:layout_marginStart="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/total_carbs"/>
+
+        <TextView
+            android:id="@+id/textView_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="@dimen/activity_horizontal_margin"
+            tools:text="100g"/>
+    </LinearLayout>
+
 </LinearLayout>

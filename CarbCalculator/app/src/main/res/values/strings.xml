@@ -20,6 +20,7 @@
     <string name="option_edit_item">Edit Item</string>
     <string name="option_favorite_item">Add to favorites</string>
     <string name="option_unfavorite_item">Remove from favorites</string>
+    <string name="total_carbs">Total grams of carbohydrates</string>
     <string-array name="dialog_options_all">
         <item>@string/option_favorite_item</item>
         <item>@string/option_edit_item</item>

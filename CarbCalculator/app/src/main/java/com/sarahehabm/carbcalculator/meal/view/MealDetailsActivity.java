@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Constants;
+import com.sarahehabm.carbcalculator.common.Utility;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
 import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.common.model.ItemAmount;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class MealDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private TextView textView;
+    private TextView textView_carb_total, textView_date;
 
     private MealDetailsAdapter mealDetailsAdapter;
     private long mealId;
@@ -44,15 +45,17 @@ public class MealDetailsActivity extends AppCompatActivity {
 
         initializeData();
 
-        String title = meal.getName() ==null? "" : meal.getName();
+        String title = meal.getName() == null? "" : meal.getName();
         setTitle(title);
 
-        textView = (TextView) findViewById(R.id.textView_total);
+        textView_date  = (TextView) findViewById(R.id.textView_date);
+        textView_carb_total = (TextView) findViewById(R.id.textView_total);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mealDetailsAdapter = new MealDetailsAdapter(itemAmounts);
         recyclerView.setAdapter(mealDetailsAdapter);
-        textView.setText("Total carbs\t\t\t" + meal.getTotalCarbs());
+        textView_date.setText(Utility.formatDate(meal.getTimestamp()));
+        textView_carb_total.setText(String.valueOf(meal.getTotalCarbs()));
     }
 
     @Override
