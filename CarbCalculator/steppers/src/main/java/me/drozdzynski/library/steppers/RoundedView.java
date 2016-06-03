@@ -74,6 +74,7 @@ public class RoundedView extends View {
                 getWidth() / 2, paint);
 
         if(text != null && !checked) drawText(canvas);
+        checked = false;
         if(checked && text == null) drawChecked(canvas);
     }
 
