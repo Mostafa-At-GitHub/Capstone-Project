@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.sarahehabm.carbcalculator.CarbCalculatorApplication;
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.TestActivity;
 import com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ((CarbCalculatorApplication)getApplication()).startTracking();
 
         initializeToolbar();
         initializeFAB();
