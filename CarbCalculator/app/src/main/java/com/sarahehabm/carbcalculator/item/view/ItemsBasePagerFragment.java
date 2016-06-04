@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator.item.view;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.Constants;
 import com.sarahehabm.carbcalculator.common.ItemsAlertDialog;
 import com.sarahehabm.carbcalculator.common.ItemsAlertDialogInterface;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
@@ -88,7 +90,11 @@ public abstract class ItemsBasePagerFragment extends Fragment
     public void onEditItemClick(int itemId) {
         Toast.makeText(getContext(), "Should start new Item activity passing itemId: " + itemId,
                 Toast.LENGTH_SHORT).show();
-        cursor = getCursor();
-        itemsAdapter.notifyDataSetChanged();
+//        cursor = getCursor();
+//        itemsAdapter.notifyDataSetChanged();
+
+        Intent intent = new Intent(getContext(), EditItemActivity.class);
+        intent.putExtra(Constants.KEY_ITEM_ID, itemId);
+        startActivity(intent);
     }
 }

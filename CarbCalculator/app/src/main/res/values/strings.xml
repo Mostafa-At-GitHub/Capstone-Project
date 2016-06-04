@@ -15,6 +15,7 @@
     <string name="title_activity_add_new_item">Add New Item</string>
     <string name="item_name">Item Name</string>
     <string name="action_add">Add</string>
+    <string name="action_save_edit">Save</string>
     <string name="title_activity_meal_details">MealDetailsActivity</string>
 
     <string name="option_edit_item">Edit Item</string>
@@ -29,4 +30,5 @@
         <item>@string/option_unfavorite_item</item>
         <item>@string/option_edit_item</item>
     </string-array>
+    <string name="title_activity_edit_item">EditItemActivity</string>
 </resources>

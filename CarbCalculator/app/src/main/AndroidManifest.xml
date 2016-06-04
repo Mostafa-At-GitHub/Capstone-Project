@@ -59,6 +59,11 @@
             android:label="@string/title_activity_meal_details"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".item.view.EditItemActivity"
+            android:label="@string/title_activity_edit_item"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/constraintLayout2"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/activity_vertical_margin"
+              android:paddingRight="@dimen/activity_vertical_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              app:orientation="vertical"
+              tools:context="com.sarahehabm.carbcalculator.item.view.AddNewItemActivityFragment"
+              tools:showIn="@layout/activity_add_new_item">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_name"
+            android:lines="1"
+            android:maxLines="1"
+            android:minHeight="?actionBarSize"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_amounts"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
+    <TextView android:id="@+id/textView2"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:drawableLeft="@android:drawable/ic_menu_add"
+              android:drawableStart="@android:drawable/ic_menu_add"
+              android:drawablePadding="@dimen/activity_horizontal_margin"
+              android:gravity="center_vertical"
+              android:padding="@dimen/activity_horizontal_margin"
+              android:clickable="true"
+              android:onClick="onAddNewAmountClick"
+              android:text="Add new"
+              android:textColor="@color/colorAccent"/>
+</LinearLayout>

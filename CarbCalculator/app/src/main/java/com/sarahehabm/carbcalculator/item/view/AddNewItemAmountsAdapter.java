@@ -27,6 +27,10 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
         amounts.add(new Amount());
     }
 
+    public AddNewItemAmountsAdapter(ArrayList<Amount> amounts) {
+        this.amounts = amounts;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -57,6 +61,16 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
     public void addItem() {
         amounts.add(new Amount());
         notifyDataSetChanged();
+    }
+
+    public Amount getAmountAt(int position) {
+        if (amounts == null)
+            return null;
+
+        if (amounts.size()<position)
+            return null;
+
+        return amounts.get(position);
     }
 
     public ArrayList<Amount> getAmounts(int itemId) {
