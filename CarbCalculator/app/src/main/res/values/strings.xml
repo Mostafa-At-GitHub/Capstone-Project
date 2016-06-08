@@ -31,4 +31,6 @@
         <item>@string/option_edit_item</item>
     </string-array>
     <string name="title_activity_edit_item">EditItemActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
