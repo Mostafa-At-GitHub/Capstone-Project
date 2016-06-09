@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.Preferences;
 import com.sarahehabm.carbcalculator.main.view.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -92,6 +93,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
         String username = person.getDisplayName();
+        String imageUrl = person.getImage().getUrl();
+        if(imageUrl.endsWith("?sz=50"))
+            imageUrl = imageUrl.substring(0, imageUrl.lastIndexOf("?sz=50"));
+
+        Preferences preferences = new Preferences(this);
+        boolean nameSaved = preferences.putString(Preferences.KEY_NAME, username);
+        boolean urlSaved = preferences.putString(Preferences.KEY_IMAGE_URL, imageUrl);
+        Log.v(TAG, "Name saved: " + nameSaved);
+        Log.v(TAG, "URL saved: " + urlSaved);
 
         textViewStatus.setText(username);
 
