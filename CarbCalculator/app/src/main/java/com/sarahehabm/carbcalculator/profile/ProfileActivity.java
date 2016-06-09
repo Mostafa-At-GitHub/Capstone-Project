@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.pkmmte.view.CircularImageView;
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Preferences;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView textView;
@@ -35,6 +36,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         textView.setText(name);
         Log.e(ProfileActivity.class.getSimpleName(), "URL= " + url);
+        Picasso.with(this)
+                .load(url)
+//                .resize(50, 50)
+//                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+//                .error(R.drawable.user_placeholder_error)
+                .into(imageView);
     }
 
     @Override
