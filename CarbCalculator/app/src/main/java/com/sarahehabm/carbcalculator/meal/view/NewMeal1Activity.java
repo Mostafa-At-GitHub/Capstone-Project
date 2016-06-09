@@ -74,7 +74,7 @@ public class NewMeal1Activity extends AppCompatActivity
                 Intent intent = new Intent(this, NewMeal2Activity.class);
                 intent.putExtra(Constants.KEY_MEAL_NAME, mealName);
                 intent.putExtra(Constants.KEY_ITEMS, Item.listToJson(itemsAdapter.getItems()));
-                startActivity(intent);
+                startActivityForResult(intent, Constants.REQUEST_CODE_NEW_MEAL_2);
 //                return true;
                 break;
 
@@ -217,5 +217,21 @@ public class NewMeal1Activity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         cursorAdapter.swapCursor(null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_NEW_MEAL_2:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        finish();
+                        break;
+                }
+                break;
+
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -83,10 +83,10 @@ public class NewMeal2Activity extends AppCompatActivity {
                     int mealUpdated = CarbCounterInterface.updateMealCarbs(this, (int) mealId, totalMealCarbs);
                     if(mealUpdated > 0) {
                         Toast.makeText(this, "Meal carbs updated successfully to " + totalMealCarbs, Toast.LENGTH_SHORT).show();
-                        finish();
+//                        finish();
                         Intent intent = new Intent(this, MealDetailsActivity.class);
                         intent.putExtra(Constants.KEY_MEAL_ID, mealId);
-                        startActivity(intent);
+                        startActivityForResult(intent, Constants.REQUEST_CODE_MEAL_DETAILS);
                     } else
                         Toast.makeText(this, "Failed to update meal carbs", Toast.LENGTH_SHORT).show();
                 } else {
@@ -106,5 +106,22 @@ public class NewMeal2Activity extends AppCompatActivity {
             carbs += itemAmounts.get(i).getTotalQuantity();
         }
         return carbs;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_MEAL_DETAILS:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        setResult(RESULT_OK);
+                        finish();
+                        break;
+                }
+                break;
+
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

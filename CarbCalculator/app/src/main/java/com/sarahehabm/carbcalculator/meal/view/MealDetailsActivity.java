@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -35,20 +36,20 @@ public class MealDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        if(intent!=null && intent.hasExtra(Constants.KEY_MEAL_ID)) {
+        if (intent != null && intent.hasExtra(Constants.KEY_MEAL_ID)) {
             mealId = (long) intent.getExtras().get(Constants.KEY_MEAL_ID);
         }
 
         initializeData();
 
-        String title = meal.getName() == null? "" : meal.getName();
+        String title = meal.getName() == null ? "" : meal.getName();
         setTitle(title);
 
-        textView_date  = (TextView) findViewById(R.id.textView_date);
+        textView_date = (TextView) findViewById(R.id.textView_date);
         textView_carb_total = (TextView) findViewById(R.id.textView_total);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,12 +60,25 @@ public class MealDetailsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.meal_details, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        } else
-            return super.onOptionsItemSelected(item);
+        } else if (item.getItemId() == R.id.action_done) {
+//            finish();
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+            setResult(RESULT_OK);
+            finish();
+        }
+//        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void initializeData() {

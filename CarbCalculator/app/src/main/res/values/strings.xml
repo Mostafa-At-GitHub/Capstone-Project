@@ -32,5 +32,5 @@
     </string-array>
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">About Me</string>
 </resources>

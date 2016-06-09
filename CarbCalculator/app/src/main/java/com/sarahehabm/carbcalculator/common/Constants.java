@@ -11,4 +11,8 @@ public class Constants {
 
     public static final int SERVICE_GET_ITEMS = 1;
     public static final int SERVICE_GET_ITEM_AMOUNTS = 2;
+
+    public static final int REQUEST_CODE_NEW_MEAL_1 = 10;
+    public static final int REQUEST_CODE_NEW_MEAL_2 = 11;
+    public static final int REQUEST_CODE_MEAL_DETAILS = 12;
 }
