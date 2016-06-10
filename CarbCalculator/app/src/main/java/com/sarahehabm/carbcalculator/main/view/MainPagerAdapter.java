@@ -18,6 +18,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
     public static final String TAB_TITLE_WEEK = "Week";
     public static final String TAB_TITLE_MONTH = "Month";
 
+    private TodayPagerFragment todayPagerFragment;
+    private WeekPagerFragment weekPagerFragment;
+    private MonthPagerFragment monthPagerFragment;
+
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -43,13 +47,19 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
         switch (position) {
             case TAB_INDEX_TODAY:
-                return new TodayPagerFragment();
+                if(todayPagerFragment == null)
+                    todayPagerFragment = new TodayPagerFragment();
+                return todayPagerFragment;
 
             case TAB_INDEX_WEEK:
-                return new WeekPagerFragment();
+                if(weekPagerFragment == null)
+                    weekPagerFragment = new WeekPagerFragment();
+                return weekPagerFragment;
 
             case TAB_INDEX_MONTH:
-                return new MonthPagerFragment();
+                if(monthPagerFragment == null)
+                    monthPagerFragment = new MonthPagerFragment();
+                return monthPagerFragment;
 
             default:
                 return new BasePagerFragment();

@@ -44,6 +44,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
 
         cursor = getCursor();
 //        cursor = null;
+        //TODO When the "cursor = getCursor() line is removed, no data is returned ((indicating that the CursorLoader is not working))
 
         itemsAdapter = new AllItemsAdapter(cursor, /*false,*/ this);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
