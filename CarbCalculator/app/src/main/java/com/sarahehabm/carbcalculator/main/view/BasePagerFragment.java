@@ -1,29 +1,27 @@
 package com.sarahehabm.carbcalculator.main.view;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.db.chart.Tools;
-import com.db.chart.model.Bar;
-import com.db.chart.model.BarSet;
 import com.db.chart.model.ChartEntry;
-import com.db.chart.view.BarChartView;
+import com.db.chart.model.LineSet;
+import com.db.chart.model.Point;
+import com.db.chart.view.LineChartView;
 import com.db.chart.view.XController;
 import com.db.chart.view.YController;
 import com.db.chart.view.animation.Animation;
 import com.google.common.primitives.Ints;
 import com.sarahehabm.carbcalculator.R;
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.*;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.MealEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,18 +30,20 @@ import java.util.Random;
 /**
  * Created by Sarah E. Mostafa on 09-May-16.
  */
-public class BasePagerFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public abstract class BasePagerFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private final int LOADER_ID = 10;
-    private BarChartView chartView;
+    protected LineChartView chartView;
+    protected TextView textViewEmpty;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_today, container, false);
 
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        initLoader();
 
-        chartView = (BarChartView) rootView.findViewById(R.id.barchart);
+        chartView = (LineChartView) rootView.findViewById(R.id.barchart);
+        textViewEmpty = (TextView) rootView.findViewById(R.id.textView_empty);
 
         /*BarSet barSet = new BarSet();
         barSet.addBar(new Bar("", 137));
@@ -114,11 +114,10 @@ public class BasePagerFragment extends Fragment implements LoaderManager.LoaderC
         return rootView;
     }
 
+    protected abstract void initLoader();
+
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-//        return null;
-        return new CursorLoader(getContext(), MealEntry.CONTENT_URI, null, null, null, null);
-    }
+    public abstract Loader<Cursor> onCreateLoader(int id, Bundle args);
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -132,10 +131,11 @@ public class BasePagerFragment extends Fragment implements LoaderManager.LoaderC
                 return;
         }
 
-        BarSet barSet = new BarSet();
+        LineSet barSet = new LineSet();
         while (data.moveToNext()) {
             int carbs = data.getInt(data.getColumnIndex(MealEntry.COLUMN_TOTAL_CARBS));
-            barSet.addBar(new Bar("", carbs));
+//            barSet.addBar(new Bar("", carbs));
+            barSet.addPoint(new Point("", carbs));
         }
 
 //        barSet.addBar(new Bar("", 137));
@@ -145,15 +145,15 @@ public class BasePagerFragment extends Fragment implements LoaderManager.LoaderC
 
         chartView.addData(barSet);
 
-//        chartView.setBarSpacing(Tools.fromDpToPx(100));
-        chartView.setRoundCorners(Tools.fromDpToPx(3));
+////        chartView.setBarSpacing(Tools.fromDpToPx(100));
+//        chartView.setRoundCorners(Tools.fromDpToPx(3));
 
         chartView.setXAxis(false)
                 .setYAxis(false)
                 .setXLabels(XController.LabelPosition.OUTSIDE)
                 .setYLabels(YController.LabelPosition.NONE)
-                .setLabelsColor(Color.parseColor("#86705c"))
-                .setAxisColor(Color.parseColor("#86705c"));
+                /*.setLabelsColor(Color.parseColor("#86705c"))
+                .setAxisColor(Color.parseColor("#86705c"))*/;
 
 //        int numBars = barSet.getEntries().size();
         ArrayList<ChartEntry> entries = barSet.getEntries();

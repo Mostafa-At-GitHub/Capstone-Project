@@ -47,6 +47,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
         switch (position) {
             case TAB_INDEX_TODAY:
+            default:
                 if(todayPagerFragment == null)
                     todayPagerFragment = new TodayPagerFragment();
                 return todayPagerFragment;
@@ -60,9 +61,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
                 if(monthPagerFragment == null)
                     monthPagerFragment = new MonthPagerFragment();
                 return monthPagerFragment;
-
-            default:
-                return new BasePagerFragment();
         }
     }
 

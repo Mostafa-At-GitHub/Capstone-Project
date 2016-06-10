@@ -11,12 +11,22 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="TODAY" />-->
-    <com.db.chart.view.BarChartView
+    <!--<com.db.chart.view.BarChartView-->
+    <com.db.chart.view.LineChartView
         android:id="@+id/barchart"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/textView_empty"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/no_data"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
