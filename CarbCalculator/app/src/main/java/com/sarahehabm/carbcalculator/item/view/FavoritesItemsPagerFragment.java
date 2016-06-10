@@ -18,7 +18,7 @@ public class FavoritesItemsPagerFragment extends ItemsBasePagerFragment {
         Cursor cursor = getContext().getContentResolver().query(ItemEntry.CONTENT_URI, null,
                 ItemEntry.COLUMN_FAVORITE + " = ? ",
                 new String[]{String.valueOf(1)},
-                null);
+                ItemEntry.COLUMN_NAME + " ASC");
         return cursor;
     }
 

@@ -1,5 +1,6 @@
 package com.sarahehabm.carbcalculator.item.view;
 
+import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,8 +18,12 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter {
     public static final String TAB_TITLE_ALL = "All";
     public static final String TAB_TITLE_FAVORITES = "Favorites";
 
-    public ItemsPagerAdapter(FragmentManager fm) {
+    private Cursor cursor;
+    private Fragment currentFragment;
+
+    public ItemsPagerAdapter(FragmentManager fm, Cursor cursor) {
         super(fm);
+        this.cursor = cursor;
     }
 
     @Override
@@ -40,15 +45,31 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case TAB_INDEX_ALL:
             default:
-                return new AllItemsPagerFragment();
+                currentFragment = new AllItemsPagerFragment();
+                break;
 
             case TAB_INDEX_FAVORITES:
-                return new FavoritesItemsPagerFragment();
+                currentFragment = new FavoritesItemsPagerFragment();
+                break;
         }
+
+        return currentFragment;
     }
 
     @Override
     public int getCount() {
         return NUM_TABS;
+    }
+
+    public void swapCursor(Cursor cursor) {
+        /*if (currentFragment instanceof AllItemsPagerFragment) {
+            ((AllItemsPagerFragment) currentFragment).setCursor(cursor);
+        } else if (currentFragment instanceof FavoritesItemsPagerFragment) {
+            ((FavoritesItemsPagerFragment) currentFragment).setCursor(cursor);
+        }*/
+        if(cursor!=null) {
+            ((ItemsBasePagerFragment) currentFragment).setCursor(cursor);
+            notifyDataSetChanged();
+        }
     }
 }

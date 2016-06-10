@@ -1,11 +1,8 @@
 package com.sarahehabm.carbcalculator.item.view;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,8 +11,7 @@ import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 
-public class AllItemsActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AllItemsActivity extends AppCompatActivity {
     private final String TAG = AllItemsActivity.class.getSimpleName();
 
     private Fragment fragment;
@@ -62,21 +58,6 @@ public class AllItemsActivity extends AppCompatActivity
     }
 
     private void getSelectedItems() {
-
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

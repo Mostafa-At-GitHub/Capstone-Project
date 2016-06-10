@@ -26,15 +26,20 @@ import java.util.HashMap;
 public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHolder> {
     private Cursor cursor;
     private HashMap<Integer, Item> selectedItems;
-    private boolean favoriteOnly;
+//    private boolean favoriteOnly;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public AllItemsAdapter(Cursor cursor, boolean favoriteOnly,
+    public AllItemsAdapter(Cursor cursor, /*boolean favoriteOnly,*/
                            OnItemLongClickListener onItemLongClickListener) {
         this.cursor = cursor;
         this.selectedItems = new HashMap<>();
-        this.favoriteOnly = favoriteOnly;
+//        this.favoriteOnly = favoriteOnly;
         this.onItemLongClickListener = onItemLongClickListener;
+    }
+
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
+        notifyDataSetChanged();
     }
 
     @Override

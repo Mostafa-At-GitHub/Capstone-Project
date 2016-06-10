@@ -30,7 +30,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
     private TextView textViewEmpty;
 
     private AllItemsAdapter itemsAdapter;
-    private Cursor cursor;
+    protected Cursor cursor;
     protected ItemsAlertDialog alertDialog;
 
     @Nullable
@@ -43,8 +43,9 @@ public abstract class ItemsBasePagerFragment extends Fragment
         textViewEmpty = (TextView) rootView.findViewById(R.id.textView_empty);
 
         cursor = getCursor();
+//        cursor = null;
 
-        itemsAdapter = new AllItemsAdapter(cursor, false, this);
+        itemsAdapter = new AllItemsAdapter(cursor, /*false,*/ this);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewItems.setAdapter(itemsAdapter);
 
@@ -60,6 +61,15 @@ public abstract class ItemsBasePagerFragment extends Fragment
     }
 
     public abstract Cursor getCursor();
+
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
+//        itemsAdapter.setCursor(cursor);
+//        itemsAdapter.notifyDataSetChanged();
+        itemsAdapter = new AllItemsAdapter(cursor, /*false, */this);
+        recyclerViewItems.setAdapter(itemsAdapter);
+        itemsAdapter.notifyDataSetChanged();
+    }
 
     public boolean isFavorite(int itemAtPosition) {
         if(cursor!= null && cursor.moveToPosition(itemAtPosition)) {

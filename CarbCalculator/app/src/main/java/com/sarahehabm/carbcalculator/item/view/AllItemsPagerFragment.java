@@ -17,7 +17,8 @@ public class AllItemsPagerFragment extends ItemsBasePagerFragment {
     @Override
     public Cursor getCursor() {
         Cursor cursor = getContext().getContentResolver().query(ItemEntry.CONTENT_URI, null,
-                null, null, null);
+                null, null,
+                ItemEntry.COLUMN_NAME + " ASC");
         return cursor;
     }
 
