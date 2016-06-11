@@ -4,25 +4,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.db.chart.model.ChartEntry;
-import com.db.chart.model.LineSet;
-import com.db.chart.model.Point;
-import com.db.chart.view.XController;
-import com.db.chart.view.YController;
-import com.db.chart.view.animation.Animation;
-import com.google.common.primitives.Ints;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by Sarah E. Mostafa on 10-May-16.
@@ -43,7 +28,7 @@ public class TodayPagerFragment extends BasePagerFragment {
         return cursorLoader;
     }
 
-    @Override
+    /*@Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Toast.makeText(getContext(), "LoadFinished", Toast.LENGTH_SHORT).show();
 
@@ -82,7 +67,7 @@ public class TodayPagerFragment extends BasePagerFragment {
                 isToday = true;
 
             Log.v(TAG, new SimpleDateFormat().format(new Date(timeStamp)));
-            Log.v(TAG, timestamp + /*" START=" + timestampStart + " END=" + timestampEnd +*/ " isToday= " + isToday);
+            Log.v(TAG, timestamp + *//*" START=" + timestampStart + " END=" + timestampEnd +*//* " isToday= " + isToday);
             if(isToday) {
                 Point point = new Point("", carbs);
                 lineSet.addPoint(point);
@@ -99,12 +84,6 @@ public class TodayPagerFragment extends BasePagerFragment {
         }
 
         chartView.addData(lineSet);
-        chartView.setXAxis(false)
-                .setYAxis(false)
-                .setXLabels(XController.LabelPosition.OUTSIDE)
-                .setYLabels(YController.LabelPosition.NONE)
-                /*.setLabelsColor(Color.parseColor("#86705c"))
-                .setAxisColor(Color.parseColor("#86705c"))*/;
 
         ArrayList<ChartEntry> entries = lineSet.getEntries();
         ArrayList<Integer> order = new ArrayList<>();
@@ -114,9 +93,30 @@ public class TodayPagerFragment extends BasePagerFragment {
         long seed = System.currentTimeMillis();
         Collections.shuffle(order, new Random(seed));
         int[] orderArr = Ints.toArray(order);
-//        int[] order = {1, 0, 2, 3};
         chartView.show(new Animation()
                 .setOverlap(.7f, orderArr)
         );
+    }*/
+
+    @Override
+    public Calendar getStartRange() {
+        Calendar calendarStart = Calendar.getInstance();
+        calendarStart.set(Calendar.HOUR_OF_DAY, 0);
+        calendarStart.set(Calendar.MINUTE, 0);
+        calendarStart.set(Calendar.SECOND, 0);
+        calendarStart.set(Calendar.MILLISECOND, 0);
+
+        return calendarStart;
+    }
+
+    @Override
+    public Calendar getEndRange() {
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEnd.set(Calendar.MINUTE, 59);
+        calendarEnd.set(Calendar.SECOND, 59);
+        calendarEnd.set(Calendar.MILLISECOND, 999);
+
+        return calendarEnd;
     }
 }
