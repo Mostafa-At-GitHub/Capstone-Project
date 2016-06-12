@@ -33,7 +33,7 @@ import me.drozdzynski.library.steppers.SteppersView;
  * A placeholder fragment containing a simple view.
  */
 public class FragmentMain extends Fragment
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+        implements LoaderManager.LoaderCallbacks<Cursor>,OnMealClickListener {
     private final String TAG = FragmentMain.class.getSimpleName();
     private final int MEALS_LOADER_ID = 11;
 
@@ -68,7 +68,7 @@ public class FragmentMain extends Fragment
         recyclerView_meals = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView_meals.setLayoutManager(new LinearLayoutManager(getContext()));
 //        Cursor cursor = getContext().getContentResolver().query(MealEntry.CONTENT_URI, null, null, null, null);
-        mealAdapter = new MealAdapter(getContext(), null);
+        mealAdapter = new MealAdapter(getContext(), null, this);
         recyclerView_meals.setAdapter(mealAdapter);
         recyclerView_meals.setNestedScrollingEnabled(false);
 
@@ -169,5 +169,15 @@ public class FragmentMain extends Fragment
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mealAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onMealClick(int position, int id) {
+//        Toast.makeText(getContext(), "*FRAGMENT* OnClick at position " + position
+//                + " with id: " + id, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getContext(), MealDetailsActivity.class);
+        intent.putExtra(Constants.KEY_MEAL_ID, (long)id);
+        startActivity(intent);
     }
 }

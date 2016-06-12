@@ -19,10 +19,12 @@ import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.MealEnt
 
 public class MealAdapter extends CursorRecyclerViewAdapter<MealAdapter.ViewHolder> {
     private Context context;
+    private OnMealClickListener onMealClickListener;
 
-    public MealAdapter(Context context, Cursor cursor) {
+    public MealAdapter(Context context, Cursor cursor, OnMealClickListener onMealClickListener) {
         super(context, cursor);
         this.context = context;
+        this.onMealClickListener = onMealClickListener;
     }
 
     @Override
@@ -36,10 +38,14 @@ public class MealAdapter extends CursorRecyclerViewAdapter<MealAdapter.ViewHolde
         String timestamp = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_TIMESTAMP));
         String mealName = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_TITLE));
         int carbs = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_TOTAL_CARBS));
+        int position = cursor.getPosition();
+        int id = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_ID));
 
         viewHolder.textViewTime.setText(Utility.formatTime(Long.valueOf(timestamp)));
         viewHolder.textViewName.setText(mealName);
         viewHolder.textViewCarbs.setText(context.getString(R.string.carb_grams, carbs));
+        viewHolder.itemView.setTag(R.id.tag_id, id);
+        viewHolder.itemView.setTag(R.id.tag_position, position);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class MealAdapter extends CursorRecyclerViewAdapter<MealAdapter.ViewHolde
         return getCursor().getCount();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textViewName, textViewTime, textViewCarbs;
 
         public ViewHolder(View itemView) {
@@ -59,6 +65,15 @@ public class MealAdapter extends CursorRecyclerViewAdapter<MealAdapter.ViewHolde
             textViewName = (TextView) itemView.findViewById(R.id.textView_meal_title);
             textViewTime = (TextView) itemView.findViewById(R.id.textView_meal_time);
             textViewCarbs = (TextView) itemView.findViewById(R.id.textView_meal_carbs);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag(R.id.tag_position),
+                    id = (int) v.getTag(R.id.tag_id);
+            onMealClickListener.onMealClick(position, id);
         }
     }
 }
