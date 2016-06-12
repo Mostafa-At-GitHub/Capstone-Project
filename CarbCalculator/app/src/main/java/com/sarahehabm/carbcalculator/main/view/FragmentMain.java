@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ public class FragmentMain extends Fragment
     private SteppersView mealsView;
     private View rootView;
     private SteppersView steppersView;
+    private RecyclerView recyclerView_meals;
 
     private ArrayList<Meal> meals;
     private ArrayList<SteppersItem> mealsList;
@@ -72,6 +75,13 @@ public class FragmentMain extends Fragment
 
 //        viewPager.requestFocus();
 //        ((NestedScrollView)rootView.findViewById(R.id.nestedScrollView)).fullScroll(View.FOCUS_UP);
+
+
+        recyclerView_meals = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        recyclerView_meals.setLayoutManager(new LinearLayoutManager(getContext()));
+        Cursor cursor = getContext().getContentResolver().query(MealEntry.CONTENT_URI, null, null, null, null);
+        recyclerView_meals.setAdapter(new MealAdapter(getContext(), cursor));
+        recyclerView_meals.setNestedScrollingEnabled(false);
 
         return rootView;
     }
