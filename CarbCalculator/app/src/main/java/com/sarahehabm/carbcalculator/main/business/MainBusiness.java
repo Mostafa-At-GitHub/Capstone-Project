@@ -65,8 +65,12 @@ public class MainBusiness {
         return todayMeals;
     }
 
-    public static CursorLoader getCursorLoader(Context context) {
+    public static CursorLoader getCursorLoader(Context context,
+                                               long timestampStart, long timestampEnd) {
+        String selection = MealEntry.COLUMN_TIMESTAMP + " between ? and ?";
+        String[] selectionArgs = new String[]{String.valueOf(timestampStart),
+                String.valueOf(timestampEnd)};
         return new CursorLoader(context, MealEntry.CONTENT_URI,
-                null, null, null, null);
+                null, selection, selectionArgs, null);
     }
 }

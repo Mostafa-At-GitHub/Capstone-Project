@@ -14,13 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Constants;
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract;
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.MealEntry;
+import com.sarahehabm.carbcalculator.common.Utility;
 import com.sarahehabm.carbcalculator.common.model.Meal;
 import com.sarahehabm.carbcalculator.main.business.MainBusiness;
 import com.sarahehabm.carbcalculator.meal.view.MealDetailsActivity;
@@ -48,7 +46,7 @@ public class FragmentMain extends Fragment
 
     private ArrayList<Meal> meals;
     private ArrayList<SteppersItem> mealsList;
-    private SimpleCursorAdapter mealsCursorAdapter;
+    private MealAdapter mealAdapter;
 
 
     public FragmentMain() {
@@ -63,35 +61,19 @@ public class FragmentMain extends Fragment
         viewPager.setAdapter(new MainPagerAdapter(getFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
 
-        mealsCursorAdapter = new SimpleCursorAdapter(getActivity(),
-                android.R.layout.simple_expandable_list_item_1,
-                null,
-                new String[]{CarbCounterContract.ItemEntry.COLUMN_NAME},
-                new int[]{android.R.id.text1},
-                0
-        );
+//        initializeMealsView(rootView);
 
-        initializeMealsView(rootView);
-
-//        viewPager.requestFocus();
-//        ((NestedScrollView)rootView.findViewById(R.id.nestedScrollView)).fullScroll(View.FOCUS_UP);
-
+        getActivity().getSupportLoaderManager().initLoader(MEALS_LOADER_ID, null, this);
 
         recyclerView_meals = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView_meals.setLayoutManager(new LinearLayoutManager(getContext()));
-        Cursor cursor = getContext().getContentResolver().query(MealEntry.CONTENT_URI, null, null, null, null);
-        recyclerView_meals.setAdapter(new MealAdapter(getContext(), cursor));
+//        Cursor cursor = getContext().getContentResolver().query(MealEntry.CONTENT_URI, null, null, null, null);
+        mealAdapter = new MealAdapter(getContext(), null);
+        recyclerView_meals.setAdapter(mealAdapter);
         recyclerView_meals.setNestedScrollingEnabled(false);
 
         return rootView;
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        Log.v(TAG, "onResume");
-//
-//    }
 
     private void initializeMealsView(View rootView) {
         Log.v(TAG, "initializeMealsView");
@@ -136,7 +118,8 @@ public class FragmentMain extends Fragment
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case MEALS_LOADER_ID:
-                return MainBusiness.getCursorLoader(getContext());
+                return MainBusiness.getCursorLoader(getContext(), Utility.getStartOfDayTimestamp(),
+                        Utility.getEndOfDayTimestamp());
 
             default:
                 return null;
@@ -145,10 +128,9 @@ public class FragmentMain extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mealsCursorAdapter.swapCursor(data);
+        mealAdapter.swapCursor(data);
 
-
-        if(steppersView == null)
+        /*if(steppersView == null)
             steppersView = (SteppersView) rootView.findViewById(R.id.steppersView);
 
         SteppersView.Config steppersViewConfig = new SteppersView.Config();
@@ -178,11 +160,14 @@ public class FragmentMain extends Fragment
             steppersView.setConfig(steppersViewConfig);
             steppersView.setItems(null);
         }
-        steppersView.build();
+        steppersView.build();*/
+
+
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mealsCursorAdapter.swapCursor(null);
+        mealAdapter.swapCursor(null);
     }
 }
