@@ -36,8 +36,8 @@ public class MealDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        if (getSupportActionBar() != null)
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.KEY_MEAL_ID)) {
@@ -67,10 +67,10 @@ public class MealDetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        /*if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        } else if (item.getItemId() == R.id.action_done) {
+        } else */if (item.getItemId() == R.id.action_done) {
 //            finish();
 //            Intent intent = new Intent(this, MainActivity.class);
 //            startActivity(intent);
