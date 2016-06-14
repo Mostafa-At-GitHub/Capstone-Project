@@ -80,6 +80,9 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
         Date dateStart = new Date(calendarStart.getTimeInMillis()),
                 dateEnd = new Date(calendarEnd.getTimeInMillis());
 
+        if(chartView.isShown())
+            chartView.dismiss();
+
         LineSet lineSet = new LineSet();
         while (data.moveToNext()) {
             int carbs = data.getInt(data.getColumnIndex(CarbCounterContract.MealEntry.COLUMN_TOTAL_CARBS));
@@ -107,9 +110,12 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
             chartView.setVisibility(View.VISIBLE);
             textViewEmpty.setVisibility(View.GONE);
         }
+        lineSet.setThickness(4);
+        lineSet.setColor(chartView.getContext().getResources().getColor(R.color.colorAccent));
 
         try {
             chartView.addData(lineSet);
+//            chartView.notifyDataUpdate();
         } catch (IllegalArgumentException e) {
             chartView.notifyDataUpdate();
         }

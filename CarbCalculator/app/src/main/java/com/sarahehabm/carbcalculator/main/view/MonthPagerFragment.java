@@ -2,10 +2,9 @@ package com.sarahehabm.carbcalculator.main.view;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.*;
+import com.sarahehabm.carbcalculator.main.business.MainBusiness;
 
 import java.util.Calendar;
 
@@ -22,15 +21,9 @@ public class MonthPagerFragment extends BasePagerFragment {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), MealEntry.CONTENT_URI, null, null, null, null);
+        return MainBusiness.getCursorLoader(getContext(), getStartRange().getTimeInMillis(),
+                getEndRange().getTimeInMillis());
     }
-
-    /*@Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        super.onLoadFinished(loader, data);
-    }*/
-
-
 
     @Override
     public Calendar getStartRange() {

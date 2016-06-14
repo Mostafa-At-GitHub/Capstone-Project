@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
@@ -17,7 +18,7 @@
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:gravity="right|center_vertical"
-        android:text="10:00 AM"/>
+        tools:text="10:00 AM"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
             android:id="@+id/textView_meal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            tools:text="Title"
+            android:gravity="left|start"
             android:textAppearance="?attr/textAppearanceLargePopupMenu"
             android:textStyle="bold"/>
 
@@ -68,6 +70,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/dimen8dp"
-            android:text="90g"/>
+            android:paddingStart="@dimen/dimen8dp"
+            android:paddingRight="@dimen/dimen8dp"
+            android:paddingEnd="@dimen/dimen8dp"
+            tools:text="90g"/>
     </LinearLayout>
 </LinearLayout>

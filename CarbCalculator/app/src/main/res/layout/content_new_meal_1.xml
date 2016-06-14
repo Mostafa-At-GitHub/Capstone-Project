@@ -37,6 +37,7 @@
             android:layout_width="328dp"
             android:layout_height="wrap_content"
             android:hint="Meal name"
+            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
             android:minHeight="?actionBarSize"
