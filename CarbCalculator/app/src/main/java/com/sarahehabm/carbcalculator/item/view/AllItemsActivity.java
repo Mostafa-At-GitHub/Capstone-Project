@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.Constants;
+import com.sarahehabm.carbcalculator.common.model.Item;
+
+import java.util.ArrayList;
 
 public class AllItemsActivity extends AppCompatActivity {
     private final String TAG = AllItemsActivity.class.getSimpleName();
@@ -38,13 +43,19 @@ public class AllItemsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(RESULT_CANCELED);
                 finish();
                 break;
 
             case R.id.action_done:
-                Toast.makeText(this, "Should finish this activity and pass the selected items",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Should finish this activity and pass the selected items",
+//                        Toast.LENGTH_SHORT).show();
                 //TODO finish this activity and pass the selected items
+                String selectedItems = getSelectedItems();
+                Intent data = new Intent();
+                data.putExtra(Constants.KEY_ITEMS, selectedItems);
+                setResult(RESULT_OK, data);
+                finish();
                 break;
 
             case R.id.action_new_item:
@@ -57,7 +68,26 @@ public class AllItemsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getSelectedItems() {
+    private String getSelectedItems() {
+        AllItemsActivityFragment activityFragment = ((AllItemsActivityFragment)fragment);
+        ArrayList<Item> selectedItemsAll = ((AllItemsPagerFragment)activityFragment.pagerAdapter.getItem(0)).getSelectedItems();
+        ArrayList<Item> selectedItemsFav = ((FavoritesItemsPagerFragment)activityFragment.pagerAdapter.getItem(1)).getSelectedItems();
 
+        Log.e(TAG, "selectedItemsAll= " + selectedItemsAll.size());
+        Log.e(TAG, "selectedItemsFav= " + selectedItemsFav.size());
+
+
+        String selectedItemsString;
+        if (selectedItemsAll != null && selectedItemsFav != null) {
+            selectedItemsAll.addAll(selectedItemsFav);
+            selectedItemsString = Item.listToJson(selectedItemsAll);
+        } else if (selectedItemsAll != null)
+            selectedItemsString = Item.listToJson(selectedItemsAll);
+        else if (selectedItemsFav != null)
+            selectedItemsString = Item.listToJson(selectedItemsFav);
+        else
+            selectedItemsString = null;
+
+        return selectedItemsString;
     }
 }

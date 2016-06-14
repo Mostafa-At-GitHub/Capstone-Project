@@ -29,10 +29,13 @@ import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.item.view.AllItemsActivity;
 import com.sarahehabm.carbcalculator.meal.business.MealBusiness;
 
+import java.util.ArrayList;
+
 public class NewMeal1Activity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
     //    private static final String TAG = NewMeal1Activity.class.getSimpleName();
     private static final int LOADER_ID = 10;
+    private static final String TAG = NewMeal1Activity.class.getSimpleName();
 
     //    private TextInputLayout textInputLayout;
     private EditText editTextMealName;
@@ -195,7 +198,7 @@ public class NewMeal1Activity extends AppCompatActivity
 
     public void onViewAllItemsClick(View view) {
         Intent intent = new Intent(this, AllItemsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.REQUEST_CODE_ALL_ITEMS);
     }
 
     @Override
@@ -226,6 +229,27 @@ public class NewMeal1Activity extends AppCompatActivity
                 switch (resultCode) {
                     case RESULT_OK:
                         finish();
+                        break;
+                }
+                break;
+
+            case Constants.REQUEST_CODE_ALL_ITEMS:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        Toast.makeText(this, "Items received ~(._.)~", Toast.LENGTH_SHORT).show();
+                        String selectedItemsStr = data.getStringExtra(Constants.KEY_ITEMS);
+                        ArrayList<Item> selectedItems = Item.listFromJson(selectedItemsStr);
+                        Log.e(TAG, selectedItemsStr);
+                        Log.e(TAG, "Array size= " + selectedItems.size());
+                        for (int i = 0; i < selectedItems.size(); i++) {
+                            itemsAdapter.addItem(selectedItems.get(i));
+                            if (itemsAdapter.getItemCount() > 0)
+                                validItems = true;
+                            else
+                                validItems = false;
+                            supportInvalidateOptionsMenu();
+                            invalidateOptionsMenu();
+                        }
                         break;
                 }
                 break;

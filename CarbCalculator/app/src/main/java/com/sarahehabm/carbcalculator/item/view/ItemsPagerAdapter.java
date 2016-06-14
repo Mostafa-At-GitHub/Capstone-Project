@@ -4,12 +4,13 @@ import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 /**
  Created by Sarah E. Mostafa on 30-May-16.
  */
 
-public class ItemsPagerAdapter extends FragmentPagerAdapter {
+public class ItemsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
     private final int NUM_TABS = 2;
 
     public static final int TAB_INDEX_ALL = 0;
@@ -19,6 +20,8 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter {
     public static final String TAB_TITLE_FAVORITES = "Favorites";
 
     private Cursor cursor;
+    private AllItemsPagerFragment allItemsPagerFragment;
+    private FavoritesItemsPagerFragment favoritesItemsPagerFragment;
     private Fragment currentFragment;
 
     public ItemsPagerAdapter(FragmentManager fm, Cursor cursor) {
@@ -45,15 +48,19 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case TAB_INDEX_ALL:
             default:
-                currentFragment = new AllItemsPagerFragment();
-                break;
+                if(allItemsPagerFragment == null)
+                    allItemsPagerFragment = new AllItemsPagerFragment();
+                return allItemsPagerFragment;
+//                break;
 
             case TAB_INDEX_FAVORITES:
-                currentFragment = new FavoritesItemsPagerFragment();
-                break;
+                if(favoritesItemsPagerFragment==null)
+                    favoritesItemsPagerFragment = new FavoritesItemsPagerFragment();
+                return favoritesItemsPagerFragment;
+//                break;
         }
 
-        return currentFragment;
+//        return currentFragment;
     }
 
     @Override
@@ -67,9 +74,33 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter {
         } else if (currentFragment instanceof FavoritesItemsPagerFragment) {
             ((FavoritesItemsPagerFragment) currentFragment).setCursor(cursor);
         }*/
-        if(cursor!=null) {
+        if(cursor!=null && currentFragment!=null) {
             ((ItemsBasePagerFragment) currentFragment).setCursor(cursor);
             notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case TAB_INDEX_ALL:
+            default:
+                currentFragment = allItemsPagerFragment;
+                break;
+
+            case TAB_INDEX_FAVORITES:
+                currentFragment = favoritesItemsPagerFragment;
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

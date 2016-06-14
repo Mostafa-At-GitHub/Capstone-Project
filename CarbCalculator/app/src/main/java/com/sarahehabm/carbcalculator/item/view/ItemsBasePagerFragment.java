@@ -19,6 +19,9 @@ import com.sarahehabm.carbcalculator.common.ItemsAlertDialog;
 import com.sarahehabm.carbcalculator.common.ItemsAlertDialogInterface;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
+import com.sarahehabm.carbcalculator.common.model.Item;
+
+import java.util.ArrayList;
 
 /**
  Created by Sarah E. Mostafa on 31-May-16.
@@ -107,5 +110,12 @@ public abstract class ItemsBasePagerFragment extends Fragment
         Intent intent = new Intent(getContext(), EditItemActivity.class);
         intent.putExtra(Constants.KEY_ITEM_ID, itemId);
         startActivity(intent);
+    }
+
+    public ArrayList<Item> getSelectedItems() {
+        if(itemsAdapter!=null)
+            return itemsAdapter.getSelectedItemsArray();
+
+        return null;
     }
 }

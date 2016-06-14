@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract;
+import com.sarahehabm.carbcalculator.common.model.Item;
+
+import java.util.ArrayList;
 
 /**
  A placeholder fragment containing a simple view.
@@ -24,7 +27,7 @@ public class AllItemsActivityFragment extends Fragment implements LoaderManager.
 
     private TabLayout tabLayout;
     private ViewPager viewpager;
-    private ItemsPagerAdapter pagerAdapter;
+    public ItemsPagerAdapter pagerAdapter;
 
     public AllItemsActivityFragment() {
     }
@@ -100,5 +103,15 @@ public class AllItemsActivityFragment extends Fragment implements LoaderManager.
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         pagerAdapter.swapCursor(null);
+    }
+
+
+
+    public ArrayList<Item> getSelectedItems() {
+        ItemsPagerAdapter adapter = (ItemsPagerAdapter) viewpager.getAdapter();
+        ArrayList<Item> items = ((AllItemsPagerFragment)adapter.getItem(0)).getSelectedItems();
+        items.addAll(((FavoritesItemsPagerFragment)adapter.getItem(1)).getSelectedItems());
+
+        return items;
     }
 }

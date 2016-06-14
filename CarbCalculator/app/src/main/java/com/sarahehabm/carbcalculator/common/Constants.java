@@ -15,4 +15,5 @@ public class Constants {
     public static final int REQUEST_CODE_NEW_MEAL_1 = 10;
     public static final int REQUEST_CODE_NEW_MEAL_2 = 11;
     public static final int REQUEST_CODE_MEAL_DETAILS = 12;
+    public static final int REQUEST_CODE_ALL_ITEMS = 13;
 }
