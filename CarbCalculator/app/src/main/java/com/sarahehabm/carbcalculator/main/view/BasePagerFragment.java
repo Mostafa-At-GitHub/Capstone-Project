@@ -66,8 +66,10 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Toast.makeText(getContext(), "LoadFinished", Toast.LENGTH_SHORT).show();
 
-        if(data == null || data.getCount()==0 || data.isClosed() || data.isLast())
+        if(data == null || data.getCount()==0 || data.isClosed() || data.isLast()){
+            showEmptyChart();
             return;
+        }
 
         if(data.isAfterLast()) {
             if(!data.moveToFirst())
@@ -103,8 +105,7 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
         }
 
         if(lineSet.size() < 1) {
-            chartView.setVisibility(View.GONE);
-            textViewEmpty.setVisibility(View.VISIBLE);
+            showEmptyChart();
             return;
         } else {
             chartView.setVisibility(View.VISIBLE);
@@ -132,6 +133,11 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 //                .setOverlap(.7f, orderArr)
 //        );
         chartView.show();
+    }
+
+    public void showEmptyChart() {
+        chartView.setVisibility(View.GONE);
+        textViewEmpty.setVisibility(View.VISIBLE);
     }
 
     public abstract Calendar getStartRange();
