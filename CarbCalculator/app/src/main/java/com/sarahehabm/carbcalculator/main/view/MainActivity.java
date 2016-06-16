@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity{
             }
             return true;
 
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                //TODO start settings activity
-                return true;
+//            case R.id.action_settings:
+//                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+//                //TODO start settings activity
+//                return true;
 
             //TODO case added for testing database and content provider
             case R.id.action_test_activity: {

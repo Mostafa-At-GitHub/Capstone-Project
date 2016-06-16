@@ -25,6 +25,9 @@ import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Preferences;
 import com.sarahehabm.carbcalculator.main.view.MainActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -97,11 +100,30 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if(imageUrl.endsWith("?sz=50"))
             imageUrl = imageUrl.substring(0, imageUrl.lastIndexOf("?sz=50"));
 
+        String birthday = person.getBirthday();
+        long birthdayTimestamp = -1;
+        try {
+            birthdayTimestamp = (new SimpleDateFormat("yyyy-MM-dd").parse(birthday)).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            birthdayTimestamp = -1;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            birthdayTimestamp = -1;
+        }
+
         Preferences preferences = new Preferences(this);
         boolean nameSaved = preferences.putString(Preferences.KEY_NAME, username);
         boolean urlSaved = preferences.putString(Preferences.KEY_IMAGE_URL, imageUrl);
+
+        boolean birthdaySaved = false;
+        if (birthdayTimestamp != -1)
+            birthdaySaved = preferences.putLong(Preferences.KEY_BIRTHDAY, birthdayTimestamp);
+
+
         Log.v(TAG, "Name saved: " + nameSaved);
         Log.v(TAG, "URL saved: " + urlSaved);
+        Log.v(TAG, "Birthday saved: " + birthdaySaved);
 
         textViewStatus.setText(username);
 

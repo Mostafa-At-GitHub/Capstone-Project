@@ -11,6 +11,7 @@ public class Preferences {
     private final static String PREFERENCES_NAME = "CarbCalculatorPreferences";
     public final static String KEY_NAME = "name";
     public final static String KEY_IMAGE_URL = "image_url";
+    public final static String KEY_BIRTHDAY = "birthday";
 
     private Context context;
     private SharedPreferences sharedPreferences;
@@ -32,5 +33,17 @@ public class Preferences {
 
     public String getString(String key, String defaultValue) {
         return sharedPreferences.getString(key, defaultValue);
+    }
+
+    public boolean putLong(String key, long value) {
+        return sharedPreferences.edit().putLong(key, value).commit();
+    }
+
+    public long getLong(String key) {
+        return sharedPreferences.getLong(key, -1);
+    }
+
+    public long getLong(String key, long defaultValue) {
+        return sharedPreferences.getLong(key, defaultValue);
     }
 }

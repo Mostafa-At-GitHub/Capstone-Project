@@ -10,11 +10,11 @@
         android:title="@string/action_profile"
         app:showAsAction="always" />
 
-    <item
+    <!--<item
         android:id="@+id/action_settings"
         android:orderInCategory="200"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
     <item
         android:id="@+id/action_test_activity"

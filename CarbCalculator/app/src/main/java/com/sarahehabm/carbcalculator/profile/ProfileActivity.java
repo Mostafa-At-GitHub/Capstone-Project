@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.pkmmte.view.CircularImageView;
@@ -12,8 +13,10 @@ import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Preferences;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+
 public class ProfileActivity extends AppCompatActivity {
-    private TextView textView;
+    private TextView textViewName, textViewAge;
     private CircularImageView imageView;
 
     @Override
@@ -30,11 +33,13 @@ public class ProfileActivity extends AppCompatActivity {
         Preferences preferences = new Preferences(this);
         String name = preferences.getString(Preferences.KEY_NAME);
         String url = preferences.getString(Preferences.KEY_IMAGE_URL);
+        long birthday = preferences.getLong(Preferences.KEY_BIRTHDAY);
 
-        textView = (TextView) findViewById(R.id.textView_user_name);
+                textViewName = (TextView) findViewById(R.id.textView_user_name);
+        textViewAge = (TextView) findViewById(R.id.textView_user_age);
         imageView = (CircularImageView) findViewById(R.id.imageView_user_picture);
 
-        textView.setText(name);
+        textViewName.setText(name);
         Log.e(ProfileActivity.class.getSimpleName(), "URL= " + url);
         Picasso.with(this)
                 .load(url)
@@ -43,6 +48,22 @@ public class ProfileActivity extends AppCompatActivity {
                 .placeholder(R.mipmap.ic_launcher)
 //                .error(R.drawable.user_placeholder_error)
                 .into(imageView);
+
+        long now = System.currentTimeMillis();
+        if(birthday == -1) {
+            textViewAge.setVisibility(View.INVISIBLE);
+        } else {
+//            long ageTimestamp = now - birthday;
+
+            Calendar calendarNow = Calendar.getInstance(),
+                    calendarBirthday = Calendar.getInstance();
+//            calendarNow.setTimeInMillis(now);
+            calendarBirthday.setTimeInMillis(birthday);
+
+            int age = calendarNow.get(Calendar.YEAR) - calendarBirthday.get(Calendar.YEAR);
+            textViewAge.setVisibility(View.VISIBLE);
+            textViewAge.setText(getString(R.string.age, age));
+        }
     }
 
     @Override
