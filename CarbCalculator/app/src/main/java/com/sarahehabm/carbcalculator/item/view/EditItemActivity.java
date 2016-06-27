@@ -1,8 +1,6 @@
 package com.sarahehabm.carbcalculator.item.view;
 
-import android.content.ContentUris;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import com.sarahehabm.carbcalculator.common.model.Item;
 
 import java.util.ArrayList;
 
-public class EditItemActivity extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity implements OnItemPropertyChangeListener{
     private static final String TAG = EditItemActivity.class.getSimpleName();
     private EditText editText_name;
     private RecyclerView recyclerView_amounts;
@@ -85,11 +84,11 @@ public class EditItemActivity extends AppCompatActivity {
         });
         recyclerView_amounts = (RecyclerView) findViewById(R.id.recyclerView_amounts);
         recyclerView_amounts.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AddNewItemAmountsAdapter();
+        adapter = new AddNewItemAmountsAdapter(this);
         if(item!=null) {
             ArrayList<Amount> amounts = CarbCounterInterface.getAmountsByItemId(this,
                     item.getId());
-            adapter = new AddNewItemAmountsAdapter(amounts);
+            adapter = new AddNewItemAmountsAdapter(amounts, this);
         }
 
         validQuantities = adapter.isValidAmounts();
@@ -102,7 +101,7 @@ public class EditItemActivity extends AppCompatActivity {
     public void onAddNewAmountClick(View view) {
         amountAdded = true;
         if (adapter == null)
-            adapter = new AddNewItemAmountsAdapter();
+            adapter = new AddNewItemAmountsAdapter(this);
 
         adapter.addItem();
 //        Amount amount = adapter.getAmountAt(adapter.getItemCount() -1);
@@ -120,7 +119,8 @@ public class EditItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (nameChanged && validItemName /*&& validQuantities*/) {
+        if (validItemName && validQuantities) {
+//        } else if (validQuantities) {
             menu.getItem(0).setEnabled(true);
         } else {
             menu.getItem(0).setEnabled(false);
@@ -139,38 +139,66 @@ public class EditItemActivity extends AppCompatActivity {
 //                boolean result = save();
 //                Log.e(TAG, "Save success: " + result);
                 //TODO Should monitor changes & save now
+                boolean result = save();
+                Log.e(TAG, "Save success: " + result);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private boolean save() {
-        String itemName = editText_name.getText().toString();
-        if(itemName == null || itemName.trim().isEmpty()) {
-            Toast.makeText(this, "A name must be provided", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        if(itemName!=null && !itemName.trim().isEmpty())
+            item.setName(itemName);
 
-        Uri itemUri = CarbCounterInterface.insertItem(this, new Item(itemName, false));
-        int itemId = (int) ContentUris.parseId(itemUri);
+        int updateCount = CarbCounterInterface.updateItem(this, item);
 
-        ArrayList<Amount> amounts = adapter.getAmounts(itemId);
-        if(amounts==null || amounts.isEmpty()) {
-            Toast.makeText(this, "At least one amount must be provided", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        int insertCount = CarbCounterInterface.insertAmounts(this, amounts);
+        if(updateCount>0) {
+            ArrayList<Amount> amounts = adapter.getAmounts(item.getId());
+            if(amounts==null || amounts.isEmpty()) {
+                Toast.makeText(this, "At least one amount must be provided", Toast.LENGTH_SHORT).show();
+                return false;
+            }
 
-        if(insertCount == amounts.size()) {
-            Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
-                    Toast.LENGTH_SHORT).show();
+            int insertCount = CarbCounterInterface.insertOrUpdateAmounts(this, amounts);
+
+//            if(insertCount == amounts.size()) {
+//                Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
+//                        Toast.LENGTH_SHORT).show();
+//                finish();
+//                return true;
+//            } else
+//                Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
+//                        Toast.LENGTH_SHORT).show();
+
+            Log.v(TAG, insertCount + " amounts updated");
             finish();
             return true;
-        } else
-            Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
-                    Toast.LENGTH_SHORT).show();
+        }
 
         return false;
     }
+
+    @Override
+    public void onAmountChanged(String amount) {
+        refreshMenuButton();
+    }
+
+    @Override
+    public void onUnitChanged(String unit) {
+        refreshMenuButton();
+
+    }
+
+    @Override
+    public void onCarbsChanged(String carbs) {
+        refreshMenuButton();
+    }
+
+    private void refreshMenuButton() {
+        validQuantities = adapter.isValidAmounts();
+        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
+    }
+
 
 }

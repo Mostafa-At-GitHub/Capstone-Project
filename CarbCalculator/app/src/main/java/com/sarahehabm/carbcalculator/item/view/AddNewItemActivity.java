@@ -23,7 +23,7 @@ import com.sarahehabm.carbcalculator.common.model.Item;
 
 import java.util.ArrayList;
 
-public class AddNewItemActivity extends AppCompatActivity {
+public class AddNewItemActivity extends AppCompatActivity implements OnItemPropertyChangeListener {
     private static final String TAG = AddNewItemActivity.class.getSimpleName();
     private EditText editText_name;
     private RecyclerView recyclerView_amounts;
@@ -70,7 +70,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         });
         recyclerView_amounts = (RecyclerView) findViewById(R.id.recyclerView_amounts);
         recyclerView_amounts.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AddNewItemAmountsAdapter();
+        adapter = new AddNewItemAmountsAdapter(this);
 
         validQuantities = adapter.isValidAmounts();
         supportInvalidateOptionsMenu();
@@ -81,7 +81,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     public void onAddNewAmountClick(View view) {
         if (adapter == null)
-            adapter = new AddNewItemAmountsAdapter();
+            adapter = new AddNewItemAmountsAdapter(this);
 
         adapter.addItem();
 
@@ -98,12 +98,19 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (validItemName /*&& validQuantities*/) {
+        if (validItemName && validQuantities) {
             menu.getItem(0).setEnabled(true);
         } else {
             menu.getItem(0).setEnabled(false);
         }
-        return true;
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void refreshMenuButton() {
+        validQuantities = adapter.isValidAmounts();
+        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -149,5 +156,20 @@ public class AddNewItemActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
         return false;
+    }
+
+    @Override
+    public void onAmountChanged(String amount) {
+        refreshMenuButton();
+    }
+
+    @Override
+    public void onUnitChanged(String unit) {
+        refreshMenuButton();
+    }
+
+    @Override
+    public void onCarbsChanged(String carbs) {
+        refreshMenuButton();
     }
 }

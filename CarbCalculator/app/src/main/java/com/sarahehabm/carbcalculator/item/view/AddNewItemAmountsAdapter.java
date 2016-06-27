@@ -21,14 +21,23 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
     private final String TAG = AddNewItemAmountsAdapter.class.getSimpleName();
 
     private ArrayList<Amount> amounts;
+    private OnItemPropertyChangeListener propertyChangeListener;
 
-    public AddNewItemAmountsAdapter() {
+    /*public AddNewItemAmountsAdapter() {
         amounts = new ArrayList<>();
         amounts.add(new Amount());
+    }*/
+
+    public AddNewItemAmountsAdapter(OnItemPropertyChangeListener propertyChangeListener) {
+        amounts = new ArrayList<>();
+        amounts.add(new Amount());
+        this.propertyChangeListener = propertyChangeListener;
     }
 
-    public AddNewItemAmountsAdapter(ArrayList<Amount> amounts) {
+    public AddNewItemAmountsAdapter(ArrayList<Amount> amounts,
+                                    OnItemPropertyChangeListener propertyChangeListener) {
         this.amounts = amounts;
+        this.propertyChangeListener = propertyChangeListener;
     }
 
     @Override
@@ -59,6 +68,9 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
     }
 
     public void addItem() {
+        if(amounts == null)
+            amounts = new ArrayList<>();
+
         amounts.add(new Amount());
         notifyDataSetChanged();
     }
@@ -127,6 +139,11 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
                     String str = s.toString();
                     int quantity = (str==null || str.trim().isEmpty())? 0 : Integer.parseInt(str);
                     amounts.get(position).setQuantity(quantity);
+
+                    if(!(str == null || str.isEmpty()))
+                        propertyChangeListener.onAmountChanged(str);
+                    else
+                        propertyChangeListener.onAmountChanged("");
                 }
             });
 
@@ -146,6 +163,11 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
                     int position = (int) editTextUnit.getTag();
                     String unit = s.toString();
                     amounts.get(position).setUnit(unit);
+
+                    if(!(unit == null || unit.isEmpty()))
+                        propertyChangeListener.onUnitChanged(unit);
+                    else
+                        propertyChangeListener.onUnitChanged("");
                 }
             });
 
@@ -164,8 +186,13 @@ public class AddNewItemAmountsAdapter extends RecyclerView.Adapter<AddNewItemAmo
                 public void afterTextChanged(Editable s) {
                     int position = (int) editTextCarbs.getTag();
                     String str = s.toString();
-                    int carbs = (str==null || str.trim().isEmpty())? 0 : Integer.parseInt(str);
+                    int carbs = (str==null || str.trim().isEmpty())? -1 : Integer.parseInt(str);
                     amounts.get(position).setCarbGrams(carbs);
+
+                    if(!(str == null || str.isEmpty()))
+                        propertyChangeListener.onCarbsChanged(str);
+                    else
+                        propertyChangeListener.onCarbsChanged("");
                 }
             });
         }
