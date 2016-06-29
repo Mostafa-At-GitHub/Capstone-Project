@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Constants;
@@ -24,10 +23,6 @@ import com.sarahehabm.carbcalculator.main.business.MainBusiness;
 import com.sarahehabm.carbcalculator.meal.view.MealDetailsActivity;
 
 import java.util.ArrayList;
-
-import me.drozdzynski.library.steppers.OnItemClickAction;
-import me.drozdzynski.library.steppers.SteppersItem;
-import me.drozdzynski.library.steppers.SteppersView;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -39,13 +34,13 @@ public class FragmentMain extends Fragment
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private SteppersView mealsView;
+//    private SteppersView mealsView;
     private View rootView;
-    private SteppersView steppersView;
+//    private SteppersView steppersView;
     private RecyclerView recyclerView_meals;
 
     private ArrayList<Meal> meals;
-    private ArrayList<SteppersItem> mealsList;
+//    private ArrayList<SteppersItem> mealsList;
     private MealAdapter mealAdapter;
 
 
@@ -77,7 +72,7 @@ public class FragmentMain extends Fragment
 
     private void initializeMealsView(View rootView) {
         Log.v(TAG, "initializeMealsView");
-        steppersView = (SteppersView) rootView.findViewById(R.id.steppersView);
+        /*steppersView = (SteppersView) rootView.findViewById(steppersView);
         SteppersView.Config steppersViewConfig = new SteppersView.Config()
                 .setOnItemClickAction(new OnItemClickAction() {
 
@@ -111,7 +106,7 @@ public class FragmentMain extends Fragment
 
         steppersView.setConfig(steppersViewConfig);
         steppersView.setItems(mealsList);
-        steppersView.build();
+        steppersView.build();*/
     }
 
     @Override
