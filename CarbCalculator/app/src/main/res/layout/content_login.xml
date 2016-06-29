@@ -9,7 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.sarahehabm.carbcalculator.login.LoginActivity"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteY="25dp"
     tools:showIn="@layout/activity_login">
 
     <Button
@@ -20,7 +20,7 @@
         android:text="Revoke Access"
         android:visibility="gone"
         android:onClick="onRevokeAccessClick"
-        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteX="196dp"
         tools:layout_editor_absoluteY="193dp"
         app:layout_constraintLeft_toLeftOf="@+id/content_login"
         android:layout_marginLeft="16dp"
@@ -42,6 +42,7 @@
         android:enabled="false"
         tools:layout_editor_absoluteX="125dp"
         tools:layout_editor_absoluteY="137dp"
+        android:onClick="onSignInClick"
         app:layout_constraintLeft_toLeftOf="@+id/content_login"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -52,7 +53,6 @@
         app:layout_constraintRight_toRightOf="@+id/content_login"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
-        android:onClick="onSignInClick"
         tools:layout_constraintRight_creator="0"
         app:layout_constraintBottom_toBottomOf="@+id/content_login"
         android:layout_marginBottom="16dp"
