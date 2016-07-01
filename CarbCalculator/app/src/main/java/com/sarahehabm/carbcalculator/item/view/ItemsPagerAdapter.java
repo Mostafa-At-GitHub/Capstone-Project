@@ -51,33 +51,17 @@ public class ItemsPagerAdapter extends FragmentPagerAdapter implements ViewPager
                 if(allItemsPagerFragment == null)
                     allItemsPagerFragment = new AllItemsPagerFragment();
                 return allItemsPagerFragment;
-//                break;
 
             case TAB_INDEX_FAVORITES:
                 if(favoritesItemsPagerFragment==null)
                     favoritesItemsPagerFragment = new FavoritesItemsPagerFragment();
                 return favoritesItemsPagerFragment;
-//                break;
         }
-
-//        return currentFragment;
     }
 
     @Override
     public int getCount() {
         return NUM_TABS;
-    }
-
-    public void swapCursor(Cursor cursor) {
-        /*if (currentFragment instanceof AllItemsPagerFragment) {
-            ((AllItemsPagerFragment) currentFragment).setCursor(cursor);
-        } else if (currentFragment instanceof FavoritesItemsPagerFragment) {
-            ((FavoritesItemsPagerFragment) currentFragment).setCursor(cursor);
-        }*/
-        if(cursor!=null && currentFragment!=null) {
-            ((ItemsBasePagerFragment) currentFragment).setCursor(cursor);
-            notifyDataSetChanged();
-        }
     }
 
     @Override

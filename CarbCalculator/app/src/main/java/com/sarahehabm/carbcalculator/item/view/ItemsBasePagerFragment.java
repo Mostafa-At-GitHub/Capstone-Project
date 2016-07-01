@@ -36,6 +36,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
     private AllItemsAdapter itemsAdapter;
     protected Cursor cursor;
     protected ItemsAlertDialog alertDialog;
+    protected int selectedPosition = -1;
 
     @Nullable
     @Override
@@ -56,9 +57,16 @@ public abstract class ItemsBasePagerFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         cursor = data;
-        itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
-        recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewItems.setAdapter(itemsAdapter);
+//        itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
+        if(itemsAdapter==null) {
+            itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
+            recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerViewItems.setAdapter(itemsAdapter);
+        }
+
+        itemsAdapter.setCursor(data);
+//        recyclerViewItems.setAdapter(itemsAdapter);
+        itemsAdapter.notifyDataSetChanged();
 
         if(itemsAdapter.getItemCount() == 0) {
             textViewEmpty.setVisibility(View.VISIBLE);
@@ -98,15 +106,21 @@ public abstract class ItemsBasePagerFragment extends Fragment
     @Override
     public void onFavoriteItemClick(int itemId) {
         CarbCounterInterface.updateItemFavorite(getContext(), itemId, true);
-        cursor = getCursor();
+//        cursor = getCursor();
         itemsAdapter.notifyDataSetChanged();
+        if(selectedPosition!=-1)
+            recyclerViewItems.smoothScrollToPosition(selectedPosition);
+        selectedPosition = -1;
     }
 
     @Override
     public void onUnFavoriteItemClick(int itemId) {
         CarbCounterInterface.updateItemFavorite(getContext(), itemId, false);
-        cursor = getCursor();
+//        cursor = getCursor();
         itemsAdapter.notifyDataSetChanged();
+        if(selectedPosition!=-1)
+            recyclerViewItems.smoothScrollToPosition(selectedPosition);
+        selectedPosition = -1;
     }
 
     @Override

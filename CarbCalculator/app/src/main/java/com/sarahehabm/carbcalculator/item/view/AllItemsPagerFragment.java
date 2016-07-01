@@ -22,12 +22,13 @@ public class AllItemsPagerFragment extends ItemsBasePagerFragment {
     public Cursor getCursor() {
         Cursor cursor = getContext().getContentResolver().query(ItemEntry.CONTENT_URI, null,
                 null, null,
-                ItemEntry.COLUMN_NAME + " ASC");
+                ItemEntry.COLUMN_NAME + " COLLATE NOCASE ASC");
         return cursor;
     }
 
     @Override
     public void onLongClick(int position, int itemId) {
+        selectedPosition = position;
         if(isFavorite(position)) {
             alertDialog = new ItemsAlertDialog(getContext(), DIALOG_FAVORITE, itemId, this);
         } else {
@@ -44,7 +45,7 @@ public class AllItemsPagerFragment extends ItemsBasePagerFragment {
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader cursorLoader = new CursorLoader(getContext(), ItemEntry.CONTENT_URI, null,
-                null, null, ItemEntry.COLUMN_NAME + " ASC");
+                null, null, ItemEntry.COLUMN_NAME + " COLLATE NOCASE ASC");
         return cursorLoader;
     }
 }

@@ -22,12 +22,13 @@ public class FavoritesItemsPagerFragment extends ItemsBasePagerFragment {
         Cursor cursor = getContext().getContentResolver().query(ItemEntry.CONTENT_URI, null,
                 ItemEntry.COLUMN_FAVORITE + " = ? ",
                 new String[]{String.valueOf(1)},
-                ItemEntry.COLUMN_NAME + " ASC");
+                ItemEntry.COLUMN_NAME + " COLLATE NOCASE ASC");
         return cursor;
     }
 
     @Override
     public void onLongClick(int position, int itemId) {
+        selectedPosition = position;
         alertDialog = new ItemsAlertDialog(getContext(), DIALOG_FAVORITE, itemId, this);
         alertDialog.showDialog();
     }
@@ -42,7 +43,7 @@ public class FavoritesItemsPagerFragment extends ItemsBasePagerFragment {
         CursorLoader cursorLoader = new CursorLoader(getContext(), ItemEntry.CONTENT_URI, null,
                 ItemEntry.COLUMN_FAVORITE + " = ? ",
                 new String[]{String.valueOf(1)},
-                ItemEntry.COLUMN_NAME + " ASC");
+                ItemEntry.COLUMN_NAME + " COLLATE NOCASE ASC");
         return cursorLoader;
     }
 }
