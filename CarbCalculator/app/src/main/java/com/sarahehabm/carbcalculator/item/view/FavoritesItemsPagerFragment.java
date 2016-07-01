@@ -1,6 +1,9 @@
 package com.sarahehabm.carbcalculator.item.view;
 
 import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 
 import com.sarahehabm.carbcalculator.common.ItemsAlertDialog;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
@@ -12,6 +15,7 @@ import static com.sarahehabm.carbcalculator.common.ItemsAlertDialog.DIALOG_FAVOR
  */
 
 public class FavoritesItemsPagerFragment extends ItemsBasePagerFragment {
+    private final int LOADER_FAVORITE_ITEMS_ID = 122;
 
     @Override
     public Cursor getCursor() {
@@ -24,11 +28,21 @@ public class FavoritesItemsPagerFragment extends ItemsBasePagerFragment {
 
     @Override
     public void onLongClick(int position, int itemId) {
-//        super.onLongClick(position, itemId);
-//        Toast.makeText(getContext(), "FavoriteItems; should create dialog with " +
-//                "remove from favorites & edit item", Toast.LENGTH_SHORT).show();
-//        showDialog(DIALOG_FAVORITE, itemId);
         alertDialog = new ItemsAlertDialog(getContext(), DIALOG_FAVORITE, itemId, this);
         alertDialog.showDialog();
+    }
+
+    @Override
+    protected void initLoader() {
+        getLoaderManager().initLoader(LOADER_FAVORITE_ITEMS_ID, null, this);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader cursorLoader = new CursorLoader(getContext(), ItemEntry.CONTENT_URI, null,
+                ItemEntry.COLUMN_FAVORITE + " = ? ",
+                new String[]{String.valueOf(1)},
+                ItemEntry.COLUMN_NAME + " ASC");
+        return cursorLoader;
     }
 }

@@ -5,13 +5,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Constants;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  */
 
 public abstract class ItemsBasePagerFragment extends Fragment
-        implements OnItemLongClickListener, ItemsAlertDialogInterface {
+        implements OnItemLongClickListener, ItemsAlertDialogInterface, LoaderManager.LoaderCallbacks<Cursor> {
     private RecyclerView recyclerViewItems;
     private TextView textViewEmpty;
 
@@ -45,11 +46,17 @@ public abstract class ItemsBasePagerFragment extends Fragment
         recyclerViewItems = (RecyclerView)rootView.findViewById(R.id.recyclerView_items);
         textViewEmpty = (TextView) rootView.findViewById(R.id.textView_empty);
 
-        cursor = getCursor();
-//        cursor = null;
-        //TODO When the "cursor = getCursor() line is removed, no data is returned ((indicating that the CursorLoader is not working))
+        initLoader();
 
-        itemsAdapter = new AllItemsAdapter(cursor, /*false,*/ this);
+        return rootView;
+    }
+
+    protected abstract void initLoader();
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        cursor = data;
+        itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewItems.setAdapter(itemsAdapter);
 
@@ -60,16 +67,17 @@ public abstract class ItemsBasePagerFragment extends Fragment
             textViewEmpty.setVisibility(View.GONE);
             recyclerViewItems.setVisibility(View.VISIBLE);
         }
+    }
 
-        return rootView;
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
     public abstract Cursor getCursor();
 
     public void setCursor(Cursor cursor) {
         this.cursor = cursor;
-//        itemsAdapter.setCursor(cursor);
-//        itemsAdapter.notifyDataSetChanged();
         itemsAdapter = new AllItemsAdapter(cursor, /*false, */this);
         recyclerViewItems.setAdapter(itemsAdapter);
         itemsAdapter.notifyDataSetChanged();
@@ -86,6 +94,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
 
     @Override
     public abstract void onLongClick(int position, int itemId);
+
     @Override
     public void onFavoriteItemClick(int itemId) {
         CarbCounterInterface.updateItemFavorite(getContext(), itemId, true);
@@ -101,13 +110,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
     }
 
     @Override
-    public void onEditItemClick(int itemId) {
-        Toast.makeText(getContext(), "Should start new Item activity passing itemId: " + itemId,
-                Toast.LENGTH_SHORT).show();
-//        cursor = getCursor();
-//        itemsAdapter.notifyDataSetChanged();
-
-        Intent intent = new Intent(getContext(), EditItemActivity.class);
+    public void onEditItemClick(int itemId) {Intent intent = new Intent(getContext(), EditItemActivity.class);
         intent.putExtra(Constants.KEY_ITEM_ID, itemId);
         startActivity(intent);
     }

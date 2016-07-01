@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.db.chart.model.LineSet;
 import com.db.chart.model.Point;
@@ -64,7 +63,7 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Toast.makeText(getContext(), "LoadFinished", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "LoadFinished", Toast.LENGTH_SHORT).show();
 
         if(data == null || data.getCount()==0 || data.isClosed() || data.isLast()){
             showEmptyChart();
@@ -146,6 +145,6 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Toast.makeText(getContext(), "LoadReset", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "LoadReset", Toast.LENGTH_SHORT).show();
     }
 }
