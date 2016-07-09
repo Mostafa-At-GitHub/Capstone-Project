@@ -6,4 +6,6 @@
     <dimen name="min_edittext_length">32dp</dimen>
     <dimen name="min_edittext_length_double">64dp</dimen>
     <dimen name="dimen8dp">8dp</dimen>
+    <dimen name="widget_min_width">72dp</dimen>
+    <dimen name="widget_min_height">72dp</dimen>
 </resources>
