@@ -2,7 +2,6 @@ package com.sarahehabm.carbcalculator;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -68,7 +67,7 @@ public class TestAsyncTaskAmounts extends AsyncTask<Pair<Context, String>, Void,
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 //        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-        Log.v("TestSyncAActivity", s);
+//        Log.v("TestSyncAActivity", s);
 
         if (dataRetrieveListener != null)
             dataRetrieveListener.onFinishCall(s, Constants.SERVICE_GET_ITEM_AMOUNTS);

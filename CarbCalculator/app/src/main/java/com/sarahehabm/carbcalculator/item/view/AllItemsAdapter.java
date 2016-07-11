@@ -2,14 +2,12 @@ package com.sarahehabm.carbcalculator.item.view;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
@@ -96,9 +94,9 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             int position = (int) buttonView.getTag();
-            Toast.makeText(buttonView.getContext(),
-                    "Item at position " + position + " is checked: " + isChecked,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(buttonView.getContext(),
+//                    "Item at position " + position + " is checked: " + isChecked,
+//                    Toast.LENGTH_SHORT).show();
 
             int itemId = (int) itemView.getTag();
             Item item = CarbCounterInterface.getItem(itemView.getContext(), itemId);
@@ -109,7 +107,7 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
                 selectedItems.remove(itemId);
             }
 
-            Log.e("SELECTED ITEMS", String.valueOf(selectedItems.size()));
+//            Log.e("SELECTED ITEMS", String.valueOf(selectedItems.size()));
         }
 
         @Override

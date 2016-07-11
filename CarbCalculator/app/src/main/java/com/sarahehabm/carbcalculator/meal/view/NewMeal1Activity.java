@@ -20,12 +20,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
-import com.sarahehabm.carbcalculator.common.Constants;
-import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.Constants;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
+import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.item.view.AllItemsActivity;
 import com.sarahehabm.carbcalculator.meal.business.MealBusiness;
 
@@ -72,7 +71,7 @@ public class NewMeal1Activity extends AppCompatActivity
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_next:
-                Toast.makeText(this, "NEXT clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "NEXT clicked", Toast.LENGTH_SHORT).show();
                 //TODO should call the next activity
                 Intent intent = new Intent(this, NewMeal2Activity.class);
                 intent.putExtra(Constants.KEY_MEAL_NAME, mealName);
@@ -164,8 +163,8 @@ public class NewMeal1Activity extends AppCompatActivity
                 int itemId = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_ID));
                 int itemIsFavorite = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_FAVORITE));
 
-                Toast.makeText(NewMeal1Activity.this, "You selected: " + itemName + "\nAt position: "
-                        + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NewMeal1Activity.this, "You selected: " + itemName + "\nAt position: "
+//                        + position, Toast.LENGTH_SHORT).show();
 
                 //TODO clear the field
                 editText.setText("");
@@ -185,7 +184,7 @@ public class NewMeal1Activity extends AppCompatActivity
                     validItems = false;
                 supportInvalidateOptionsMenu();
                 invalidateOptionsMenu();
-                Log.v("ET OnItemClick", "Cursor count = " + cursor.getCount());
+//                Log.v("ET OnItemClick", "Cursor count = " + cursor.getCount());
             }
         });
 
@@ -236,11 +235,11 @@ public class NewMeal1Activity extends AppCompatActivity
             case Constants.REQUEST_CODE_ALL_ITEMS:
                 switch (resultCode) {
                     case RESULT_OK:
-                        Toast.makeText(this, "Items received ~(._.)~", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Items received ~(._.)~", Toast.LENGTH_SHORT).show();
                         String selectedItemsStr = data.getStringExtra(Constants.KEY_ITEMS);
                         ArrayList<Item> selectedItems = Item.listFromJson(selectedItemsStr);
                         Log.e(TAG, selectedItemsStr);
-                        Log.e(TAG, "Array size= " + selectedItems.size());
+//                        Log.e(TAG, "Array size= " + selectedItems.size());
                         for (int i = 0; i < selectedItems.size(); i++) {
                             itemsAdapter.addItem(selectedItems.get(i));
                             if (itemsAdapter.getItemCount() > 0)

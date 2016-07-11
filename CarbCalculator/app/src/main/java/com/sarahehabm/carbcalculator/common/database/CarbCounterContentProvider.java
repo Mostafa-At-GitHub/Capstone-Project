@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Created by Sarah E. Mostafa on 14-May-16.
@@ -209,7 +208,7 @@ public class CarbCounterContentProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(returnUri, null);
-        Log.v(TAG, "Inserted: " + returnUri);
+//        Log.v(TAG, "Inserted: " + returnUri);
         return returnUri;
     }
 

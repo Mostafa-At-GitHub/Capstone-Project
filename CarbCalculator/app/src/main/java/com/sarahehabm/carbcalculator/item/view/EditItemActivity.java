@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -140,7 +139,7 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
 //                Log.e(TAG, "Save success: " + result);
                 //TODO Should monitor changes & save now
                 boolean result = save();
-                Log.e(TAG, "Save success: " + result);
+//                Log.e(TAG, "Save success: " + result);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -155,7 +154,7 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
         if(updateCount>0) {
             ArrayList<Amount> amounts = adapter.getAmounts(item.getId());
             if(amounts==null || amounts.isEmpty()) {
-                Toast.makeText(this, "At least one amount must be provided", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.amount_required), Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -170,7 +169,7 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
 //                Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
 //                        Toast.LENGTH_SHORT).show();
 
-            Log.v(TAG, insertCount + " amounts updated");
+//            Log.v(TAG, insertCount + " amounts updated");
             finish();
             return true;
         }

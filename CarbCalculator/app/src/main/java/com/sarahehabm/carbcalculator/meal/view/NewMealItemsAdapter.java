@@ -6,10 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.R;
+import com.sarahehabm.carbcalculator.common.model.Item;
 
 import java.util.ArrayList;
 
@@ -140,8 +139,8 @@ public class NewMealItemsAdapter extends RecyclerView.Adapter<NewMealItemsAdapte
         @Override
         public void onClick(View v) {
             int position = (int) v.getTag();
-            Toast.makeText(v.getContext(), "Remove clicked on item at position " + position,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(v.getContext(), "Remove clicked on item at position " + position,
+//                    Toast.LENGTH_SHORT).show();
             //TODO create and call callback
             onRemoveItemClickListener.onRemoveClick(position);
         }

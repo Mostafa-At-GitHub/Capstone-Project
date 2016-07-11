@@ -4,9 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
-import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.*;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.AmountEntry;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemAmountEntry;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.ItemEntry;
+import com.sarahehabm.carbcalculator.common.database.CarbCounterContract.MealEntry;
 import com.sarahehabm.carbcalculator.common.model.Amount;
 import com.sarahehabm.carbcalculator.common.model.Item;
 import com.sarahehabm.carbcalculator.common.model.ItemAmount;
@@ -70,7 +72,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getItem count: " + cursor.getCount());
+//        Log.v(TAG, "getItem count: " + cursor.getCount());
 
         Item item = new Item();
         while (cursor.moveToNext()) {
@@ -94,7 +96,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getItems count: " + cursor.getCount());
+//        Log.v(TAG, "getItems count: " + cursor.getCount());
 
         while (cursor.moveToNext()) {
             int itemId = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_ID));
@@ -136,7 +138,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getMeal count: " + cursor.getCount());
+//        Log.v(TAG, "getMeal count: " + cursor.getCount());
 
 //        String result = "";
         Meal meal = new Meal();
@@ -162,7 +164,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getMeals count: " + cursor.getCount());
+//        Log.v(TAG, "getMeals count: " + cursor.getCount());
 
         while (cursor.moveToNext()) {
             int mealId = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_ID));
@@ -223,7 +225,7 @@ public class CarbCounterInterface {
             Amount tempAmount = getAmount(context, amount.getId());
             if(tempAmount == null) { //Amount doesn't exist in DB; insert
                 Uri insertUri = context.getContentResolver().insert(AmountEntry.CONTENT_URI, contentValues);
-                Log.v(TAG, "Uri= " + insertUri);
+//                Log.v(TAG, "Uri= " + insertUri);
             } else { //Amount exists in DB; update
                 numInsertedUpdated += context.getContentResolver().update(
                         AmountEntry.CONTENT_URI, contentValues, AmountEntry.COLUMN_ID + " = ? ",
@@ -241,7 +243,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getAmount count: " + cursor.getCount());
+//        Log.v(TAG, "getAmount count: " + cursor.getCount());
 
         Amount amount = new Amount();
         while (cursor.moveToNext()) {
@@ -266,7 +268,7 @@ public class CarbCounterInterface {
         if (cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "Number of amounts for item " + itemId + "= " + cursor.getCount());
+//        Log.v(TAG, "Number of amounts for item " + itemId + "= " + cursor.getCount());
 
 
         ArrayList<Amount> amounts = new ArrayList<>();
@@ -307,7 +309,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getAmounts count: " + cursor.getCount());
+//        Log.v(TAG, "getAmounts count: " + cursor.getCount());
 
         while (cursor.moveToNext()) {
             int amountId = cursor.getInt(cursor.getColumnIndex(AmountEntry.COLUMN_ID));
@@ -361,7 +363,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getItemAmount count: " + cursor.getCount());
+//        Log.v(TAG, "getItemAmount count: " + cursor.getCount());
 
         ItemAmount itemAmount = new ItemAmount();
         while (cursor.moveToNext()) {
@@ -388,7 +390,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getItemAmounts count: " + cursor.getCount());
+//        Log.v(TAG, "getItemAmounts count: " + cursor.getCount());
 
         while (cursor.moveToNext()) {
             int itemAmountId = cursor.getInt(cursor.getColumnIndex(ItemAmountEntry.COLUMN_ID));
@@ -417,7 +419,7 @@ public class CarbCounterInterface {
         if(cursor == null || cursor.getCount() <= 0)
             return null;
 
-        Log.v(TAG, "getItemAmounts (for mealId) count: " + cursor.getCount());
+//        Log.v(TAG, "getItemAmounts (for mealId) count: " + cursor.getCount());
 
         while (cursor.moveToNext()) {
             int itemAmountId = cursor.getInt(cursor.getColumnIndex(ItemAmountEntry.COLUMN_ID));

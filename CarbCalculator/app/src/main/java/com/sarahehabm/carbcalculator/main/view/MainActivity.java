@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.CarbCalculatorApplication;
 import com.sarahehabm.carbcalculator.R;
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
 
         switch (id) {
             case R.id.action_profile: {
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 //TODO start profile activity
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);

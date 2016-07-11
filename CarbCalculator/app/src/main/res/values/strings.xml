@@ -37,4 +37,8 @@
     <string name="carb_grams">%d g</string>
     <string name="age">%d years</string>
     <string name="failed_to_login">Failed to login. Please check your connection and try again.</string>
+    <string name="name_required">Please provide a name in order to proceed</string>
+    <string name="amount_required">Please provide an amount in order to proceed</string>
+    <string name="meal_update_success">Meal successfully added</string>
+    <string name="meal_update_failure">Failed to add meal</string>
 </resources>

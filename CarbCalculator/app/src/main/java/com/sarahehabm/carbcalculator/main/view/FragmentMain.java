@@ -10,7 +10,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,7 @@ public class FragmentMain extends Fragment
     }
 
     private void initializeMealsView(View rootView) {
-        Log.v(TAG, "initializeMealsView");
+//        Log.v(TAG, "initializeMealsView");
         /*steppersView = (SteppersView) rootView.findViewById(steppersView);
         SteppersView.Config steppersViewConfig = new SteppersView.Config()
                 .setOnItemClickAction(new OnItemClickAction() {

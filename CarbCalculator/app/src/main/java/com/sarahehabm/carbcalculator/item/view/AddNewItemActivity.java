@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +122,7 @@ public class AddNewItemActivity extends AppCompatActivity implements OnItemPrope
 
             case R.id.action_add:
                 boolean result = save();
-                Log.e(TAG, "Save success: " + result);
+//                Log.e(TAG, "Save success: " + result);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -132,7 +131,7 @@ public class AddNewItemActivity extends AppCompatActivity implements OnItemPrope
     private boolean save() {
         String itemName = editText_name.getText().toString();
         if(itemName == null || itemName.trim().isEmpty()) {
-            Toast.makeText(this, "A name must be provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.name_required), Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -141,19 +140,20 @@ public class AddNewItemActivity extends AppCompatActivity implements OnItemPrope
 
         ArrayList<Amount> amounts = adapter.getAmounts(itemId);
         if(amounts==null || amounts.isEmpty()) {
-            Toast.makeText(this, "At least one amount must be provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.amount_required), Toast.LENGTH_SHORT).show();
             return false;
         }
         int insertCount = CarbCounterInterface.insertAmounts(this, amounts);
 
         if(insertCount == amounts.size()) {
-            Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
+//                    Toast.LENGTH_SHORT).show();
             finish();
             return true;
-        } else
-            Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
-                    Toast.LENGTH_SHORT).show();
+        }
+//        else
+//            Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
+//                    Toast.LENGTH_SHORT).show();
 
         return false;
     }

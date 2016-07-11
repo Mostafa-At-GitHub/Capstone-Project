@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.Constants;
@@ -59,7 +57,7 @@ public class AllItemsActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_new_item:
-                Toast.makeText(this, "Add new item", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Add new item", Toast.LENGTH_SHORT).show();
                 //TODO start new item activity
                 Intent intent = new Intent(this, AddNewItemActivity.class);
                 startActivity(intent);
@@ -73,8 +71,8 @@ public class AllItemsActivity extends AppCompatActivity {
         ArrayList<Item> selectedItemsAll = ((AllItemsPagerFragment)activityFragment.pagerAdapter.getItem(0)).getSelectedItems();
         ArrayList<Item> selectedItemsFav = ((FavoritesItemsPagerFragment)activityFragment.pagerAdapter.getItem(1)).getSelectedItems();
 
-        Log.e(TAG, "selectedItemsAll= " + selectedItemsAll.size());
-        Log.e(TAG, "selectedItemsFav= " + selectedItemsFav.size());
+//        Log.e(TAG, "selectedItemsAll= " + selectedItemsAll.size());
+//        Log.e(TAG, "selectedItemsFav= " + selectedItemsFav.size());
 
 
         String selectedItemsString;

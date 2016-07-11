@@ -3,7 +3,6 @@ package com.sarahehabm.carbcalculator.profile;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = (CircularImageView) findViewById(R.id.imageView_user_picture);
 
         textViewName.setText(name);
-        Log.e(ProfileActivity.class.getSimpleName(), "URL= " + url);
+//        Log.e(ProfileActivity.class.getSimpleName(), "URL= " + url);
         Picasso.with(this)
                 .load(url)
 //                .resize(50, 50)

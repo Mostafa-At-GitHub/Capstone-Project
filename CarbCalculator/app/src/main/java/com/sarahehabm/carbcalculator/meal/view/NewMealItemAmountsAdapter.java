@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sarahehabm.carbcalculator.R;
 import com.sarahehabm.carbcalculator.common.database.CarbCounterInterface;
@@ -136,7 +134,7 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
                             "0" : editText_amount.getText().toString().trim();
                     int quantity = Integer.parseInt(quantityStr);
                     itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
-                    Log.e(TAG, "Hashmap size(afterTextChanged)= " + itemAmountsMap.size());
+//                    Log.e(TAG, "Hashmap size(afterTextChanged)= " + itemAmountsMap.size());
                 }
             });
         }
@@ -144,8 +142,9 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             int parentPosition = (int) parent.getTag();
-            Toast.makeText(view.getContext(), "Parent position: " + parentPosition
-                    + ", selected item: " + position, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(view.getContext(), "Parent position: " + parentPosition
+//                    + ", selected item: " + position, Toast.LENGTH_SHORT).show();
+
 //            if(itemAmounts!=null)
 //                editText_amount.setText(String.valueOf(itemAmounts.get(position).getQuantity()));
 
@@ -162,7 +161,7 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
             int quantity = Integer.parseInt(
                     ((EditText)parentParent.findViewById(R.id.editText_amount)).getText().toString());
             itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
-            Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
+//            Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
         }
 
         @Override

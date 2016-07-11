@@ -96,7 +96,7 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
                 isToday = true;
 
             Log.v(TAG, new SimpleDateFormat().format(new Date(timeStamp)));
-            Log.v(TAG, timestamp + /*" START=" + timestampStart + " END=" + timestampEnd +*/ " isToday= " + isToday);
+//            Log.v(TAG, timestamp + /*" START=" + timestampStart + " END=" + timestampEnd +*/ " isToday= " + isToday);
             if(isToday) {
                 Point point = new Point("", carbs);
                 lineSet.addPoint(point);
