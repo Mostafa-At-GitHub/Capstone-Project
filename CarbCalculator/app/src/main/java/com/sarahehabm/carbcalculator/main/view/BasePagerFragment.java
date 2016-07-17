@@ -29,7 +29,6 @@ import java.util.Date;
  */
 public abstract class BasePagerFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     private static final String TAG = BasePagerFragment.class.getSimpleName();
-//    private final int LOADER_ID = 10;
 
     protected LineChartView chartView;
     protected TextView textViewEmpty;
@@ -43,15 +42,11 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
         textViewEmpty = (TextView) rootView.findViewById(R.id.textView_empty);
         chartView = (LineChartView) rootView.findViewById(R.id.barchart);
-        ////        chartView.setBarSpacing(Tools.fromDpToPx(100));
-//        chartView.setRoundCorners(Tools.fromDpToPx(3));
 
         chartView.setXAxis(false)
                 .setYAxis(false)
                 .setXLabels(XController.LabelPosition.OUTSIDE)
-                .setYLabels(YController.LabelPosition.NONE)
-                /*.setLabelsColor(Color.parseColor("#86705c"))
-                .setAxisColor(Color.parseColor("#86705c"))*/;
+                .setYLabels(YController.LabelPosition.NONE);
 
         return rootView;
     }
@@ -94,7 +89,6 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
                 isToday = true;
 
             Log.v(TAG, new SimpleDateFormat().format(new Date(timeStamp)));
-//            Log.v(TAG, timestamp + /*" START=" + timestampStart + " END=" + timestampEnd +*/ " isToday= " + isToday);
             if(isToday) {
                 Point point = new Point("", carbs);
                 lineSet.addPoint(point);
@@ -113,22 +107,9 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
         try {
             chartView.addData(lineSet);
-//            chartView.notifyDataUpdate();
         } catch (IllegalArgumentException e) {
             chartView.notifyDataUpdate();
         }
-
-//        ArrayList<ChartEntry> entries = lineSet.getEntries();
-//        ArrayList<Integer> order = new ArrayList<>();
-//        for (int i = 0; i < entries.size(); i++) {
-//            order.add(i);
-//        }
-//        long seed = System.currentTimeMillis();
-//        Collections.shuffle(order, new Random(seed));
-//        int[] orderArr = Ints.toArray(order);
-//        chartView.show(new Animation()
-//                .setOverlap(.7f, orderArr)
-//        );
         chartView.show();
     }
 
@@ -143,6 +124,5 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-//        Toast.makeText(getContext(), "LoadReset", Toast.LENGTH_SHORT).show();
     }
 }

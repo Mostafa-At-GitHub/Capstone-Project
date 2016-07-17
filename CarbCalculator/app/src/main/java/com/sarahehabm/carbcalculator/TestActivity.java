@@ -81,14 +81,6 @@ public class TestActivity extends AppCompatActivity implements OnDataRetrieveLis
     }
 
     public void onInsertMealClick(View view) {
-//        ContentValues values = new ContentValues();
-////        values.put(MealEntry.COLUMN_ID, 0);
-//        values.put(MealEntry.COLUMN_TITLE, "Breakfast");
-//        values.put(MealEntry.COLUMN_TOTAL_CARBS, 20);
-//        values.put(MealEntry.COLUMN_TIMESTAMP, 1463150841);
-//        getContentResolver().insert(MealEntry.CONTENT_URI, values);
-
-
         String mealName = editText.getText().toString();
         if (mealName == null || mealName.trim().isEmpty()) {
             mealName = "meal" + random.nextInt(500);
@@ -124,14 +116,6 @@ public class TestActivity extends AppCompatActivity implements OnDataRetrieveLis
     }
 
     public void onInsertAmountClick(View view) {
-//        ContentValues values = new ContentValues();
-////        values.put(AmountEntry.COLUMN_ID, 0);
-//        values.put(AmountEntry.COLUMN_QUANTITY, 100);
-//        values.put(AmountEntry.COLUMN_UNIT, "grams");
-//        values.put(AmountEntry.COLUMN_CARB_GRAMS, 10);
-//        values.put(AmountEntry.COLUMN_ITEM_ID, 0);
-//        getContentResolver().insert(AmountEntry.CONTENT_URI, values);
-
         String amountUnit = editText.getText().toString();
         if (amountUnit == null || amountUnit.trim().isEmpty()) {
             amountUnit = "unit" + random.nextInt(50);
@@ -169,11 +153,6 @@ public class TestActivity extends AppCompatActivity implements OnDataRetrieveLis
     }
 
     public void onInsertItemAmountClick(View view) {
-//        String itemName = editText.getText().toString();
-//        if (itemName == null || itemName.trim().isEmpty()) {
-//            itemName = "item" + random.nextInt(500);
-//        }
-
         int id = random.nextInt(5000);
         int itemId = random.nextInt(5000);
         int amountId = random.nextInt(5000);

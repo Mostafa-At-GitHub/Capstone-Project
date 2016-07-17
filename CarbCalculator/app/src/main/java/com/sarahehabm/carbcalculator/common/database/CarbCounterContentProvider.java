@@ -208,7 +208,6 @@ public class CarbCounterContentProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(returnUri, null);
-//        Log.v(TAG, "Inserted: " + returnUri);
         return returnUri;
     }
 
@@ -241,24 +240,6 @@ public class CarbCounterContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        /*final int match = uriMatcher.match(uri);
-        switch (match) {
-            case ITEM:
-                break;
-
-            case AMOUNT:
-                break;
-
-            case ITEMAMOUNT:
-                break;
-
-            case MEAL:
-                break;
-
-            default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
-        }
-        return 0;*/
         throw new UnsupportedOperationException("Unknown uri: " + uri);
     }
 

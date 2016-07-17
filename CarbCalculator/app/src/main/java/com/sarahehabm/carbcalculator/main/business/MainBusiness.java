@@ -31,22 +31,16 @@ public class MainBusiness {
             return allMeals;
 
         Calendar calendarStart = Calendar.getInstance(), calendarEnd = Calendar.getInstance();
-//        calendarStart.setTimeInMillis(System.currentTimeMillis());
 
         calendarStart.set(Calendar.HOUR_OF_DAY, 0);
         calendarStart.set(Calendar.MINUTE, 0);
         calendarStart.set(Calendar.SECOND, 0);
         calendarStart.set(Calendar.MILLISECOND, 0);
 
-//        calendarEnd = calendarStart;
-//        calendarEnd.add(Calendar.MILLISECOND, 86400000);
         calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
         calendarEnd.set(Calendar.MINUTE, 59);
         calendarEnd.set(Calendar.SECOND, 59);
         calendarEnd.set(Calendar.MILLISECOND, 999);
-
-//        long timestampStart = calendarStart.getTimeInMillis(),
-//                timestampEnd = calendarEnd.getTimeInMillis();
 
         Date dateStart = new Date(calendarStart.getTimeInMillis()),
                 dateEnd = new Date(calendarEnd.getTimeInMillis());

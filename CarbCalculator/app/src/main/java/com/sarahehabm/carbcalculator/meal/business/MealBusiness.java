@@ -30,9 +30,7 @@ public class MealBusiness {
         if (filterKey == null)
             filterKey = "";
 
-//        String select = ItemEntry.COLUMN_NAME + " LIKE ? ";
         String select = computeSelect(excludeItems);
-//        String[] selectArgs = {"%" + filterKey + "%"};
         String[] selectArgs = computeSelectArgs(filterKey, excludeItems);
 
         return context.getContentResolver().

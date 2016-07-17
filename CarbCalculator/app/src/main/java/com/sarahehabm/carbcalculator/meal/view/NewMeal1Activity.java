@@ -32,11 +32,9 @@ import java.util.ArrayList;
 
 public class NewMeal1Activity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
-    //    private static final String TAG = NewMeal1Activity.class.getSimpleName();
     private static final int LOADER_ID = 10;
     private static final String TAG = NewMeal1Activity.class.getSimpleName();
 
-    //    private TextInputLayout textInputLayout;
     private EditText editTextMealName;
     private AutoCompleteTextView editText;
     private RecyclerView recyclerView;
@@ -71,28 +69,17 @@ public class NewMeal1Activity extends AppCompatActivity
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_next:
-//                Toast.makeText(this, "NEXT clicked", Toast.LENGTH_SHORT).show();
-                //TODO should call the next activity
                 Intent intent = new Intent(this, NewMeal2Activity.class);
                 intent.putExtra(Constants.KEY_MEAL_NAME, mealName);
                 intent.putExtra(Constants.KEY_ITEMS, Item.listToJson(itemsAdapter.getItems()));
                 startActivityForResult(intent, Constants.REQUEST_CODE_NEW_MEAL_2);
-//                return true;
                 break;
-
-//            case android.R.id.home:
-//                onBackPressed();
-//                return true;
-//
-//            default:
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        return super.onPrepareOptionsMenu(menu);
-
         if (validMealName && validItems) {
             menu.getItem(0).setEnabled(true);
         } else {
@@ -102,7 +89,6 @@ public class NewMeal1Activity extends AppCompatActivity
     }
 
     private void initializeViews() {
-//        textInputLayout = (TextInputLayout) findViewById(textInputLayout);
         editTextMealName = (EditText) findViewById(R.id.editText_meal_name);
         editTextMealName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -163,20 +149,7 @@ public class NewMeal1Activity extends AppCompatActivity
                 int itemId = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_ID));
                 int itemIsFavorite = cursor.getInt(cursor.getColumnIndex(ItemEntry.COLUMN_FAVORITE));
 
-//                Toast.makeText(NewMeal1Activity.this, "You selected: " + itemName + "\nAt position: "
-//                        + position, Toast.LENGTH_SHORT).show();
-
-                //TODO clear the field
                 editText.setText("");
-//                editText.clearFocus();
-                /*View v = NewMeal1Activity.this.getCurrentFocus();
-                if (v != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(!imm.isActive())
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }*/
-                //TODO update data set that holds the selected items
-//                itemsAdapter.swapCursor(cursor);
                 itemsAdapter.addItem(new Item(itemId, itemName, (itemIsFavorite == 1)));
                 if (itemsAdapter.getItemCount() > 0)
                     validItems = true;
@@ -184,10 +157,8 @@ public class NewMeal1Activity extends AppCompatActivity
                     validItems = false;
                 supportInvalidateOptionsMenu();
                 invalidateOptionsMenu();
-//                Log.v("ET OnItemClick", "Cursor count = " + cursor.getCount());
             }
         });
-
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -235,11 +206,9 @@ public class NewMeal1Activity extends AppCompatActivity
             case Constants.REQUEST_CODE_ALL_ITEMS:
                 switch (resultCode) {
                     case RESULT_OK:
-//                        Toast.makeText(this, "Items received ~(._.)~", Toast.LENGTH_SHORT).show();
                         String selectedItemsStr = data.getStringExtra(Constants.KEY_ITEMS);
                         ArrayList<Item> selectedItems = Item.listFromJson(selectedItemsStr);
                         Log.e(TAG, selectedItemsStr);
-//                        Log.e(TAG, "Array size= " + selectedItems.size());
                         for (int i = 0; i < selectedItems.size(); i++) {
                             itemsAdapter.addItem(selectedItems.get(i));
                             if (itemsAdapter.getItemCount() > 0)

@@ -57,7 +57,6 @@ public abstract class ItemsBasePagerFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         cursor = data;
-//        itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
         if(itemsAdapter==null) {
             itemsAdapter = new AllItemsAdapter(data, /*false,*/ this);
             recyclerViewItems.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -65,7 +64,6 @@ public abstract class ItemsBasePagerFragment extends Fragment
         }
 
         itemsAdapter.setCursor(data);
-//        recyclerViewItems.setAdapter(itemsAdapter);
         itemsAdapter.notifyDataSetChanged();
 
         if(itemsAdapter.getItemCount() == 0) {
@@ -86,7 +84,7 @@ public abstract class ItemsBasePagerFragment extends Fragment
 
     public void setCursor(Cursor cursor) {
         this.cursor = cursor;
-        itemsAdapter = new AllItemsAdapter(cursor, /*false, */this);
+        itemsAdapter = new AllItemsAdapter(cursor, this);
         recyclerViewItems.setAdapter(itemsAdapter);
         itemsAdapter.notifyDataSetChanged();
     }
@@ -106,7 +104,6 @@ public abstract class ItemsBasePagerFragment extends Fragment
     @Override
     public void onFavoriteItemClick(int itemId) {
         CarbCounterInterface.updateItemFavorite(getContext(), itemId, true);
-//        cursor = getCursor();
         itemsAdapter.notifyDataSetChanged();
         if(selectedPosition!=-1)
             recyclerViewItems.smoothScrollToPosition(selectedPosition);
@@ -116,7 +113,6 @@ public abstract class ItemsBasePagerFragment extends Fragment
     @Override
     public void onUnFavoriteItemClick(int itemId) {
         CarbCounterInterface.updateItemFavorite(getContext(), itemId, false);
-//        cursor = getCursor();
         itemsAdapter.notifyDataSetChanged();
         if(selectedPosition!=-1)
             recyclerViewItems.smoothScrollToPosition(selectedPosition);

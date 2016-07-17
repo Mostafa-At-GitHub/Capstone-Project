@@ -46,9 +46,6 @@ public class AllItemsActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_done:
-//                Toast.makeText(this, "Should finish this activity and pass the selected items",
-//                        Toast.LENGTH_SHORT).show();
-                //TODO finish this activity and pass the selected items
                 String selectedItems = getSelectedItems();
                 Intent data = new Intent();
                 data.putExtra(Constants.KEY_ITEMS, selectedItems);
@@ -57,8 +54,6 @@ public class AllItemsActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_new_item:
-//                Toast.makeText(this, "Add new item", Toast.LENGTH_SHORT).show();
-                //TODO start new item activity
                 Intent intent = new Intent(this, AddNewItemActivity.class);
                 startActivity(intent);
                 break;
@@ -70,10 +65,6 @@ public class AllItemsActivity extends AppCompatActivity {
         AllItemsActivityFragment activityFragment = ((AllItemsActivityFragment)fragment);
         ArrayList<Item> selectedItemsAll = ((AllItemsPagerFragment)activityFragment.pagerAdapter.getItem(0)).getSelectedItems();
         ArrayList<Item> selectedItemsFav = ((FavoritesItemsPagerFragment)activityFragment.pagerAdapter.getItem(1)).getSelectedItems();
-
-//        Log.e(TAG, "selectedItemsAll= " + selectedItemsAll.size());
-//        Log.e(TAG, "selectedItemsFav= " + selectedItemsFav.size());
-
 
         String selectedItemsString;
         if (selectedItemsAll != null && selectedItemsFav != null) {

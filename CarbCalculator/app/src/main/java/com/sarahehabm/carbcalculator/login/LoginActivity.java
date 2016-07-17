@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private TextView textViewStatus;
     private SignInButton buttonSignIn;
-//    private Button buttonSignOut, buttonRevokeAccess;
     private PendingIntent mSignInIntent;
 
     @Override
@@ -50,8 +49,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         textViewStatus = (TextView) findViewById(R.id.textView_status);
         buttonSignIn = (SignInButton) findViewById(R.id.button_google_signIn);
-//        buttonSignOut = (Button) findViewById(R.id.button_signOut);
-//        buttonRevokeAccess = (Button) findViewById(R.id.button_revokeAccess);
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +85,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Log.e(TAG, "onConnected");
 
         mSignInProgress = STATE_SIGNED_IN;
-
         buttonSignIn.setEnabled(false);
-//        buttonSignOut.setEnabled(true);
-//        buttonRevokeAccess.setEnabled(true);
 
         Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
         if(person!=null) {
@@ -162,8 +156,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void onSignedOut() {
         buttonSignIn.setEnabled(true);
-//        buttonSignOut.setEnabled(false);
-//        buttonRevokeAccess.setEnabled(false);
     }
 
     private void resolveSignInError() {

@@ -41,7 +41,6 @@ public class CarbCounterContract {
 
         private static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
                 + COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-//                + COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, "
                 + COLUMN_NAME + " TEXT NOT NULL, "
                 + COLUMN_FAVORITE + " INTEGER"
                 + ")";

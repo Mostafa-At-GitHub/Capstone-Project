@@ -37,18 +37,7 @@ public class TestAsyncTaskAmounts extends AsyncTask<Pair<Context, String>, Void,
         if(myApiService == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-                    // options for running against local devappserver
-                    // - 10.0.2.2 is localhost's IP address in Android emulator
-                    // - turn off compression when running against local devappserver
-                    /*.setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                        @Override
-                        public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-                            request.setDisableGZipContent(true);
-                        }
-                    })*/
-                    .setRootUrl("https://carbcalculator.appspot.com/_ah/api/")
-                    ;
+                    .setRootUrl("https://carbcalculator.appspot.com/_ah/api/");
 
             myApiService = builder.build();
         }
@@ -66,8 +55,6 @@ public class TestAsyncTaskAmounts extends AsyncTask<Pair<Context, String>, Void,
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-//        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-//        Log.v("TestSyncAActivity", s);
 
         if (dataRetrieveListener != null)
             dataRetrieveListener.onFinishCall(s, Constants.SERVICE_GET_ITEM_AMOUNTS);

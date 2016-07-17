@@ -39,24 +39,17 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = (CircularImageView) findViewById(R.id.imageView_user_picture);
 
         textViewName.setText(name);
-//        Log.e(ProfileActivity.class.getSimpleName(), "URL= " + url);
         Picasso.with(this)
                 .load(url)
-//                .resize(50, 50)
-//                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
-//                .error(R.drawable.user_placeholder_error)
                 .into(imageView);
 
         long now = System.currentTimeMillis();
         if(birthday == -1) {
             textViewAge.setVisibility(View.INVISIBLE);
         } else {
-//            long ageTimestamp = now - birthday;
-
             Calendar calendarNow = Calendar.getInstance(),
                     calendarBirthday = Calendar.getInstance();
-//            calendarNow.setTimeInMillis(now);
             calendarBirthday.setTimeInMillis(birthday);
 
             int age = calendarNow.get(Calendar.YEAR) - calendarBirthday.get(Calendar.YEAR);

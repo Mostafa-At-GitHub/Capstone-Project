@@ -31,7 +31,6 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
 
     private ArrayList<Item> items;
     private HashMap<Item, Pair<Amount, Integer>> itemAmountsMap;
-//    private ArrayList<Amount> itemAmounts;
 
     public NewMealItemAmountsAdapter(ArrayList<Item> items) {
         this.items = items;
@@ -58,7 +57,6 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
         String itemName = items.get(position).getName();
         int itemId = items.get(position).getId();
         ArrayList<Amount> itemAmounts = CarbCounterInterface.getAmountsByItemId(context, itemId);
-//        String[] itemAmountsArr = CarbCounterInterface.getAmountsByItemId_TEMP(context, itemId);
 
         holder.textView_name.setText(itemName);
         holder.spinner_unit.setTag(position);
@@ -134,7 +132,6 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
                             "0" : editText_amount.getText().toString().trim();
                     int quantity = Integer.parseInt(quantityStr);
                     itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
-//                    Log.e(TAG, "Hashmap size(afterTextChanged)= " + itemAmountsMap.size());
                 }
             });
         }
@@ -142,11 +139,6 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             int parentPosition = (int) parent.getTag();
-//            Toast.makeText(view.getContext(), "Parent position: " + parentPosition
-//                    + ", selected item: " + position, Toast.LENGTH_SHORT).show();
-
-//            if(itemAmounts!=null)
-//                editText_amount.setText(String.valueOf(itemAmounts.get(position).getQuantity()));
 
             Item item = items.get(parentPosition);
             Amount amount = ((UnitsAdapter)parent.getAdapter()).getItem(position);
@@ -161,7 +153,6 @@ public class NewMealItemAmountsAdapter extends RecyclerView.Adapter<NewMealItemA
             int quantity = Integer.parseInt(
                     ((EditText)parentParent.findViewById(R.id.editText_amount)).getText().toString());
             itemAmountsMap.put(item, new Pair<Amount, Integer>(amount, quantity));
-//            Log.e(TAG, "Hashmap size= " + itemAmountsMap.size());
         }
 
         @Override

@@ -122,7 +122,6 @@ public class AddNewItemActivity extends AppCompatActivity implements OnItemPrope
 
             case R.id.action_add:
                 boolean result = save();
-//                Log.e(TAG, "Save success: " + result);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -146,14 +145,9 @@ public class AddNewItemActivity extends AppCompatActivity implements OnItemPrope
         int insertCount = CarbCounterInterface.insertAmounts(this, amounts);
 
         if(insertCount == amounts.size()) {
-//            Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
-//                    Toast.LENGTH_SHORT).show();
             finish();
             return true;
         }
-//        else
-//            Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
-//                    Toast.LENGTH_SHORT).show();
 
         return false;
     }

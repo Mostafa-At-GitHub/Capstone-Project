@@ -24,14 +24,12 @@ import java.util.HashMap;
 public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHolder> {
     private Cursor cursor;
     private HashMap<Integer, Item> selectedItems;
-//    private boolean favoriteOnly;
     private OnItemLongClickListener onItemLongClickListener;
 
     public AllItemsAdapter(Cursor cursor, /*boolean favoriteOnly,*/
                            OnItemLongClickListener onItemLongClickListener) {
         this.cursor = cursor;
         this.selectedItems = new HashMap<>();
-//        this.favoriteOnly = favoriteOnly;
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
@@ -94,9 +92,6 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             int position = (int) buttonView.getTag();
-//            Toast.makeText(buttonView.getContext(),
-//                    "Item at position " + position + " is checked: " + isChecked,
-//                    Toast.LENGTH_SHORT).show();
 
             int itemId = (int) itemView.getTag();
             Item item = CarbCounterInterface.getItem(itemView.getContext(), itemId);
@@ -106,8 +101,6 @@ public class AllItemsAdapter extends RecyclerView.Adapter<AllItemsAdapter.ViewHo
             } else {
                 selectedItems.remove(itemId);
             }
-
-//            Log.e("SELECTED ITEMS", String.valueOf(selectedItems.size()));
         }
 
         @Override

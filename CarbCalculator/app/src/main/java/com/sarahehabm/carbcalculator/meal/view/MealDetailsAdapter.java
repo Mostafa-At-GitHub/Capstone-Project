@@ -36,8 +36,6 @@ public class MealDetailsAdapter extends RecyclerView.Adapter<MealDetailsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        holder.textViewName.setText("Item" + position);
-//        holder.textViewData.setText("" + position);
         Context context = holder.itemView.getContext();
 
         ItemAmount itemAmount = itemAmounts.get(position);

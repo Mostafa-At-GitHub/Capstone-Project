@@ -103,7 +103,6 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
             adapter = new AddNewItemAmountsAdapter(this);
 
         adapter.addItem();
-//        Amount amount = adapter.getAmountAt(adapter.getItemCount() -1);
 
         validQuantities = adapter.isValidAmounts();
         supportInvalidateOptionsMenu();
@@ -119,7 +118,6 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (validItemName && validQuantities) {
-//        } else if (validQuantities) {
             menu.getItem(0).setEnabled(true);
         } else {
             menu.getItem(0).setEnabled(false);
@@ -135,11 +133,7 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
                 break;
 
             case R.id.action_save_edit:
-//                boolean result = save();
-//                Log.e(TAG, "Save success: " + result);
-                //TODO Should monitor changes & save now
                 boolean result = save();
-//                Log.e(TAG, "Save success: " + result);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -159,17 +153,6 @@ public class EditItemActivity extends AppCompatActivity implements OnItemPropert
             }
 
             int insertCount = CarbCounterInterface.insertOrUpdateAmounts(this, amounts);
-
-//            if(insertCount == amounts.size()) {
-//                Toast.makeText(this, insertCount + " amounts inserted successfully for item " + itemId,
-//                        Toast.LENGTH_SHORT).show();
-//                finish();
-//                return true;
-//            } else
-//                Toast.makeText(this, "Failed to insert item and amounts. Please try again later",
-//                        Toast.LENGTH_SHORT).show();
-
-//            Log.v(TAG, insertCount + " amounts updated");
             finish();
             return true;
         }

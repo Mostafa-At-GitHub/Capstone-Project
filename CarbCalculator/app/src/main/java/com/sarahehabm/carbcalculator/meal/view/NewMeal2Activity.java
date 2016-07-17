@@ -40,7 +40,6 @@ public class NewMeal2Activity extends AppCompatActivity {
         if (intent != null) {
             if(intent.hasExtra(Constants.KEY_ITEMS)) {
                 s = intent.getStringExtra(Constants.KEY_ITEMS);
-//            ((TextView) findViewById(R.id.textView2)).setText("ITEMS RECIEVED:\n " + s);
             }
 
             if(intent.hasExtra(Constants.KEY_MEAL_NAME))
@@ -65,33 +64,24 @@ public class NewMeal2Activity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_done:
-//                Toast.makeText(this, "DONE clicked", Toast.LENGTH_SHORT).show();
-                //TODO should create the meal and insert in the DB
-                // TODO then finish and go to meal details?
                 Uri uri = CarbCounterInterface.
                         insertMeal(this, new Meal(mealName, 0, System.currentTimeMillis()));
                 long mealId  = ContentUris.parseId(uri);
                 ArrayList<ItemAmount> itemAmounts = newMealItemsAdapter.computeMealData((int) mealId);
-//                Log.e("NewMeal", String.valueOf(itemAmounts.size()));
-//                Log.e("NewMeal", itemAmounts.toString());
 
                 int insertCount = CarbCounterInterface.insertItemAmounts(this, itemAmounts);
                 if(insertCount == itemAmounts.size()) {
-//                    Toast.makeText(this, insertCount + " itemAmounts inserted", Toast.LENGTH_SHORT).show();
                     int totalMealCarbs = calculateMealCarbs(itemAmounts);
                     int mealUpdated = CarbCounterInterface.updateMealCarbs(this, (int) mealId, totalMealCarbs);
                     if(mealUpdated > 0) {
-//                        Toast.makeText(this, "Meal carbs updated successfully to " + totalMealCarbs, Toast.LENGTH_SHORT).show();
                         Toast.makeText(this, getString(R.string.meal_update_success), Toast.LENGTH_SHORT).show();
-//                        finish();
+
                         Intent intent = new Intent(this, MealDetailsActivity.class);
                         intent.putExtra(Constants.KEY_MEAL_ID, mealId);
                         startActivityForResult(intent, Constants.REQUEST_CODE_MEAL_DETAILS);
                     } else
-//                        Toast.makeText(this, "Failed to update meal carbs", Toast.LENGTH_SHORT).show();
                         Toast.makeText(this, getString(R.string.meal_update_failure), Toast.LENGTH_SHORT).show();
                 } else {
-//                    Toast.makeText(this, "Failed to insert meal (itemAmounts)", Toast.LENGTH_SHORT).show();
                     Toast.makeText(this, getString(R.string.meal_update_failure), Toast.LENGTH_SHORT).show();
                 }
                 break;
