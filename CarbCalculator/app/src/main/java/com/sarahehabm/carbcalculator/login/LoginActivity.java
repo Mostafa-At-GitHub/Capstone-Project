@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private TextView textViewStatus;
     private SignInButton buttonSignIn;
-    private Button buttonSignOut, buttonRevokeAccess;
+//    private Button buttonSignOut, buttonRevokeAccess;
     private PendingIntent mSignInIntent;
 
     @Override
@@ -51,8 +50,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         textViewStatus = (TextView) findViewById(R.id.textView_status);
         buttonSignIn = (SignInButton) findViewById(R.id.button_google_signIn);
-        buttonSignOut = (Button) findViewById(R.id.button_signOut);
-        buttonRevokeAccess = (Button) findViewById(R.id.button_revokeAccess);
+//        buttonSignOut = (Button) findViewById(R.id.button_signOut);
+//        buttonRevokeAccess = (Button) findViewById(R.id.button_revokeAccess);
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,16 +87,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onConnected(@Nullable Bundle bundle) {
         Log.e(TAG, "onConnected");
 
+        mSignInProgress = STATE_SIGNED_IN;
 
+        buttonSignIn.setEnabled(false);
 //        buttonSignOut.setEnabled(true);
 //        buttonRevokeAccess.setEnabled(true);
 
         Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
         if(person!=null) {
-            mSignInProgress = STATE_SIGNED_IN;
-
-            buttonSignIn.setEnabled(false);
-
             String username = person.getDisplayName();
             String imageUrl = person.getImage().getUrl();
             if (imageUrl.endsWith("?sz=50"))
@@ -128,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Log.v(TAG, "URL saved: " + urlSaved);
             Log.v(TAG, "Birthday saved: " + birthdaySaved);
 
-            textViewStatus.setText(username);
+            textViewStatus.setText(getString(R.string.welcome_username, username));
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -165,10 +162,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void onSignedOut() {
         buttonSignIn.setEnabled(true);
-        buttonSignOut.setEnabled(false);
-        buttonRevokeAccess.setEnabled(false);
-
-        textViewStatus.setText("Signed out");
+//        buttonSignOut.setEnabled(false);
+//        buttonRevokeAccess.setEnabled(false);
     }
 
     private void resolveSignInError() {
@@ -211,17 +206,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void onSignInClick(View view) {
-//        Toast.makeText(this, "onSignInClick", Toast.LENGTH_SHORT).show();
-
         if(!googleApiClient.isConnecting()) {
-            textViewStatus.setText("Signing in");
             resolveSignInError();
         }
     }
 
     public void onSignOutClick(View view) {
-        Toast.makeText(this, "onSignOutClick", Toast.LENGTH_SHORT).show();
-
         if(!googleApiClient.isConnecting()) {
             Plus.AccountApi.clearDefaultAccount(googleApiClient);
             googleApiClient.disconnect();
@@ -230,7 +220,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void onRevokeAccessClick(View view) {
-        Toast.makeText(this, "onRevokeAccessClick", Toast.LENGTH_SHORT).show();
         boolean isConnecting = googleApiClient.isConnecting();
         Log.e(TAG, "onRevokeAccessClick; client.isConnecting()= " + isConnecting);
 

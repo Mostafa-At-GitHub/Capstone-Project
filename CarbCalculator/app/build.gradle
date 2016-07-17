@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'carbcalculator'
+            keyPassword 'CarbCalculator0716'
+            storeFile file('/Keystore/Keystore.jks')
+            storePassword 'CarbCalculator0716'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "com.sarahehabm.carbcalculator"
         minSdkVersion 14
@@ -16,20 +23,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile project(':steppers')
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.4'
+    compile 'com.google.code.gson:gson:2.4'
     compile(project(path: ':backend', configuration: 'android-endpoints')) {
         exclude group: 'com.android.support'
         exclude group: 'com.google.code'
         transitive = true
     }
-
     compile('com.android.support:design:23.3.0') {
         exclude group: 'com.android.support'
         transitive = true
@@ -42,13 +49,13 @@ dependencies {
         exclude group: 'com.android.support'
         transitive = true
     }
-//    compile 'com.android.support:support-v4:23.3.0'
-//    compile ('com.android.support:support-v4:23.3.0') {
-//        exclude group: 'com.android.support'
-//    }
+    //    compile 'com.android.support:support-v4:23.3.0'
+    //    compile ('com.android.support:support-v4:23.3.0') {
+    //        exclude group: 'com.android.support'
+    //    }
     //    compile ('com.android.support:recyclerview-v7:23.3.0') {
-//        exclude group: 'com.android.support'
-//    }
+    //        exclude group: 'com.android.support'
+    //    }
     compile('com.google.android.gms:play-services:8.4.0') {
         exclude group: 'com.android.support'
         transitive = true

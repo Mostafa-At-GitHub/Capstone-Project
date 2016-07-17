@@ -63,8 +63,6 @@ public abstract class BasePagerFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//        Toast.makeText(getContext(), "LoadFinished", Toast.LENGTH_SHORT).show();
-
         if(data == null || data.getCount()==0 || data.isClosed() || data.isLast()){
             showEmptyChart();
             return;

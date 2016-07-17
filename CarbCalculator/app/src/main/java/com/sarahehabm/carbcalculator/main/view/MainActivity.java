@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.sarahehabm.carbcalculator.CarbCalculatorApplication;
 import com.sarahehabm.carbcalculator.R;
-import com.sarahehabm.carbcalculator.TestActivity;
 import com.sarahehabm.carbcalculator.meal.view.NewMeal1Activity;
 import com.sarahehabm.carbcalculator.profile.ProfileActivity;
 
@@ -58,24 +57,17 @@ public class MainActivity extends AppCompatActivity{
 
         switch (id) {
             case R.id.action_profile: {
-//                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                //TODO start profile activity
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
+                return true;
             }
-            return true;
 
-//            case R.id.action_settings:
-//                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-//                //TODO start settings activity
-//                return true;
-
-            //TODO case added for testing database and content provider
+            /*//TODO case added for testing database and content provider
             case R.id.action_test_activity: {
                 Intent intent = new Intent(this, TestActivity.class);
                 startActivity(intent);
             }
-            return true;
+            return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
