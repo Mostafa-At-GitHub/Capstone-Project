@@ -14,10 +14,6 @@
         android:layout_weight="1"
         android:text="Item name"/>
 
-    <!--<Spinner
-        android:id="@+id/spinner_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>-->
     <EditText
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_edittext_length"

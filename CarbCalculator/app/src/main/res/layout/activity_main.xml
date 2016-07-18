@@ -6,21 +6,6 @@
     android:fitsSystemWindows="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/layout_appbarlayout" />
-        &lt;!&ndash;<include layout="@layout/layout_toolbar" />&ndash;&gt;
-
-            <fragment
-                android:id="@+id/fragment"
-                android:name="com.sarahehabm.carbcalculator.main.view.FragmentMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout="@layout/fragment_main" />
-    </LinearLayout>-->
     <include layout="@layout/layout_appbarlayout"/>
 
     <fragment

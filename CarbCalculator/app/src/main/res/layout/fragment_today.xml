@@ -6,12 +6,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!--<TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="TODAY" />-->
-    <!--<com.db.chart.view.BarChartView-->
     <com.db.chart.view.LineChartView
         android:id="@+id/barchart"
         android:layout_gravity="center"
