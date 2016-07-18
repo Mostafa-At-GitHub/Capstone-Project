@@ -1,11 +1,14 @@
 package com.sarahehabm.carbcalculator.login;
 
+import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +30,8 @@ import com.sarahehabm.carbcalculator.main.view.MainActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import static android.app.usage.NetworkStats.Bucket.STATE_DEFAULT;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -203,23 +209,40 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    public void onSignOutClick(View view) {
-        if(!googleApiClient.isConnecting()) {
-            Plus.AccountApi.clearDefaultAccount(googleApiClient);
-            googleApiClient.disconnect();
-            googleApiClient.connect();
-        }
-    }
-
-    public void onRevokeAccessClick(View view) {
-        boolean isConnecting = googleApiClient.isConnecting();
-        Log.e(TAG, "onRevokeAccessClick; client.isConnecting()= " + isConnecting);
-
-        if(!isConnecting) {
-            Plus.AccountApi.clearDefaultAccount(googleApiClient);
-            Plus.AccountApi.revokeAccessAndDisconnect(googleApiClient);
-            googleApiClient = buildApiClient();
-            googleApiClient.connect();
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DIALOG_PLAY_SERVICES_ERROR:
+                if (GooglePlayServicesUtil.isUserRecoverableError(mSignInError)) {
+                    return GooglePlayServicesUtil.getErrorDialog(
+                            mSignInError,
+                            this,
+                            RC_SIGN_IN,
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    Log.e(TAG, "Google Play services resolution"
+                                            + " cancelled");
+                                    mSignInProgress = STATE_DEFAULT;
+                                    textViewStatus.setText(R.string.welcome);
+                                }
+                            });
+                } else {
+                    return new AlertDialog.Builder(this)
+                            .setMessage(R.string.play_services_error)
+                            .setPositiveButton(R.string.close,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Log.e(TAG, "Google Play services error could not be "
+                                                    + "resolved: " + mSignInError);
+                                            mSignInProgress = STATE_DEFAULT;
+                                            textViewStatus.setText(R.string.welcome);
+                                        }
+                                    }).create();
+                }
+            default:
+                return super.onCreateDialog(id);
         }
     }
 }

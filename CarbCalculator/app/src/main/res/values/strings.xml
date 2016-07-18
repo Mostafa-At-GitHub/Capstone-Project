@@ -47,4 +47,6 @@
     <string name="loading">Loading..</string>
     <string name="meal_content_description">%1$s at %2$s had %3$d grams</string>
     <string name="add_new_meal">Add new meal</string>
+    <string name="play_services_error">Google Play services is not available.  This application will close.</string>
+    <string name="close">Close</string>
 </resources>
