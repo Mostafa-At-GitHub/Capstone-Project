@@ -40,12 +40,15 @@ public class MealAdapter extends CursorRecyclerViewAdapter<MealAdapter.ViewHolde
         int carbs = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_TOTAL_CARBS));
         int position = cursor.getPosition();
         int id = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_ID));
+        String time = Utility.formatTime(Long.valueOf(timestamp));
 
-        viewHolder.textViewTime.setText(Utility.formatTime(Long.valueOf(timestamp)));
+        viewHolder.textViewTime.setText(time);
         viewHolder.textViewName.setText(mealName);
         viewHolder.textViewCarbs.setText(context.getString(R.string.carb_grams, carbs));
         viewHolder.itemView.setTag(R.id.tag_id, id);
         viewHolder.itemView.setTag(R.id.tag_position, position);
+        viewHolder.itemView.setContentDescription(
+                context.getString(R.string.meal_content_description, mealName, time, carbs));
     }
 
     @Override
